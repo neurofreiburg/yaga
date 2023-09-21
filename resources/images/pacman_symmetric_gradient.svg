@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (c3084ef, 2021-09-22)"
+   sodipodi:docname="pacman_gradient.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.77771465"
+     inkscape:cx="356.81468"
+     inkscape:cy="561.25984"
+     inkscape:window-width="1379"
+     inkscape:window-height="1271"
+     inkscape:window-x="1094"
+     inkscape:window-y="35"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient16381">
+      <stop
+         style="stop-color:#ffcc00;stop-opacity:0.7"
+         offset="0"
+         id="stop16377" />
+      <stop
+         style="stop-color:#ffcc00;stop-opacity:0"
+         offset="0.49999994"
+         id="stop18059" />
+      <stop
+         style="stop-color:#ffcc00;stop-opacity:0.7"
+         offset="1"
+         id="stop16379" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient10998"
+       inkscape:swatch="gradient">
+      <stop
+         style="stop-color:#ffcc00;stop-opacity:1;"
+         offset="0"
+         id="stop10994" />
+      <stop
+         style="stop-color:#ffcc00;stop-opacity:0.44313725;"
+         offset="0.2485369"
+         id="stop11100" />
+      <stop
+         style="stop-color:#ffcc00;stop-opacity:0.25098039;"
+         offset="0.61430871"
+         id="stop11166" />
+      <stop
+         style="stop-color:#ffcc00;stop-opacity:0.07058824;"
+         offset="0.9460392"
+         id="stop11488" />
+      <stop
+         style="stop-color:#ffcc00;stop-opacity:0;"
+         offset="1"
+         id="stop10996" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient8708"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#75cc00;stop-opacity:1;"
+         offset="0"
+         id="stop8706" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient16381"
+       id="linearGradient16383"
+       x1="57.494846"
+       y1="124.17525"
+       x2="158.87629"
+       y2="124.17525"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="opacity:0.585714;fill:none;stroke-width:0.264583"
+       id="rect31"
+       width="52.051548"
+       height="47.969063"
+       x="29.257732"
+       y="48.989689" />
+    <rect
+       style="opacity:0.585714;fill:none;stroke-width:0.264583"
+       id="rect33"
+       width="96.278351"
+       height="70.082474"
+       x="37.762886"
+       y="94.577316" />
+    <rect
+       style="opacity:0.585714;fill:none;stroke-width:0.264583"
+       id="rect35"
+       width="44.567009"
+       height="44.567009"
+       x="65.65979"
+       y="37.42268" />
+    <rect
+       style="opacity:0.585714;fill:none;stroke-width:0.264583"
+       id="rect37"
+       width="53.752575"
+       height="66"
+       x="56.474224"
+       y="49.329899" />
+    <rect
+       style="opacity:0.585714;fill:none;stroke-width:0.264583"
+       id="rect39"
+       width="52.391747"
+       height="57.494843"
+       x="57.835052"
+       y="57.835052" />
+    <rect
+       style="opacity:0.585714;fill:none;stroke-width:0.264583"
+       id="rect41"
+       width="81.649483"
+       height="81.649483"
+       x="49.670101"
+       y="63.278351" />
+    <rect
+       style="opacity:1;mix-blend-mode:normal;fill:url(#linearGradient16383);fill-opacity:1;stroke:none;stroke-width:0.265;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect49"
+       width="101.38144"
+       height="101.38144"
+       x="57.494846"
+       y="73.484535"
+       inkscape:export-filename="/Users/ofner_pa/rect49.png"
+       inkscape:export-xdpi="501.07999"
+       inkscape:export-ydpi="501.07999" />
+  </g>
+</svg>

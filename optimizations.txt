@@ -1,0 +1,4 @@
+set power-saving settings to "performance" (Settings -> System -> Power & sleep)
+use high-performance graphic card as default (NVIDIA Control Panel -> Manage 3D settings -> Preferred Graphics Processor)
++ set low latency mode
++ set vertical sync on
