@@ -116,7 +116,7 @@ class YAGA(ShowBase):
         display_width = base.pipe.getDisplayWidth()
         display_height = base.pipe.getDisplayHeight()
         base.disableMouse()
-        # base.setFrameRateMeter(True)
+        base.setFrameRateMeter(True)
         props = WindowProperties()
         props.setUndecorated(False)
         props.setTitle('yaga')

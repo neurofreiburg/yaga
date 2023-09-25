@@ -120,14 +120,14 @@ class GraphicObject2D(InterfaceObject):
         # apply update methods only when object is active
         if self.active and self.lsl_streams_samples:
             # updates happen with the screen refresh rate (e.g. 60 Hz)
-            # pos and scale update support reading from only one LSL stream; the state update can support multiple LSL streams
+            # pos and scale update support reading from one or two LSL streams; the state update can support multiple LSL streams depending on the concrete implementation of updateState
             if self.lsl_pos_control_streams:
                 stream_x = self.lsl_streams_samples[self.lsl_pos_control_streams[0]]
-                stream_y = self.lsl_streams_samples[self.lsl_pos_control_streams[-1]] # access the last element to support one and two control streams
+                stream_y = self.lsl_streams_samples[self.lsl_pos_control_streams[-1]] # access the last element to support one or two control streams
                 self.updatePos(stream_x[self.pos_control_channels[0]], stream_y[self.pos_control_channels[1]])
             if self.lsl_scale_control_streams:
                 stream_x = self.lsl_streams_samples[self.lsl_scale_control_streams[0]]
-                stream_y = self.lsl_streams_samples[self.lsl_scale_control_streams[-1]] # access the last element to support one and two control streams
+                stream_y = self.lsl_streams_samples[self.lsl_scale_control_streams[-1]] # access the last element to support one or two control streams
                 self.updateScale(stream_x[self.scale_control_channels[0]], stream_y[self.scale_control_channels[1]])
             if self.lsl_color_control_stream:
                 val = self.lsl_streams_samples[self.lsl_color_control_stream][self.color_control_channel]
@@ -173,7 +173,7 @@ class Box(GraphicObject2D):
 
 class Bar(GraphicObject2D):
 
-    def __init__(self, pos_x=0, pos_y=0, depth=0, bar_width=0.1, bar_height=0.8, frame_width=0.01, target_width=0.2, target_height=0.01, bar_color='lime', frame_color='black', target_color='red', low_value=0.0, high_value=1.0, target_value=None):
+    def __init__(self, pos_x=0, pos_y=0, depth=0, bar_width=0.1, bar_height=0.8, frame_width=0.01, target_width=0.2, target_height=0.01, bar_color='lime', frame_color='black', target_color='red', low_value=0.0, high_value=1.0, target_value=None, target_online_control=False):
 
         node = aspect2d.attachNewNode('bar')
 
@@ -183,6 +183,7 @@ class Bar(GraphicObject2D):
         self.frame_left_node = OnscreenImage(image=IMG_RESOURCES_DIR + '/box_128x128.png', parent=node)
         self.frame_right_node = OnscreenImage(image=IMG_RESOURCES_DIR + '/box_128x128.png', parent=node)
         self.target_node = None
+        self.target_online_control = target_online_control
 
         self.low_value = low_value
         self.high_value = high_value
@@ -231,13 +232,27 @@ class Bar(GraphicObject2D):
         target_y_pos = self.bar_height * (target_value - self.low_value) / (self.high_value - self.low_value)
         self.target_node.setPos(0, 0, target_y_pos)
 
+    def updateTargetValueFromLSLStream(self):
+        assert self.target_node, 'Bar: an intial target value must be specified'
+        assert len(self.state_control_channels) == 2, 'Bar: "channels" must have two elements: first channel = feedback value, second channel = target value'
+        target_value = self.lsl_streams_samples[self.lsl_state_control_streams[-1]][self.state_control_channels[1]]
+        target_y_pos = self.bar_height * (target_value - self.low_value) / (self.high_value - self.low_value)
+        self.target_node.setPos(0, 0, target_y_pos)
+
     def updateState(self, time):
         if self.active and self.lsl_state_control_streams:
-            assert len(self.lsl_state_control_streams) == 1, 'Bar: exactly one state control stream must be specified'
-            assert len(self.state_control_channels) == 1, 'Bar: "channels" must have exactly one element'
+            assert len(self.lsl_state_control_streams) == 1 or len(self.lsl_state_control_streams) == 2, 'Bar: one or two state control streams must be specified'
+            assert len(self.state_control_channels) == 1 or len(self.state_control_channels) == 2, 'Bar: "channels" must have one or two elements: first channel = feedback value; second channel = target value (optional)'
 
-            sample = self.lsl_streams_samples[self.lsl_state_control_streams[0]][self.state_control_channels[0]]
-            bar_relative_height = (np.clip(sample, self.low_value, self.high_value) - self.low_value) / (self.high_value - self.low_value) # transform values to [0, 1]
+            if self.target_online_control:
+                assert len(self.state_control_channels) == 2, 'Bar: "channels" must have two elements: first channel = feedback, second channel = target position'
+
+                target_value = self.lsl_streams_samples[self.lsl_state_control_streams[-1]][self.state_control_channels[1]]
+                target_y_pos = self.bar_height * (target_value - self.low_value) / (self.high_value - self.low_value)
+                self.target_node.setPos(0, 0, target_y_pos)
+
+            feedback_sample = self.lsl_streams_samples[self.lsl_state_control_streams[0]][self.state_control_channels[0]]
+            bar_relative_height = (np.clip(feedback_sample, self.low_value, self.high_value) - self.low_value) / (self.high_value - self.low_value) # transform values to [0, 1]
             bar_current_height = self.bar_height*bar_relative_height
             self.bar_node.setScale(self.bar_width/2, 1, bar_current_height/2)
             self.bar_node.setZ(bar_current_height/2)
@@ -567,7 +582,7 @@ class Countdown(Text):
 
 class Arrow(GraphicObject2D):
 
-    def __init__(self, pos_x=0, pos_y=0, depth=0, angle=0, arrow_length=0.5, line_width=0.02, head_size=0.1, target_size=0.1, arrow_color='lime', target_color='white', low_value=0, high_value=0.2, target_value=None):
+    def __init__(self, pos_x=0, pos_y=0, depth=0, angle=0, arrow_length=0.5, line_width=0.02, head_size=0.1, target_size=0.1, arrow_color='lime', target_color='white', low_value=0, high_value=0.2, target_value=None, target_online_control=False):
 
         node = aspect2d.attachNewNode('arrow')
 
@@ -575,6 +590,7 @@ class Arrow(GraphicObject2D):
         self.line_node = OnscreenImage(image=IMG_RESOURCES_DIR + '/box_128x128.png', parent=self.arrow_node)
         self.head_node = OnscreenImage(image=IMG_RESOURCES_DIR + '/triangle_128x128.png', parent=self.arrow_node)
         self.target_node = None
+        self.target_online_control = target_online_control
 
         self.angle = angle
         self.low_value = low_value
@@ -617,16 +633,30 @@ class Arrow(GraphicObject2D):
         target_y_pos = self.arrow_length * (target_value - self.low_value) / (self.high_value - self.low_value)
         self.target_node.setPos(0, 0, target_y_pos)
 
+    def updateTargetValueFromLSLStream(self):
+        assert self.target_node, 'Arrow: an intial target value must be specified'
+        assert len(self.state_control_channels) == 3, 'Arrow: "channels" must have three elements: channel 1 = x-feedback, channel 2 = y-feedback, channel 3 = target y position'
+        target_value = self.lsl_streams_samples[self.lsl_state_control_streams[-1]][self.state_control_channels[2]]
+        target_y_pos = self.arrow_length * (target_value - self.low_value) / (self.high_value - self.low_value)
+        self.target_node.setPos(0, 0, target_y_pos)
+
     def updateState(self, time):
+
         if self.active and self.lsl_state_control_streams:
-            assert len(self.lsl_state_control_streams) == 1, 'Arrow: exactly one state control stream must be specified'
-            assert len(self.state_control_channels) == 2, 'Arrow: "channels" must have exactly two elements'
+            assert len(self.lsl_state_control_streams) == 1 or len(self.lsl_state_control_streams) == 2, 'Arrow: one or two state control streams must be specified'
+            assert len(self.state_control_channels) == 2 or len(self.state_control_channels) == 3, 'Arrow: "channels" must have two or three elements: channel 1/2 = feedback x/y; channel 3 = target position (optional)'
 
-            x = self.lsl_streams_samples[self.lsl_state_control_streams[0]][self.state_control_channels[0]] # first channel points to the right
-            y = self.lsl_streams_samples[self.lsl_state_control_streams[0]][self.state_control_channels[1]] # second channel points upwards
+            if self.target_online_control:
+                assert len(self.state_control_channels) == 3, 'Arrow: "channels" must have three elements: channel 1 = x-feedback, channel 2 = y-feedback, channel 3 = target y position'
+                target_value = self.lsl_streams_samples[self.lsl_state_control_streams[-1]][self.state_control_channels[2]]
+                target_y_pos = self.arrow_length * (target_value - self.low_value) / (self.high_value - self.low_value)
+                self.target_node.setPos(0, 0, target_y_pos)
 
-            arrow_abs_value = np.sqrt(x**2 + y**2)
-            arrow_angle = np.arctan2(y, x)*180.0/np.pi
+            feedback_x = self.lsl_streams_samples[self.lsl_state_control_streams[0]][self.state_control_channels[0]] # first channel points to the right
+            feedback_y = self.lsl_streams_samples[self.lsl_state_control_streams[0]][self.state_control_channels[1]] # second channel points upwards
+
+            arrow_abs_value = np.sqrt(feedback_x**2 + feedback_y**2)
+            arrow_angle = np.arctan2(feedback_y, feedback_x)*180.0/np.pi
 
             # convert the arrow's absolute value into the corresponding arrow length on the screen
             relative_arrow_length = (np.clip(arrow_abs_value, self.low_value, self.high_value) - self.low_value) / (self.high_value - self.low_value) # limit absolute value to [0, 1]
