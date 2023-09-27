@@ -54,7 +54,7 @@ class MouseController(ShowBase):
             x *= 1
             y *= 1
             self.display_counter += 1
-            if self.display_counter % 15 == 0:
+            if self.display_counter % 60 == 0:
                 print('%f\t%f' % (x,y))
 
             self.lsl_pos_outlet.push_sample([x, y], pushthrough=True)

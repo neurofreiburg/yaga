@@ -245,10 +245,12 @@ class Bar(GraphicObject2D):
             assert len(self.state_control_channels) == 1 or len(self.state_control_channels) == 2, 'Bar: "channels" must have one or two elements: first channel = feedback value; second channel = target value (optional)'
 
             if self.target_online_control:
+                assert self.target_node, 'Bar: an intial target value must be specified'
                 assert len(self.state_control_channels) == 2, 'Bar: "channels" must have two elements: first channel = feedback, second channel = target position'
 
                 target_value = self.lsl_streams_samples[self.lsl_state_control_streams[-1]][self.state_control_channels[1]]
                 target_y_pos = self.bar_height * (target_value - self.low_value) / (self.high_value - self.low_value)
+                print(target_y_pos)
                 self.target_node.setPos(0, 0, target_y_pos)
 
             feedback_sample = self.lsl_streams_samples[self.lsl_state_control_streams[0]][self.state_control_channels[0]]
@@ -647,6 +649,7 @@ class Arrow(GraphicObject2D):
             assert len(self.state_control_channels) == 2 or len(self.state_control_channels) == 3, 'Arrow: "channels" must have two or three elements: channel 1/2 = feedback x/y; channel 3 = target position (optional)'
 
             if self.target_online_control:
+                assert self.target_node, 'Arrow: an intial target value must be specified'
                 assert len(self.state_control_channels) == 3, 'Arrow: "channels" must have three elements: channel 1 = x-feedback, channel 2 = y-feedback, channel 3 = target y position'
                 target_value = self.lsl_streams_samples[self.lsl_state_control_streams[-1]][self.state_control_channels[2]]
                 target_y_pos = self.arrow_length * (target_value - self.low_value) / (self.high_value - self.low_value)

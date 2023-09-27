@@ -1,7 +1,31 @@
 from scipy import signal
 import numpy as np
 import pyxdf
-# import matplotlib.pyplot as plt
+
+
+# set channels to a constant value
+class Constant:
+
+    def __init__(self, value):
+        self.value = value
+
+    def update(self, samples_in, fs):
+        samples_out = np.full(samples_in.shape, self.value)
+        return samples_out
+
+
+# copy channel
+class CopyChannel:
+
+    def __init__(self, channel_in, channel_out):
+        self.channel_in = channel_in
+        self.channel_out = channel_out
+
+    def update(self, samples_in, fs):
+        # samples_in/out: [channels x samples]
+        samples_out = samples_in
+        samples_out[self.channel_out, :] = samples_in[self.channel_in, :]
+        return samples_out
 
 
 # Butterworth filter
@@ -189,17 +213,6 @@ class EuclidNorm:
         # samples_in/out: [channels x samples]
 
         samples_out = np.linalg.norm(samples_in, axis=0)
-        return samples_out
-
-
-# set channels to a constant value
-class Constant:
-
-    def __init__(self, value):
-        self.value = value
-
-    def update(self, samples_in, fs):
-        samples_out = np.full(samples_in.shape, self.value)
         return samples_out
 
 
