@@ -17,9 +17,10 @@ FONT_RESOURCES_DIR = 'resources/fonts'
 
 
 class Pacman(GraphicObject2D):
+    GENERATION_FINISHED = 'generation_finished'
 
     def __init__(self, pos_x=0, pos_y=0, depth=0, item_generator='random', item_speed=0.5, item_generation_frequency=15,
-                 amplitude=1, frequency=0.5, noise_stddev=3, neg_feedback_type=None, highscore=True, fps=60):
+                 amplitude=1, frequency=0.5, phase_duration=None, phase_value=None, noise_stddev=3, neg_feedback_type=None, highscore=True, fps=60):
 
         node = aspect2d.attachNewNode('main')
 
@@ -34,6 +35,8 @@ class Pacman(GraphicObject2D):
 
         self.amplitude = amplitude
         self.frequency = frequency
+        self.phase_duration = phase_duration
+        self.phase_value = phase_value
         self.noise_stddev = noise_stddev
         self.filter_order = 4
 
@@ -122,6 +125,21 @@ class Pacman(GraphicObject2D):
             pass
         elif self.item_generator == 'sinus':
             pass
+        elif self.item_generator == 'chirp':
+            assert len(frequency) == 2, 'Pacman: "frequency must be a list with 2 elements (start & end frequency)'
+            assert phase_duration, 'Pacman: "phase_duration" is not set'
+        elif self.item_generator == 'ramp':
+            assert phase_duration, 'Pacman: "phase_duration" is not set'
+            assert len(phase_duration) == 5, 'Pacman: "phase_duration" must a list with 5 elements'
+            assert phase_value, 'Pacman: "phase_value" is not set'
+            assert len(phase_value) == 2, 'Pacman: "phase_value" must a list with 2 elements'
+            self.ramp_low_phase_1 = phase_duration[0]
+            self.ramp_up_phase = phase_duration[1]
+            self.ramp_high_phase = phase_duration[2]
+            self.ramp_down_phase = phase_duration[3]
+            self.ramp_low_phase_2 = phase_duration[4]
+            self.ramp_low_value = phase_value[0]
+            self.ramp_high_value = phase_value[1]
         elif self.item_generator == 'random':
             # design filter
             if isinstance(self.frequency, float) or isinstance(self.frequency, int):
@@ -146,6 +164,9 @@ class Pacman(GraphicObject2D):
 
     def start(self):
         self.generate_items = True
+        self.initial_time = None
+        self.last_update_time = 0
+        self.last_item_generation_time = -math.inf
         self.highscore_counter = 0
 
     def stop(self):
@@ -153,8 +174,8 @@ class Pacman(GraphicObject2D):
         self.initial_time = None
         self.last_update_time = 0
         self.last_item_generation_time = -math.inf
-        [item_node.removeNode() for item_node in self.items]
-        self.items = []
+        # [item_node.removeNode() for item_node in self.items]
+        # self.items = []
 
     def updateState(self, time):
         # get time since first method call
@@ -167,8 +188,8 @@ class Pacman(GraphicObject2D):
         self.last_update_time = elapsed_time
 
         # time: absolute time (for LSL)
-        # elapsed_time: time since start of program (for item generator)
-        # time_delta: time since last method call (for position updates)
+        # elapsed_time: time since call of "start" (for item generator)
+        # time_delta: time since last call of "updateState" (for position updates)
 
         if self.active:
             # snake update
@@ -193,9 +214,13 @@ class Pacman(GraphicObject2D):
             # check if a new item has to be created
             if self.generate_items and elapsed_time - self.last_item_generation_time >= 1/self.item_generation_frequency:
                 self.last_item_generation_time = elapsed_time
+                pos_y = self.getNextPosition(elapsed_time)
+                if not pos_y:
+                    # generator has finished
+                    self.generate_items = False
+                    return Pacman.GENERATION_FINISHED
                 item_node = self.item_template.copyTo(self.node)
                 item_node.show()
-                pos_y = self.getNextPosition(elapsed_time)
                 item_node.setPos(self.items_right_limit, 0, pos_y)
                 self.items.append(item_node)
 
@@ -207,7 +232,7 @@ class Pacman(GraphicObject2D):
             pacman_pos_samples = self.lsl_streams_samples[self.lsl_state_control_streams[0]]
             neg_feedback_samples = self.lsl_streams_samples[self.lsl_state_control_streams[-1]] # accesses the first or, if available, the second stream
 
-            # update vertical position
+            # update vertical Pacman position
             pacman_y_pos = pacman_pos_samples[self.state_control_channels[0]]
             pacman_y_pos = np.clip(pacman_y_pos, -1.0, 1.0)
             self.pacman.setZ(pacman_y_pos)
@@ -254,14 +279,42 @@ class Pacman(GraphicObject2D):
     def getNextPosition(self, time):
 
         if self.item_generator == 'constant':
-            pos_y = 0
+            pos_y = self.amplitude
+
         elif self.item_generator == 'sinus':
             pos_y = self.amplitude*math.sin(2*math.pi*self.frequency*time)
+
+        elif self.item_generator == 'chirp':
+            pos_y = self.amplitude*signal.chirp(time, self.frequency[0], self.phase_duration, self.frequency[1])
+
+        elif self.item_generator == 'ramp':
+            # end
+            if time >= self.ramp_low_phase_1 + self.ramp_up_phase + self.ramp_high_phase + self.ramp_down_phase + self.ramp_low_phase_2:
+                pos_y = None
+            # low phase 2
+            elif time >= self.ramp_low_phase_1 + self.ramp_up_phase + self.ramp_high_phase + self.ramp_down_phase:
+                pos_y = self.ramp_low_value
+            # ramp-down phase
+            elif time >= self.ramp_low_phase_1 + self.ramp_up_phase + self.ramp_high_phase:
+                phase_progress = (time - self.ramp_low_phase_1 - self.ramp_up_phase - self.ramp_high_phase)/self.ramp_down_phase # 0 -> 1
+                pos_y = self.ramp_low_value + (self.ramp_high_value - self.ramp_low_value) * (1 - phase_progress)
+            # hold phase
+            elif time >= self.ramp_low_phase_1 + self.ramp_up_phase:
+                pos_y = self.ramp_high_value
+            # ramp-up phase
+            elif time >= self.ramp_low_phase_1:
+                phase_progress = (time - self.ramp_low_phase_1)/self.ramp_up_phase # 0 -> 1
+                pos_y = self.ramp_low_value + (self.ramp_high_value - self.ramp_low_value) * phase_progress
+            # low phase 1
+            elif time >= 0:
+                pos_y = self.ramp_low_value
+
         elif self.item_generator == 'random':
             # generate band-pass filtered Gaussian noise limited by tanh
             noise_signal = np.random.normal(0, self.noise_stddev, 1)
             pos_y, self.z = signal.sosfilt(self.sos, noise_signal, zi=self.z)
             pos_y = self.amplitude*np.tanh(pos_y)
+
         else:
             raise Exception('unkown generator')
 
