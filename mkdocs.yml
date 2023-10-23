@@ -1,0 +1,21 @@
+site_name: YAGA
+site_author: Patrick Ofner
+markdown_extensions:
+    - toc:
+        permalink: true
+repo_url: https://github.com/neurofreiburg/yaga
+theme:
+  name: readthedocs
+  highlightjs: true
+plugins:
+  - search
+nav:
+  - 'what_is_yaga.md'
+  - 'start_of_yaga.md'
+  - 'installation.md'
+  - 'paradigm_scripting.md'
+  - 'integration_with_lsl.md'
+  - About:
+    - 'License': 'license.md'
+    - 'Release Notes': 'release_notes.md'
+ 
