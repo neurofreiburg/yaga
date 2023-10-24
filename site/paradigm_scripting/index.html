@@ -40,7 +40,7 @@
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../what_is_yaga/">What is YAGA?</a>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                 </li>
               </ul>
               <ul>
@@ -92,35 +92,35 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#supported-graphical-objects">Supported Graphical Objects</a>
         <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#image">Image</a>
+    <li class="toctree-l4"><a class="reference internal" href="#image-class">Image Class</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#ball">Ball</a>
+    <li class="toctree-l4"><a class="reference internal" href="#ball-class">Ball Class</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#box">Box</a>
+    <li class="toctree-l4"><a class="reference internal" href="#box-class">Box Class</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#cross">Cross</a>
+    <li class="toctree-l4"><a class="reference internal" href="#cross-class">Cross Class</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#text">Text</a>
+    <li class="toctree-l4"><a class="reference internal" href="#text-class">Text Class</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#randomnumber">RandomNumber</a>
+    <li class="toctree-l4"><a class="reference internal" href="#randomnumber-class">RandomNumber Class</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#countdown">Countdown</a>
+    <li class="toctree-l4"><a class="reference internal" href="#countdown-class">Countdown Class</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#bar">Bar</a>
+    <li class="toctree-l4"><a class="reference internal" href="#bar-class">Bar Class</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#barwithramptarget">BarWithRampTarget</a>
+    <li class="toctree-l4"><a class="reference internal" href="#barwithramptarget-class">BarWithRampTarget Class</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#barwithsinustarget">BarWithSinusTarget</a>
+    <li class="toctree-l4"><a class="reference internal" href="#barwithsinustarget-class">BarWithSinusTarget Class</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#arrow">Arrow</a>
+    <li class="toctree-l4"><a class="reference internal" href="#arrow-class">Arrow Class</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#arrowwithramptarget">ArrowWithRampTarget</a>
+    <li class="toctree-l4"><a class="reference internal" href="#arrowwithramptarget-class">ArrowWithRampTarget Class</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#arrowwithsinustarget">ArrowWithSinusTarget</a>
+    <li class="toctree-l4"><a class="reference internal" href="#arrowwithsinustarget-class">ArrowWithSinusTarget Class</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#spikevis">SpikeVis</a>
+    <li class="toctree-l4"><a class="reference internal" href="#spikevis-class">SpikeVis Class</a>
     </li>
-    <li class="toctree-l4"><a class="reference internal" href="#reachtargets">ReachTargets</a>
+    <li class="toctree-l4"><a class="reference internal" href="#reachtargets-class">ReachTargets Class</a>
     </li>
         </ul>
     </li>
@@ -128,25 +128,23 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#auditory-objects">Auditory Objects</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#beep">Beep</a>
+    <li class="toctree-l3"><a class="reference internal" href="#beep-class">Beep Class</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#spikesound">SpikeSound</a>
+    <li class="toctree-l3"><a class="reference internal" href="#spikesound-class">SpikeSound Class</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#online-control-of-objects-with-lsl-streams">Online Control of Objects with LSL streams</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#graphical-objects_1">Graphical Objects</a>
+    <li class="toctree-l3"><a class="reference internal" href="#control-of-graphical-objects">Control of Graphical Objects</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#auditory-objects_1">Auditory Objects</a>
+    <li class="toctree-l3"><a class="reference internal" href="#control-of-auditory-objects">Control of Auditory Objects</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#aggregation-mode">Aggregation Mode</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#signal-processing">Signal Processing</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#constant">Constant</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#_1"></a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#copychannel">CopyChannel</a>
     </li>
@@ -177,6 +175,8 @@
     <li class="toctree-l4"><a class="reference internal" href="#euclidnorm">EuclidNorm</a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#maxeuclidnormalizationxdf">MaxEuclidNormalizationXDF</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#maxavgpowernormalizationxdf">MaxAvgPowerNormalizationXDF</a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#flappybirdcontroller">FlappyBirdController</a>
     </li>
@@ -225,7 +225,7 @@
                 <h1 id="paradigm-scripting">Paradigm Scripting<a class="headerlink" href="#paradigm-scripting" title="Permanent link">&para;</a></h1>
 <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
 <p>The paradigm is programmed via a so-called <em>paradigm file</em>. A paradigm file contains regular Python code and must define the <strong>Paradigm class</strong>, which must derive from the <strong>ParadigmBase parent class</strong>. Its code is automatically loaded when YAGA starts. A typical skeleton looks like this:</p>
-<pre><code class="language-Python">from yaga_modules.paradigm_base import ParadigmBase
+<pre><code>from yaga_modules.paradigm_base import ParadigmBase
 import yaga_modules.graphic_objects as GO
 import yaga_modules.audio_objects as AO
 import yaga_modules.signal_processing as SP
@@ -238,7 +238,7 @@ class Paradigm(ParadigmBase):
 <h3 id="creation-of-a-presentation-objects">Creation of a Presentation Objects<a class="headerlink" href="#creation-of-a-presentation-objects" title="Permanent link">&para;</a></h3>
 <p>YAGA supports the timed presentation of several graphical or auditory objects, e.g., text, circles, or beep tones. A presentation object needs to be created within the <strong>__init__</strong> constructor of the <strong>Paradigm class</strong> and registered to YAGA. A simple text object can be created as:</p>
 <p><code>info_text = self.registerObject(GO.Text('prepare for task'))</code></p>
-<p>In this example, <strong>GO.Text</strong> refers to the <strong>Text class</strong> defined in the <strong>graphic_objects</strong> (GO) module. The call of <strong>registerObject</strong> is obligatory and registers the object to YAGA.</p>
+<p>In this example, <strong>GO.Text</strong> refers to the <strong>Text class</strong> defined in the <strong>graphic_objects module</strong> (GO). The call of <strong>registerObject</strong> is obligatory and registers the object to YAGA.</p>
 <h3 id="timing-of-presentation-objects">Timing of Presentation Objects<a class="headerlink" href="#timing-of-presentation-objects" title="Permanent link">&para;</a></h3>
 <p>Once an object has been created and registered, state changes of the object can be scripted, i.e., timed. For that purpose, the <strong>ParadigmBase parent class</strong> provides the instance variable <strong>script</strong>. <strong>script</strong> must be a list of <strong>ScriptItem</strong> objects.</p>
 <p>A <strong>ScripItem</strong> object specifies:</p>
@@ -252,7 +252,7 @@ class Paradigm(ParadigmBase):
 <p>A trial comprises the following script items: <em>“trial_start”</em>, <em>“info_text”</em>, <em>“traffic_ligh_red”</em>, <em>“traffic_ligh_yellow”</em>, <em>“traffic_ligh_green”</em>, <em>“countdown”</em>, <em>“trial_end”</em>, which are sequentially executed. Each script item specifies optionally the actions to execute when the script item is triggered. Note that the actions must be specified as objects instead of as actual method calls (i.e., no parentheses). The <strong>script</strong> list contains in total 5 (TODO) trial sequences, which are built using a for loop.</p>
 <p>The demo paradigm file demonstrates 3 possible trigger types: <strong>absolute time</strong>, <strong>relative time</strong>, and <strong>signal-based</strong>. An absolute time trigger is used by the first <em>“trial_start”</em> script item, which is triggered 5s after the program start. However, the subsequent <em>“trial_start”</em> script items are triggered relative to the previous <em>“trial_end”</em> script item within a random time interval (5-10s). A relative time trigger can be requested by setting the <strong>time_type</strong> property to <strong>rel</strong> and the <strong>rel_name</strong> property to the name of the referenced script item. The signal-based trigger is used by the <em>“trial_end”</em> script item. This script item is triggered when the countdown object elicits the <strong>COUNTDOWN_FINISHED</strong> signal as specified by the <em>“wait_for_signal”</em> property.</p>
 <p>Full source code of the demo paradigm file:</p>
-<pre><code class="language-Python">TODO
+<pre><code>TODO
 </code></pre>
 <h2 id="script-items">Script Items<a class="headerlink" href="#script-items" title="Permanent link">&para;</a></h2>
 <p>The paradigm sequence is defined by <em>script items</em>, which must be listed in the <strong>script</strong> instance variable of your <strong>Paradigm</strong> class. The script items are processed one by one in the order in which they appear in the instance variable <strong>script</strong>. A script item can be triggered by a <strong>time event</strong>, by a <strong>signal event</strong> generated by a graphical object, or by an external <strong>LSL marker event</strong>. You can also combine different trigger types. The script item is then triggered by whichever event comes first. A script item can be defined as:</p>
@@ -261,47 +261,49 @@ class Paradigm(ParadigmBase):
 <p>The name of the script item is sent as an event marker in the LSL stream <em>yaga</em> when the item is triggered. This allows recording programs to save the paradigm state together with the LSL data streams (see <a href="../integration_with_lsl/">Integration with LSL</a>).</p>
 <p>Note that the execution of script items is synchronised to the screen refresh rate (often 60 Hz).</p>
 <h3 id="actions">Actions<a class="headerlink" href="#actions" title="Permanent link">&para;</a></h3>
-<p>The actions parameter of a <strong>ScriptItem</strong> expects a list of methods which are called when the action item is triggered. The available actions depend on the presentation object (see Sections <a href="./#supported-graphical-objects">Supported Graphical Objects</a> &amp; <a href="./#auditory-objects">Auditory Objects</a> for details on the actions).</p>
+<p>The actions parameter of a <strong>ScriptItem</strong> expects a list of methods which are called when the action item is triggered. The available actions depend on the presentation object and are listed in <a href="./#supported-graphical-objects">Supported Graphical Objects</a> and <a href="./#auditory-objects">Auditory Objects</a>.</p>
 <p>The actions must be specified as objects and not as method calls, i.e., without subsequent parentheses. This is to ensure that actions are executed when the script item is triggered and not at the program start when the initialisation method is executed.</p>
-<p>Some actions accept parameters. You can specify parameters by using the <strong>partial function</strong> from the <strong>functools</strong> module. The <strong>partial function</strong> allows to fix arguments and generates a new function object. This new function object is then executed when the action item is triggered.</p>
+<p>Some actions accept parameters. You can specify parameters by using the <strong>partial function</strong> from the <strong>functools module</strong>. The <strong>partial function</strong> allows to fix arguments and generates a new function object. This new function object is then executed when the action item is triggered.</p>
 <p>First import <strong>partial</strong>:</p>
 <p><code>from functools import partial</code></p>
 <p>Then use <strong>partial</strong> to create a new function object with a fixed set of parameters, e.g.:</p>
 <p><code>ScriptItem(name='trial_start', time=10, actions=[targets.activate, partial(targets.setActiveTarget, 1)])</code></p>
 <p>In this example, <strong>targets.setActiveTarget(1)</strong> is executed when the script item is triggered.</p>
-<p><strong><em>*</em></strong><strong><em>*TODO</em></strong><strong><em>*</em></strong>*</p>
 <h3 id="time-triggers">Time Triggers<a class="headerlink" href="#time-triggers" title="Permanent link">&para;</a></h3>
-<p>YAGA supports two types of time triggers: absolute time triggers and relative time triggers. A trigger specified with an absolute time is triggered at the specified time after the program start. A trigger specified with a relative time is triggered at the specified time relative to another script item.</p>
+<p>YAGA supports two types of time triggers: <strong>absolute time triggers</strong> and <strong>relative time triggers</strong>. A trigger specified with an absolute time is triggered at the specified time after the program start. A trigger specified with a relative time is triggered at the specified time relative to another script item.</p>
 <p>An absolute time trigger is the default. For example, to trigger a script item 10s after the program start, write:</p>
-<p>ScriptItem(name='trial_start', time=10, actions=[info_text.activate])</p>
+<p><code>ScriptItem(name='trial_start', time=10, actions=[info_text.activate])</code></p>
 <p>To specify a relative time trigger, set <em>time_type</em> to <em>“rel”</em> and provide the name of the reference event with <em>rel_name</em>. For example, to trigger a script item 5s to 10s after the last “trial_end” event, write:</p>
-<p>ScriptItem(name='trial_start', time=np.random.uniform(5, 10), time_type='rel', rel_name='trial_end', actions=[info_text.activate])]</p>
+<p><code>ScriptItem(name='trial_start', time=np.random.uniform(5, 10), time_type='rel', rel_name='trial_end', actions=[info_text.activate\])]</code></p>
 <h3 id="signal-triggers">Signal Triggers<a class="headerlink" href="#signal-triggers" title="Permanent link">&para;</a></h3>
-<p>A script item can wait for trigger signals generated by graphical objects. To trigger a script item with a signal, set <em>wait_for_signal</em> to the respective signal. See Section TODO for possible trigger signals. For example:</p>
-<p>ScriptItem(name='trial_end', wait_for_signal=GO.Countdown.COUNTDOWN_FINISHED, actions=[])])</p>
+<p>A script item can wait for trigger signals generated by graphical objects. To trigger a script item with a signal, set <em>wait_for_signal</em> to the respective signal. The possible trigger signals are listed in <a href="./#supported-graphical-objects">Supported Graphical Objects</a>. For example:</p>
+<p><code>ScriptItem(name='trial_end', wait_for_signal=GO.Countdown.COUNTDOWN_FINISHED, actions=[])</code></p>
 <h3 id="lsl-event-marker-triggers">LSL Event Marker Triggers<a class="headerlink" href="#lsl-event-marker-triggers" title="Permanent link">&para;</a></h3>
-<p>A script item can be triggered by an external LSL event marker generated by other programs. To listen to an LSL event marker stream, call the method <em>listenForLSLMarkers</em> in the paradigm file. For example, to listen for markers in the stream “streamB” in the first channel, write:</p>
-<p>self.listenForLSLMarkers("markerstreamA", lsl_marker_channel=0)</p>
+<p>A script item can be triggered by an external <em>LSL event marker</em> generated by other programs. To listen to an LSL event marker stream, call the method <strong>listenForLSLMarkers</strong> in the paradigm file. For example, to listen for markers in the first channel of the stream <em>streamA</em>:</p>
+<p><code>self.listenForLSLMarkers("streamA", lsl_marker_channel=0)</code></p>
 <p>The streams are expected to be event marker streams, i.e., they have an irregular sampling rate. The markers are usually variable-length ASCII strings.</p>
-<p>After setting up an LSL event listener, you can trigger script items on LSL events by specifying the marker with <em>wait_for_lsl_marker</em>. For example:</p>
-<p>ScriptItem(name='trial_end', wait_for_lsl_marker=”target_reached”, actions=[])])</p>
-<p>The data type of the specified marker must correspond to the data type of the LSL stream (usually a string).</p>
+<p>After setting up an LSL event listener, you can trigger script items on LSL events by specifying the marker with the parameter <em>wait_for_lsl_marker</em>. For example:</p>
+<p><code>ScriptItem(name='trial_end', wait_for_lsl_marker=”target_reached”, actions=[])</code></p>
+<p>The data type of the specified marker must correspond to the data type of the LSL stream (usually a <em>string</em>).</p>
 <h2 id="command-line-variables">Command Line Variables<a class="headerlink" href="#command-line-variables" title="Permanent link">&para;</a></h2>
-<p>YAGA supports three general-purpose variables, which can be specified when you start YAGA.py (<em>var1, var2, var3</em>). For example:</p>
-<p>python yaga.py --paradigm YOURPARADIGM --var1 someStringOrNumber</p>
+<p>YAGA supports three general-purpose variables, which can be specified when you start YAGA.py (<em>var1</em>, <em>var2</em>, <em>var3</em>). For example:</p>
+<p><code>python yaga.py --paradigm YOURPARADIGM --var1 someStringOrNumber</code></p>
 <p>The general purpose variables are accessible in the paradigm file:</p>
-<p>class Paradigm(ParadigmBase):</p>
-<p>def __init__(self, paradigm_variables):</p>
-<p>var1 = paradigm_variables['var1']</p>
-<p>Moreover, one can specify the subject code (string) and session number (integer) with the command line parameters <em>--subject</em> and <em>--session</em>, respectively. These parameters are accessible as <em>paradigm_variables['subject']</em> and <em>paradigm_variables['session']</em> in the paradigm file.</p>
+<pre><code>class Paradigm(ParadigmBase):
+
+    def __init__(self, paradigm_variables):
+
+        var1 = paradigm_variables['var1']
+</code></pre>
+<p>Moreover, one can specify the subject code (<em>string</em>) and session number (<em>integer</em>) with the command line parameters <code>--subject</code> and <code>--session</code>, respectively. These parameters are accessible as <code>paradigm_variables['subject']</code> and <code>paradigm_variables['session']</code> in the paradigm file.</p>
 <h2 id="graphical-objects">Graphical Objects<a class="headerlink" href="#graphical-objects" title="Permanent link">&para;</a></h2>
-<p>Graphical objects are objects shown on the computer screen, such as text or feedback bars. They may be controllable with LSL streams (see Section TODO) and can feature animations.</p>
-<p>To use graphical objects, one needs to import the graphic_objects module first:</p>
-<p>import yaga_modules.graphic_objects as GO</p>
+<p>Graphical objects are objects shown on the computer screen, such as text or feedback bars. They can be <a href="./#control-of-graphical-objects">controllable</a> with LSL streams, and can feature animations.</p>
+<p>To use graphical objects, one needs to import the <strong>graphic_objects module</strong> first:</p>
+<p><code>import yaga_modules.graphic_objects as GO</code></p>
 <p>A graphical object must be created in the initialisation method of the paradigm file and registered to YAGA. For example, to create a text object:</p>
-<p>text = self.registerObject(GO.Text('prepare for task'))</p>
+<p><code>text = self.registerObject(GO.Text('prepare for task'))</code></p>
 <h3 id="base-methods">Base Methods<a class="headerlink" href="#base-methods" title="Permanent link">&para;</a></h3>
-<p>All graphical objects support the following methods which can be specified as actions in a ScriptItem:</p>
+<p>All graphical objects support the following methods which can be specified as actions in a <strong>ScriptItem</strong>:</p>
 <table>
 <thead>
 <tr>
@@ -364,16 +366,16 @@ class Paradigm(ParadigmBase):
 </tbody>
 </table>
 <h3 id="screen-coordinates">Screen Coordinates<a class="headerlink" href="#screen-coordinates" title="Permanent link">&para;</a></h3>
-<p>The screen coordinates are independent of the monitor resolution. The centre of the screen corresponds to the x/y position 0. The bottom edge corresponds to a y position of -1; the top edge corresponds to an y position of 1. The coordinates of the left and right edges depend on the screen ratio. With a typical screen ratio of 16:9, the left and right edges have the x coordinate -1.78 and 1.78, respectively (= (upper y - center y) * 16/9)).</p>
+<p>The screen coordinates are independent of the monitor resolution. The centre of the screen corresponds to the x/y position 0. The bottom edge corresponds to a y position of -1. The top edge corresponds to an y position of 1. The coordinates of the left and right edges depend on the screen ratio. With a typical screen ratio of 16:9, the left and right edges have the x coordinate -1.78 and 1.78, respectively ((y<sub>top</sub> - y<sub>center</sub>) x 16/9).</p>
 <h3 id="depth-of-objects">Depth of Objects<a class="headerlink" href="#depth-of-objects" title="Permanent link">&para;</a></h3>
 <p>The depth parameter must be an integer value and specifies the depth position of objects. Objects with a smaller depth value are in front of objects with a higher depth value (the default depth is 0).</p>
 <h3 id="colour-of-objects">Colour of Objects<a class="headerlink" href="#colour-of-objects" title="Permanent link">&para;</a></h3>
-<p>Many objects allow changing their colour. The colour must be specified as an RGB tuple with values from (0, 0, 0) to (255, 255, 255) or as a colour name (string). The following color names are supported: black, white, red, lime, blue, yellow, cyan, magenta, silver, gray, maroon, olive, green, purple, teal, navy, gold, orange, and darkorange.</p>
+<p>Many objects allow changing their colour. The colour must be specified as an RGB tuple with values from (0, 0, 0) to (255, 255, 255) or as a colour name (<em>string</em>). The following color names are supported: <em>black, white, red, lime, blue, yellow, cyan, magenta, silver, gray, maroon, olive, green, purple, teal, navy, gold, orange,</em> and <em>darkorange</em>.</p>
 <h3 id="animated-objects">Animated Objects<a class="headerlink" href="#animated-objects" title="Permanent link">&para;</a></h3>
-<p>Some graphical objects support animations. Animations can be started or stopped using an action (startAnimation, stopAnimation) in a ScriptItem. Furthermore, animations can generate signals which can be used as triggers for ScriptItems (e.g., trigger actions at the end of an animation).</p>
+<p>Some graphical objects support animations. Animations can be started or stopped using an action (<strong>startAnimation</strong>, <strong>stopAnimation</strong>) in a <strong>ScriptItem</strong>. Furthermore, animations can generate signals which can be used as triggers for <strong>ScriptItems</strong> (e.g., trigger actions at the end of an animation).</p>
 <h3 id="supported-graphical-objects">Supported Graphical Objects<a class="headerlink" href="#supported-graphical-objects" title="Permanent link">&para;</a></h3>
 <p>Typical graphical elements used in neuroscience experiments are implemented. The Python classes representing these elements are described in the following.</p>
-<h4 id="image">Image<a class="headerlink" href="#image" title="Permanent link">&para;</a></h4>
+<h4 id="image-class">Image Class<a class="headerlink" href="#image-class" title="Permanent link">&para;</a></h4>
 <p>Loads an image file from the hard disk and displays it on the computer screen. All common image formats are supported.</p>
 <p><em>Object Initialisation Parameters:</em></p>
 <table>
@@ -422,9 +424,9 @@ class Paradigm(ParadigmBase):
 </tr>
 </tbody>
 </table>
-<h4 id="ball">Ball<a class="headerlink" href="#ball" title="Permanent link">&para;</a></h4>
+<h4 id="ball-class">Ball Class<a class="headerlink" href="#ball-class" title="Permanent link">&para;</a></h4>
 <p>Displays a filled circle on the computer screen.</p>
-<p><img src="media/image1.png" style="width:1.47427in;height:0.88112in" alt="Ein Bild, das Kreis enthält. Automatisch generierte Beschreibung" /></p>
+<p><img alt="ball" src="../images/ball.png" /></p>
 <p><em>Object Initialisation Parameters:</em></p>
 <table>
 <thead>
@@ -467,9 +469,9 @@ class Paradigm(ParadigmBase):
 </tr>
 </tbody>
 </table>
-<h4 id="box">Box<a class="headerlink" href="#box" title="Permanent link">&para;</a></h4>
+<h4 id="box-class">Box Class<a class="headerlink" href="#box-class" title="Permanent link">&para;</a></h4>
 <p>Displays a filled box on the computer screen.</p>
-<p><img src="media/image2.png" style="width:1.55618in;height:0.93007in" alt="Ein Bild, das Rechteck, Screenshot, Design enthält. Automatisch generierte Beschreibung" /></p>
+<p><img alt="box" src="../images/box.png" /></p>
 <p><em>Object Initialisation Parameters:</em></p>
 <table>
 <thead>
@@ -517,9 +519,9 @@ class Paradigm(ParadigmBase):
 </tr>
 </tbody>
 </table>
-<h4 id="cross">Cross<a class="headerlink" href="#cross" title="Permanent link">&para;</a></h4>
+<h4 id="cross-class">Cross Class<a class="headerlink" href="#cross-class" title="Permanent link">&para;</a></h4>
 <p>Displays a cross on the screen.</p>
-<p><img src="media/image3.png" style="width:1.43357in;height:0.85679in" alt="Ein Bild, das Symbol enthält. Automatisch generierte Beschreibung" /></p>
+<p><img alt="cross" src="../images/cross.png" /></p>
 <p><em>Object Initialisation Parameters:</em></p>
 <table>
 <thead>
@@ -572,12 +574,13 @@ class Paradigm(ParadigmBase):
 </tr>
 </tbody>
 </table>
-<h4 id="text">Text<a class="headerlink" href="#text" title="Permanent link">&para;</a></h4>
+<h4 id="text-class">Text Class<a class="headerlink" href="#text-class" title="Permanent link">&para;</a></h4>
 <p>Displays a text box on the computer screen. Optionally, a value can be read from an LSL stream and displayed on the screen as a rounded number.</p>
-<p><img src="media/image4.png" style="width:1.19346in;height:0.71329in" alt="Ein Bild, das Schrift, Screenshot, Grafiken, Design enthält. Automatisch generierte Beschreibung" /></p>
+<p><img alt="text" src="../images/text.png" /></p>
 <p>To read a number from an LSL stream, call the method <em>controlStateWithLSLStream</em>. For example:</p>
-<p>text = self.registerObject(GO.Text())</p>
-<p>text.controlStateWithLSLStream(“the-stream”, channels=[1])</p>
+<pre><code>text = self.registerObject(GO.Text())
+text.controlStateWithLSLStream(“the-stream”, channels=[1])
+</code></pre>
 <p><em>Object Initialisation Parameters:</em></p>
 <table>
 <thead>
@@ -640,7 +643,7 @@ class Paradigm(ParadigmBase):
 </tr>
 </tbody>
 </table>
-<p>ScriptItem Actions:</p>
+<p><em>ScriptItem Actions:</em></p>
 <table>
 <thead>
 <tr>
@@ -677,9 +680,9 @@ class Paradigm(ParadigmBase):
 </tr>
 </tbody>
 </table>
-<h4 id="randomnumber">RandomNumber<a class="headerlink" href="#randomnumber" title="Permanent link">&para;</a></h4>
-<p>Display a random number in a text box on the computer screen. The number is updated after each call of the method <em>activate</em> according to a discrete normal distribution.</p>
-<p><img src="media/image5.png" style="width:1.17006in;height:0.6993in" alt="Ein Bild, das Screenshot, Schrift, Grafiken, Logo enthält. Automatisch generierte Beschreibung" /></p>
+<h4 id="randomnumber-class">RandomNumber Class<a class="headerlink" href="#randomnumber-class" title="Permanent link">&para;</a></h4>
+<p>Display a random number in a text box on the computer screen. The number is updated after each call of the method <strong>activate</strong> according to a discrete normal distribution.</p>
+<p><img alt="random number" src="../images/rnd.png" /></p>
 <p><em>Object Initialisation Parameters:</em></p>
 <table>
 <thead>
@@ -742,9 +745,9 @@ class Paradigm(ParadigmBase):
 </tr>
 </tbody>
 </table>
-<h4 id="countdown">Countdown<a class="headerlink" href="#countdown" title="Permanent link">&para;</a></h4>
-<p>An animated countdown is displayed in a text box on the computer screen. The countdown is restarted after each call of the method <em>activate</em>.</p>
-<p><img src="media/image6.png" style="width:1.27536in;height:0.76224in" alt="Ein Bild, das Screenshot, Schrift, Grafiken, Logo enthält. Automatisch generierte Beschreibung" /></p>
+<h4 id="countdown-class">Countdown Class<a class="headerlink" href="#countdown-class" title="Permanent link">&para;</a></h4>
+<p>An animated countdown is displayed in a text box on the computer screen. The countdown is restarted after each call of the method <strong>activate</strong>.</p>
+<p><img alt="countdown" src="../images/countdown.png" /></p>
 <p><em>Object Initialisation Parameters:</em></p>
 <table>
 <thead>
@@ -832,15 +835,30 @@ class Paradigm(ParadigmBase):
 </tr>
 </tbody>
 </table>
-<h4 id="bar">Bar<a class="headerlink" href="#bar" title="Permanent link">&para;</a></h4>
-<p>Displays a bar for 1D feedback on the screen. The fill level of the bar is controlled with a channel from an LSL stream. Optionally, a horizontal target line can be specified. The target line position can be fixed at object initialization, updated with a call of <em>updateTargetValue</em>, or controlled with an LSL stream. If the target is controlled with an LSL stream, the target position can be continuously updated (see parameter <em>target_online_control</em>) or updated at discrete time points with the action <em>updateTargetValueFromLSLStream</em>.</p>
-<p><img src="media/image7.png" style="width:1.42362in;height:0.83217in" alt="Ein Bild, das Screenshot, Diagramm, Farbigkeit, Design enthält. Automatisch generierte Beschreibung" /></p>
-<p>To set up the control of the fill level, call the method <em>controlStateWithLSLStream</em> and specify one control channel. For example:</p>
-<p>bar = self.registerObject(GO.Bar(pos_x=0, pos_y=0))</p>
-<p>bar.controlStateWithLSLStream(“the-stream”, channels=[0])</p>
-<p>To also control the vertical target position with an LSL stream, set <em>target_online_control</em> to true (alternatively: use the action <em>updateTargetValueFromLSLStream</em>), and specify two control channels. For example:</p>
-<p>bar = self.registerObject(GO.Bar(pos_x=0, pos_y=0, target_online_control=true))</p>
-<p>bar.controlStateWithLSLStream(“the-stream”, channels=[0, 1])</p>
+<h4 id="bar-class">Bar Class<a class="headerlink" href="#bar-class" title="Permanent link">&para;</a></h4>
+<p>Displays a bar for 1D feedback on the screen. The fill level of the bar is controlled with a channel from an LSL stream. Optionally, a horizontal target line can be specified. The target line position can be fixed at object initialization, updated with a call of <strong>updateTargetValue</strong>, or controlled with an LSL stream. If the target is controlled with an LSL stream, the target position can be continuously updated (see parameter <em>target_online_control</em>) or updated at discrete time points with the action <strong>updateTargetValueFromLSLStream</strong>.</p>
+<p><img alt="bar" src="../images/bar.png" /></p>
+<p>To set up the control of the fill level, call the method <strong>controlStateWithLSLStream</strong> and specify one control channel. For example:</p>
+<pre><code>bar = self.registerObject(GO.Bar(pos_x=0, pos_y=0))
+bar.controlStateWithLSLStream(“the-stream”, channels=[0])
+</code></pre>
+<p>To optionally control the vertical target position continuously with the same LSL stream, set <em>target_online_control</em> to <em>true</em>, and specify a second control channel. For example:</p>
+<pre><code>bar = self.registerObject(GO.Bar(pos_x=0, pos_y=0, target_online_control=true))
+bar.controlStateWithLSLStream(“the-stream”, channels=[0, 1])
+</code></pre>
+<p>The vertical target position can also be controlled with a separate LSL stream by using <strong>controlStateWithLSLStream<u>s</u></strong>. The second specified channel then refers to the second stream. For example:</p>
+<pre><code>bar = self.registerObject(GO.Bar(pos_x=0, pos_y=0, target_online_control=true))
+bar.controlStateWithLSLStream([“stream-A”, &quot;stream-B&quot;], channels=[0, 1])
+</code></pre>
+<p>Instead of continuously updating the target position from an LSL stream, the target position can also be updated when a script item is triggered. This can be achieved by specifying the action <strong>updateTargetValueFromLSLStream</strong> in the respective <strong>ScriptItem</strong> objects. Note that you still need to set up the control with <strong>controlStateWithLSLStream</strong> or <strong>controlStateWithLSLStreams</strong>.
+For example:</p>
+<pre><code>bar = self.registerObject(GO.Bar(pos_x=0, pos_y=0, target_online_control=false))
+bar.controlStateWithLSLStream(“the-stream”, channels=[0, 1])
+
+[...]
+
+ScriptItem(name='update_bar', time=10, actions=[bar.updateTargetValueFromLSLStream])
+</code></pre>
 <p><em>Object Initialisation Parameters:</em></p>
 <table>
 <thead>
@@ -919,12 +937,12 @@ class Paradigm(ParadigmBase):
 <tr>
 <td>target_value</td>
 <td>double</td>
-<td>target value (fill level); low_value \&lt;= target \&lt;= high_value; if set to “None”, no target will be displayed</td>
+<td>- target value or fill level (<em>low_value</em> &lt;= target &lt;= <em>high_value</em>) <br> - if set to <em>None</em>, no target will be displayed</td>
 </tr>
 <tr>
 <td>target_online_control</td>
 <td>bool</td>
-<td>control the vertical target position with an LSL stream <br> the stream can be the same or a different stream than the stream used to control the fill level (in the later case use <em>controlStateWithLSLStream<u>s</u></em> with the specified second stream being the target stream) <br> if true, a second control channel for the target position must be specified when calling <em>controlStateWithLSLStream</em> or <em>controlStateWithLSLStreams</em> <br> if false, the target position can still be updated with the action <em>updateTargetValueFromLSLStream</em></td>
+<td>- if <em>true</em> control the vertical target position continuously with an LSL stream <br> - a second control channel for the target position must be specified when calling <strong>controlStateWithLSLStream</strong> or <strong>controlStateWithLSLStreams</strong> <br> - if <em>false</em>, the target position can be updated with the action <strong>updateTargetValueFromLSLStream</strong></td>
 </tr>
 </tbody>
 </table>
@@ -949,28 +967,18 @@ class Paradigm(ParadigmBase):
 <td>updateTargetValueFromLSLStream</td>
 <td>-</td>
 <td>-</td>
-<td>update the target value with the most recent value from an LSL stream; it is necessary to call <em>controlStateWithLSLStream(s)</em> before</td>
+<td>- update the target value with the most recent value from an LSL stream <br> - it is necessary to call <strong>controlStateWithLSLStream(s)</strong> before</td>
 </tr>
 </tbody>
 </table>
-<h4 id="barwithramptarget">BarWithRampTarget<a class="headerlink" href="#barwithramptarget" title="Permanent link">&para;</a></h4>
-<p>Displays a feedback bar (see Bar) with a ramp animation of the target. The target will transit through the following phases:</p>
+<h4 id="barwithramptarget-class">BarWithRampTarget Class<a class="headerlink" href="#barwithramptarget-class" title="Permanent link">&para;</a></h4>
+<p>Displays a feedback [bar]](paradigm_scripting.md#bar-class) with a ramp animation of the target. The target will transit through the following phases:</p>
 <ol>
-<li>
-<p>pre phase: target line is at the initial position</p>
-</li>
-<li>
-<p>ramp up phase: target line moves upwards</p>
-</li>
-<li>
-<p>hold phase: target line is at the hold position</p>
-</li>
-<li>
-<p>ramp down phase: target line moves downwards</p>
-</li>
-<li>
-<p>post phase: target line is back to the initial position</p>
-</li>
+<li>pre phase: target line is at the initial position</li>
+<li>ramp up phase: target line moves upwards</li>
+<li>hold phase: target line is at the hold position</li>
+<li>ramp down phase: target line moves downwards</li>
+<li>post phase: target line is back to the initial position</li>
 </ol>
 <p>An additional horizontal line indicating the final ramp target will be displayed (target information) if the target animation is configured to stop below the top of the bar.</p>
 <p><em>Object Initialisation Parameters:</em></p>
@@ -1136,24 +1144,14 @@ class Paradigm(ParadigmBase):
 </tr>
 </tbody>
 </table>
-<h4 id="barwithsinustarget">BarWithSinusTarget<a class="headerlink" href="#barwithsinustarget" title="Permanent link">&para;</a></h4>
-<p>Displays a feedback bar (see Bar) with a sinus oscillation animation of the target. The target will transit through the following phases:</p>
+<h4 id="barwithsinustarget-class">BarWithSinusTarget Class<a class="headerlink" href="#barwithsinustarget-class" title="Permanent link">&para;</a></h4>
+<p>Displays a feedback <a href="./#bar-class">bar</a> with a sinus oscillation animation of the target. The target will transit through the following phases:</p>
 <ol>
-<li>
-<p>pre phase: target line is at the initial position</p>
-</li>
-<li>
-<p>ramp up phase: target line moves upwards</p>
-</li>
-<li>
-<p>sinus phase: target line oscillates up and down</p>
-</li>
-<li>
-<p>ramp down phase: target line moves downwards</p>
-</li>
-<li>
-<p>post phase: target line is back to the initial position</p>
-</li>
+<li>pre phase: target line is at the initial position</li>
+<li>ramp up phase: target line moves upwards</li>
+<li>sinus phase: target line oscillates up and down</li>
+<li>ramp down phase: target line moves downwards</li>
+<li>post phase: target line is back to the initial position</li>
 </ol>
 <p>An additional horizontal line indicating the oscillation center will be displayed (target information) if the oscillation center is configured to be below the top of the bar.</p>
 <p><em>Object Initialisation Parameters:</em></p>
@@ -1329,15 +1327,30 @@ class Paradigm(ParadigmBase):
 </tr>
 </tbody>
 </table>
-<h4 id="arrow">Arrow<a class="headerlink" href="#arrow" title="Permanent link">&para;</a></h4>
-<p>Displays an arrow for 2D feedback on the computer screen. The endpoint of the arrow is controlled with two channels from an LSL stream. Optionally, a target can be visualised as a disk above the arrow's origin. The vertical target position can be fixed at object initialization, updated with a call of <em>updateTargetValue</em>, or controlled with an LSL stream. If the target is controlled with an LSL stream, the target position can be continuously updated (see parameter <em>target_online_control</em>) or updated at discrete time points with the action <em>updateTargetValueFromLSLStream</em>.</p>
-<p><img src="media/image8.png" style="width:1.24476in;height:0.74394in" alt="Ein Bild, das Screenshot, Mond enthält. Automatisch generierte Beschreibung" /></p>
-<p>To set up the control of the arrow’s endpoint, call the method <em>controlStateWithLSLStream</em> and specify two control channels. For example:</p>
-<p>arrow = self.registerObject(GO.Arrow(pos_x=0, pos_y=0))</p>
-<p>arrow.controlStateWithLSLStream(“the-stream”, channels=[0, 1])</p>
-<p>To also control the vertical target position with an LSL stream, set <em>target_online_control</em> to true (alternatively: use the action <em>updateTargetValueFromLSLStream</em>), and specify three control channels. For example:</p>
-<p>arrow = self.registerObject(GO.Arrow(pos_x=0, pos_y=0, target_online_control=true))</p>
-<p>arrow.controlStateWithLSLStream(“the-stream”, channels=[0, 1, 2])</p>
+<h4 id="arrow-class">Arrow Class<a class="headerlink" href="#arrow-class" title="Permanent link">&para;</a></h4>
+<p>Displays an arrow for 2D feedback on the computer screen. The endpoint of the arrow is controlled with two channels from an LSL stream. Optionally, a target can be visualised as a disk above the arrow's origin. The vertical target position can be fixed at object initialization, updated with a call of <strong>updateTargetValue</strong>, or controlled with an LSL stream. If the target is controlled with an LSL stream, the target position can be continuously updated (see parameter <em>target_online_control</em>) or updated at discrete time points with the action <strong>updateTargetValueFromLSLStream</strong>.</p>
+<p><img alt="arrow" src="../images/arrow.png" /></p>
+<p>To set up the control of the arrow’s endpoint, call the method <strong>controlStateWithLSLStream</strong> and specify the LSL stream and two control channels. For example:</p>
+<pre><code>arrow = self.registerObject(GO.Arrow(pos_x=0, pos_y=0))
+arrow.controlStateWithLSLStream(“the-stream”, channels=[0, 1])
+</code></pre>
+<p>To optionally control the vertical target position continuously with the same LSL stream, set <em>target_online_control</em> to <em>true</em>, and specify a third control channel. For example:</p>
+<pre><code>arrow = self.registerObject(GO.Arrow(pos_x=0, pos_y=0, target_online_control=true))
+arrow.controlStateWithLSLStream(“the-stream”, channels=[0, 1, 2])
+</code></pre>
+<p>The vertical target position can also be controlled with a separate LSL stream by using <strong>controlStateWithLSLStream<u>s</u></strong>. The third specified channel then refers to the second stream. For example:</p>
+<pre><code>arrow = self.registerObject(GO.Arrow(pos_x=0, pos_y=0, target_online_control=true))
+arrow.controlStateWithLSLStreams([“stream-A”, &quot;stream-B&quot;], channels=[0, 1, 0])
+</code></pre>
+<p>Instead of continuously updating the target position from an LSL stream, the target position can also be updated when a script item is triggered. This can be achieved by specifying the action <strong>updateTargetValueFromLSLStream</strong> in the respective <strong>ScriptItem</strong> objects. Note that you still need to set up the control with <strong>controlStateWithLSLStream</strong> or <strong>controlStateWithLSLStreams</strong>.
+For example:</p>
+<pre><code>arrow = self.registerObject(GO.Arrow(pos_x=0, pos_y=0, target_online_control=false))
+arrow.controlStateWithLSLStream(“the-stream”, channels=[0, 1, 2])
+
+[...]
+
+ScriptItem(name='update_arrow', time=10, actions=[arrow.updateTargetValueFromLSLStream])
+</code></pre>
 <p><em>Object Initialisation Parameters:</em></p>
 <table>
 <thead>
@@ -1411,12 +1424,12 @@ class Paradigm(ParadigmBase):
 <tr>
 <td>target_value</td>
 <td>double</td>
-<td>target value (vertical target position); if set to “None”, no target will be displayed</td>
+<td>- target value (vertical target position) <br> - if set to <em>None</em>, no target will be displayed</td>
 </tr>
 <tr>
 <td>target_online_control</td>
 <td>bool</td>
-<td>control the vertical target position with an LSL stream <br> the stream can be the same or a different stream than the stream used to control the endpoint of the arrow (in the later case use <em>controlStateWithLSLStream<u>s</u></em> with the specified second stream being the target stream) <br> if true, a third control channel for the target position must be specified when calling <em>controlStateWithLSLStream</em> or <em>controlStateWithLSLStreams</em> <br> if false, the target position can still be updated with the action <em>updateTargetValueFromLSLStream</em></td>
+<td>- if <em>true</em>, control the vertical target position continuously with an LSL stream <br> - a third control channel for the target position must be specified when calling <strong>controlStateWithLSLStream</strong> or <strong>controlStateWithLSLStreams</strong> <br> - if <em>false</em>, the target position can be updated with the action <strong>updateTargetValueFromLSLStream</strong></td>
 </tr>
 </tbody>
 </table>
@@ -1441,28 +1454,18 @@ class Paradigm(ParadigmBase):
 <td>updateTargetValueFromLSLStream</td>
 <td>-</td>
 <td>-</td>
-<td>update the target value with the most recent value from an LSL stream; it is necessary to call <em>controlStateWithLSLStream(s)</em> before</td>
+<td>- update the target value with the most recent value from an LSL stream <br> - it is necessary to call <strong>controlStateWithLSLStream(s)</strong>* before</td>
 </tr>
 </tbody>
 </table>
-<h4 id="arrowwithramptarget">ArrowWithRampTarget<a class="headerlink" href="#arrowwithramptarget" title="Permanent link">&para;</a></h4>
-<p>Displays a feedback arrow (see Arrow) with a ramp animation of the target disk. The target will transit through the following phases:</p>
+<h4 id="arrowwithramptarget-class">ArrowWithRampTarget Class<a class="headerlink" href="#arrowwithramptarget-class" title="Permanent link">&para;</a></h4>
+<p>Displays a feedback <a href="./#arrow-class">arrow</a> with a ramp animation of the target disk. The target will transit through the following phases:</p>
 <ol>
-<li>
-<p>pre phase: target disk is at the initial position</p>
-</li>
-<li>
-<p>ramp up phase: target disk moves upwards</p>
-</li>
-<li>
-<p>hold phase: target disk is at the final position</p>
-</li>
-<li>
-<p>ramp down phase: target disk moves downwards</p>
-</li>
-<li>
-<p>post phase: target disk is back to the initial position</p>
-</li>
+<li>pre phase: target disk is at the initial position</li>
+<li>ramp up phase: target disk moves upwards</li>
+<li>hold phase: target disk is at the final position</li>
+<li>ramp down phase: target disk moves downwards</li>
+<li>post phase: target disk is back to the initial position</li>
 </ol>
 <p>An additional disk indicating the final ramp target position will be displayed (target information).</p>
 <p><em>Object Initialisation Parameters:</em></p>
@@ -1578,7 +1581,7 @@ class Paradigm(ParadigmBase):
 <tr>
 <td>ramp_value</td>
 <td>double</td>
-<td>the center position of the sinus oscillation; when this value is lower than the high_value, an additional hold target will be displayed</td>
+<td>- the center position of the sinus oscillation <br> - when this value is lower than the <em>high_value</em>, an additional hold target will be displayed</td>
 </tr>
 </tbody>
 </table>
@@ -1628,24 +1631,14 @@ class Paradigm(ParadigmBase):
 </tr>
 </tbody>
 </table>
-<h4 id="arrowwithsinustarget">ArrowWithSinusTarget<a class="headerlink" href="#arrowwithsinustarget" title="Permanent link">&para;</a></h4>
-<p>Displays a feedback arrow (see Arrow) with a ramp animation of the target disk. The target will transit through the following phases:</p>
+<h4 id="arrowwithsinustarget-class">ArrowWithSinusTarget Class<a class="headerlink" href="#arrowwithsinustarget-class" title="Permanent link">&para;</a></h4>
+<p>Displays a feedback <a href="./#arrow-class">arrow Class</a> with a ramp animation of the target disk. The target will transit through the following phases:</p>
 <ol>
-<li>
-<p>pre phase: target disk is at the initial position</p>
-</li>
-<li>
-<p>ramp up phase: target disk moves upwards</p>
-</li>
-<li>
-<p>sinus phase: target disk is oscillating up &amp; down</p>
-</li>
-<li>
-<p>ramp down phase: target disk moves downwards</p>
-</li>
-<li>
-<p>post phase: target disk is back to the initial position</p>
-</li>
+<li>pre phase: target disk is at the initial position</li>
+<li>ramp up phase: target disk moves upwards</li>
+<li>sinus phase: target disk is oscillating up &amp; down</li>
+<li>ramp down phase: target disk moves downwards</li>
+<li>post phase: target disk is back to the initial position</li>
 </ol>
 <p>An additional disk indicating the position of the oscillation centre will be displayed (target information).</p>
 <p><em>Object Initialisation Parameters:</em></p>
@@ -1771,7 +1764,7 @@ class Paradigm(ParadigmBase):
 <tr>
 <td>ramp_value</td>
 <td>double</td>
-<td>the center position of the sinus oscillation; when this value is lower than the high_value, an additional hold target will be displayed</td>
+<td>- the center position of the sinus oscillation <br> - when this value is lower than the <em>high_value</em>, an additional hold target will be displayed</td>
 </tr>
 </tbody>
 </table>
@@ -1821,12 +1814,13 @@ class Paradigm(ParadigmBase):
 </tr>
 </tbody>
 </table>
-<h4 id="spikevis">SpikeVis<a class="headerlink" href="#spikevis" title="Permanent link">&para;</a></h4>
+<h4 id="spikevis-class">SpikeVis Class<a class="headerlink" href="#spikevis-class" title="Permanent link">&para;</a></h4>
 <p>Visualise discrete events, such as spikes, with flashing feedback disks. A SpikeVis object can be used as a feedback element for, e.g., the onset and termination of spike trains.</p>
-<p><img src="media/image9.png" style="width:1.53278in;height:0.91608in" alt="Ein Bild, das Kreis, Astronomisches Objekt, Mond enthält. Automatisch generierte Beschreibung" /></p>
-<p>SpikeVis supports multiple feedback disks and must have as many LSL control channels as feedback disks. The LSL control channels are expected to provide 0/1 values. To set up the control, call the method <em>controlStateWithLSLStream</em>. For example:</p>
-<p>spikes = self.registerObject(GO.SpikeVis(pos_x=0, pos_y=0, number_of_units=3))</p>
-<p>spikes.controlStateWithLSLStream(“the-stream”, channels=[0, 1, 2])</p>
+<p><img alt="spikevis" src="../images/spikevis.png" /></p>
+<p>SpikeVis supports multiple feedback disks and must have as many LSL control channels as feedback disks. The LSL control channels are expected to provide 0/1 values. To set up the control, call the method <strong>controlStateWithLSLStream</strong>. For example:</p>
+<pre><code>spikes = self.registerObject(GO.SpikeVis(pos_x=0, pos_y=0, number_of_units=3))
+spikes.controlStateWithLSLStream(“the-stream”, channels=[0, 1, 2])
+</code></pre>
 <p><em>Object Initialisation Parameters:</em></p>
 <table>
 <thead>
@@ -1884,18 +1878,19 @@ class Paradigm(ParadigmBase):
 </tr>
 </tbody>
 </table>
-<h4 id="reachtargets">ReachTargets<a class="headerlink" href="#reachtargets" title="Permanent link">&para;</a></h4>
+<h4 id="reachtargets-class">ReachTargets Class<a class="headerlink" href="#reachtargets-class" title="Permanent link">&para;</a></h4>
 <p>Graphical object to implement target reaching experiments. It displays one or more disk targets which must be reached and held with a 2D cursor. The targets will be arranged in a circle around the centre. The cursor is controlled with 2 LSL channels.</p>
-<p><img src="media/image10.png" style="width:1.57913in;height:0.92308in" alt="Ein Bild, das Screenshot, Kreis enthält. Automatisch generierte Beschreibung" /></p>
-<p>To set up the control, call the method <em>controlStateWithLSLStream</em>. For example:</p>
-<p>targetreaching = self.registerObject(GO.ReachTargets(pos_x=0, pos_y=0, number_of_targets=3))</p>
-<p>targetreaching.controlStateWithLSLStream(“the-stream”, channels=[0,1])</p>
+<p><img alt="target reach" src="../images/targetreach.png" /></p>
+<p>To set up the control, call the method <strong>controlStateWithLSLStream</strong>. For example:</p>
+<pre><code>targetreaching = self.registerObject(GO.ReachTargets(pos_x=0, pos_y=0, number_of_targets=3))
+targetreaching.controlStateWithLSLStream(“the-stream”, channels=[0,1])
+</code></pre>
 <p>An optional start target can be specified. Such a start target will be placed in the centre and must be reached before the actual target.</p>
 <p>The cursor must stay within the correct target area for a certain period (dwell time) to generate a target-reached signal. This target-reached signal can then be used to trigger a script item.</p>
 <p>To activate the ReachTargets object at second 10 and set the active (current) target to target 1, create a script item such as:</p>
-<p>ScriptItem(name='trial_start', time=10, actions=[targets.activate, partial(targets.setActiveTarget, 1)])</p>
+<p><code>ScriptItem(name='trial_start', time=10, actions=[targets.activate, partial(targets.setActiveTarget, 1)])</code></p>
 <p>To end the trial when the target reached signal is generated or a 30s timeout occurs, create a script item such as:</p>
-<p>ScriptItem(name='trial_end', time=30, time_type='rel', rel_name='trial_start', wait_for_signal=GO.ReachTargets.TARGET_REACHED, actions=[targets.deactivate])</p>
+<p><code>ScriptItem(name='trial_end', time=30, time_type='rel', rel_name='trial_start', wait_for_signal=GO.ReachTargets.TARGET_REACHED, actions=[targets.deactivate])</code></p>
 <p><em>Object Initialisation Parameters:</em></p>
 <table>
 <thead>
@@ -1953,7 +1948,7 @@ class Paradigm(ParadigmBase):
 </tr>
 <tr>
 <td>cursor_size</td>
-<td></td>
+<td>double</td>
 <td>cursor size</td>
 </tr>
 <tr>
@@ -2007,23 +2002,23 @@ class Paradigm(ParadigmBase):
 </thead>
 <tbody>
 <tr>
-<td>ReachTargets. START_TARGET_REACHED</td>
+<td>ReachTargets.START_TARGET_REACHED</td>
 <td>optional start target has been reached</td>
 </tr>
 <tr>
-<td>ReachTargets. TARGET_REACHED</td>
+<td>ReachTargets.TARGET_REACHED</td>
 <td>active (current) target has been reached</td>
 </tr>
 </tbody>
 </table>
 <h2 id="auditory-objects">Auditory Objects<a class="headerlink" href="#auditory-objects" title="Permanent link">&para;</a></h2>
-<p>Auditory objects generate sounds. They may be controllable with LSL streams (see Section TODO).</p>
-<p>To use auditory objects, one needs to import the audio_objects module first:</p>
-<p>import yaga_modules.audio_objects as AO</p>
+<p>Auditory objects generate sounds. They can be <a href="./#control-of-auditory-objects">controllable</a> with LSL streams.</p>
+<p>To use auditory objects, one needs to import the <strong>audio_objects module</strong> first:</p>
+<p><code>import yaga_modules.audio_objects as AO</code></p>
 <p>An auditory object must be created in the initialisation method of the paradigm file and registered to YAGA. For example, to create a beep object:</p>
-<p>beep = self.registerObject(AO.Beep())</p>
+<p><code>beep = self.registerObject(AO.Beep())</code></p>
 <p>The Python classes representing the auditory objects are described in the following.</p>
-<h3 id="beep">Beep<a class="headerlink" href="#beep" title="Permanent link">&para;</a></h3>
+<h3 id="beep-class">Beep Class<a class="headerlink" href="#beep-class" title="Permanent link">&para;</a></h3>
 <p>Generates a beep sound, e.g., to attract the attention of the subject.</p>
 <p><em>Object Initialisation Parameters:</em></p>
 <table>
@@ -2058,7 +2053,7 @@ class Paradigm(ParadigmBase):
 <tr>
 <td>delay</td>
 <td>double</td>
-<td>delay the presentation of the beep; use a delay of 0.2s or more to minimise jitter</td>
+<td>- delay the presentation of the beep <br> - use a delay of 0.2s or more to <strong>minimise jitter</strong></td>
 </tr>
 </tbody>
 </table>
@@ -2081,10 +2076,11 @@ class Paradigm(ParadigmBase):
 </tr>
 </tbody>
 </table>
-<h3 id="spikesound">SpikeSound<a class="headerlink" href="#spikesound" title="Permanent link">&para;</a></h3>
-<p>Generate a feedback signal for discrete events like spikes. SpikeSound supports multiple event or spike signals which can be associated with a specific sound frequency or output channel. Optionally, the sound frequencies can be dynamically modulated by the instantaneous firing rates. The events are read from an LSL stream which is expected to provide 0/1 values. To set up the LSL control call the method <em>controlStateWithLSLStream</em>. For example, to generate sounds for two spike signals using different sound frequencies and output channels:</p>
-<p>spikes = self.registerObject(AO.SpikeSound(beep_frequencies=[800, 2000], beep_channels=['left', 'right']))</p>
-<p>spikes.controlStateWithLSLStream(“the-stream”, channels=[0, 1])</p>
+<h3 id="spikesound-class">SpikeSound Class<a class="headerlink" href="#spikesound-class" title="Permanent link">&para;</a></h3>
+<p>Generate a feedback signal for discrete events like spikes. SpikeSound supports multiple event or spike signals which can be associated with a specific sound frequency or output channel. Optionally, the sound frequencies can be dynamically modulated by the instantaneous firing rates. The events are read from an LSL stream which is expected to provide 0/1 values. To set up the LSL control call the method <strong>controlStateWithLSLStream</strong>. For example, to generate sounds for two spike signals using different sound frequencies and output channels:</p>
+<pre><code>spikes = self.registerObject(AO.SpikeSound(beep_frequencies=\[800, 2000\], beep_channels=\['left', 'right'\]))
+spikes.controlStateWithLSLStream(“the-stream”, channels=\[0, 1\])
+</code></pre>
 <p><em>Object Initialisation Parameters:</em></p>
 <table>
 <thead>
@@ -2098,12 +2094,12 @@ class Paradigm(ParadigmBase):
 <tr>
 <td>beep_frequencies</td>
 <td>list of doubles</td>
-<td>list of frequencies in Hz; must have the same length as number of LSL channels; values must be between 100 Hz and 10 kHz</td>
+<td>- list of frequencies in Hz <br> - must have the same length as number of LSL channels <br> - values must be between 100 Hz and 10 kHz</td>
 </tr>
 <tr>
 <td>beep_channels</td>
-<td>string</td>
-<td>list of output channels (“both”, “left”, or “right”); must have the same length as number of LSL channels</td>
+<td>list of strings</td>
+<td>- list of output channels (<em>“both”</em>, <em>“left”</em>, or <em>“right”</em>) <br> - must have the same length as number of LSL channels</td>
 </tr>
 <tr>
 <td>beep_duration</td>
@@ -2118,12 +2114,12 @@ class Paradigm(ParadigmBase):
 <tr>
 <td>dynamic_frq</td>
 <td>bool</td>
-<td>if true, modulate the sound frequency by the instantaneous firing rate</td>
+<td>if <em>true</em>, modulate the sound frequency by the instantaneous firing rate</td>
 </tr>
 <tr>
 <td>dynamic_frq_factor</td>
 <td>integer</td>
-<td>the actual sound frequency is the base frequency (beep_frequencies) plus the instantaneous firing rate multiplied by this dynamic frequency factor</td>
+<td>the final sound frequency is the base frequency (from <em>beep_frequencies</em>) plus the instantaneous firing rate multiplied by this factor</td>
 </tr>
 <tr>
 <td>dynamic_max_frq</td>
@@ -2133,18 +2129,18 @@ class Paradigm(ParadigmBase):
 <tr>
 <td>dynamic_mov_avg</td>
 <td>integer</td>
-<td>calculate the instantaneous firing rate as the inverse of the interspike interval smoothed with a moving average window of length dynamic_mov_avg; set to None if exponential smoothing is used</td>
+<td>- calculate the instantaneous firing rate as the inverse of the interspike interval smoothed with a moving average window of length <em>dynamic_mov_avg</em> <br> - set to <em>None</em> if exponential smoothing is used</td>
 </tr>
 <tr>
 <td>dynamic_exp_avg_alpha</td>
 <td>double</td>
-<td>calculate the instantaneous firing rate as the inversive of the interspike interval smoothed with exponential smoothing using a smoothing factor of dynamic_exp_avg_alpha; set to None if the moving average is used</td>
+<td>- calculate the instantaneous firing rate as the inversive of the interspike interval smoothed with exponential smoothing using a smoothing factor of <em>dynamic_exp_avg_alpha</em> <br> - set to <em>None</em> if the moving average is used</td>
 </tr>
 </tbody>
 </table>
 <h2 id="online-control-of-objects-with-lsl-streams">Online Control of Objects with LSL streams<a class="headerlink" href="#online-control-of-objects-with-lsl-streams" title="Permanent link">&para;</a></h2>
 <p>Parameters of graphical and auditory objects can be controlled with LSL streams. The LSL streams can be read directly or processed online (scaling, filtering, etc.). The parameter updates are synchronous to the screen refresh rate.</p>
-<h3 id="graphical-objects_1">Graphical Objects<a class="headerlink" href="#graphical-objects_1" title="Permanent link">&para;</a></h3>
+<h3 id="control-of-graphical-objects">Control of Graphical Objects<a class="headerlink" href="#control-of-graphical-objects" title="Permanent link">&para;</a></h3>
 <p>The position, scale, colour or state of graphical objects can be controlled by one or more LSL streams. For that, call the respective control method listed below.</p>
 <p><em>Methods for controlling a property with a single LSL stream:</em></p>
 <table>
@@ -2171,34 +2167,24 @@ class Paradigm(ParadigmBase):
 </tr>
 <tr>
 <td>controlColorWithLSLStream</td>
-<td>lsl_stream_name, channel, aggregation_mode, neg_color, pos_color, neutral_color</td>
-<td>string, integer, string, string, string, string</td>
-<td>interpolate between colors using one channel from a single LSL stream: <br> when the value of the LSL channel is in the interval [-1, 0): interpolate between the negative and neutral color <br> when the value of the LSL channel is in the interval [0, 1]: interpolate between the neutral and positive color <br> colors must be specified by their name (string)</td>
+<td>lsl_stream_name, channel, aggregation_mode, <br> neg_color, pos_color, neutral_color</td>
+<td>string, integer, string, <br> string, string, string</td>
+<td>- interpolate between colors using one channel from a single LSL stream: <br> &nbsp;&nbsp;&nbsp;&nbsp; when the value of the LSL channel is in the interval [-1, 0): interpolate between the negative and neutral color <br> &nbsp;&nbsp;&nbsp;&nbsp; when the value of the LSL channel is in the interval [0, 1]: interpolate between the neutral and positive color <br> - colors must be specified by their name (<em>string</em>)</td>
 </tr>
 <tr>
 <td>controlStateWithLSLStream</td>
 <td>lsl_stream_name, channels, aggregation_mode</td>
 <td>string, list of integers, string</td>
-<td>state updates are specific to the graphical object (see TODO)</td>
+<td>state updates are specific to the <a href="./#supported-graphical-objects">graphical object</a></td>
 </tr>
 </tbody>
 </table>
 <ul>
-<li>
-<p>the <em>channels</em> parameter must be a list comprising two channel indices</p>
-</li>
-<li>
-<p>the <em>channel</em> parameter for <em>controlColorWithLSLStream</em> must be the index of a single channel</p>
-</li>
-<li>
-<p>the <em>channels</em> parameter for <em>controlStateWithLSLStream</em> must be a list with one or more channel indices (the number of channels depends on the actual graphical object)</p>
-</li>
-<li>
-<p>for an explanation of the <em>aggregation_mode</em> parameter see Section TODO.</p>
-</li>
-<li>
-<p><strong>note that indexing starts with a 0 in Python</strong></p>
-</li>
+<li>the <em>channels</em> parameter of <strong>controlPosWithLSLStream</strong> and <strong>controlScaleWithLSLStream</strong> must be a list comprising two channel indices</li>
+<li>the <em>channel</em> parameter of <strong>controlColorWithLSLStream</strong> must be a channel index</li>
+<li>the <em>channels</em> parameter of <strong>controlStateWithLSLStream</strong> must be a list with one or more channel indices (the number of channels depends on the actual graphical object)</li>
+<li>for an explanation of the <em>aggregation_mode</em> parameter see <a href="./#aggregation-mode">Aggregation Mode</a></li>
+<li><strong>note that channel indexing starts with a 0 in Python</strong></li>
 </ul>
 <p><em>Methods for controlling a property with multiple LSL stream:</em></p>
 <table>
@@ -2227,11 +2213,11 @@ class Paradigm(ParadigmBase):
 <td>controlStateWithLSLStreams</td>
 <td>lsl_stream_names, channels, aggregation_mode</td>
 <td>list of strings, list of integers, string</td>
-<td>so far only supported by Bar and Arrow, see their description for details</td>
+<td>currently only supported by <a href="./#bar-class">Bar Class</a> and <a href="./#arrow-class">Arrow Class</a></td>
 </tr>
 </tbody>
 </table>
-<h3 id="auditory-objects_1">Auditory Objects<a class="headerlink" href="#auditory-objects_1" title="Permanent link">&para;</a></h3>
+<h3 id="control-of-auditory-objects">Control of Auditory Objects<a class="headerlink" href="#control-of-auditory-objects" title="Permanent link">&para;</a></h3>
 <p>Auditory objects support the following methods to set up LSL control.</p>
 <p><em>Methods for controlling a property with one or more LSL stream:</em></p>
 <table>
@@ -2248,25 +2234,21 @@ class Paradigm(ParadigmBase):
 <td>controlWithLSLStream</td>
 <td>stream name, channels, aggregation_mode</td>
 <td>string, list of integers, string</td>
-<td>the control is specific to the auditory object (see TODO)</td>
+<td>currently only supported by <a href="./#spikesound-class">SpikeSound Class</a></td>
 </tr>
 <tr>
 <td>controlWithLSLStreams</td>
 <td>stream names, channels, aggregation_mode</td>
 <td>list of string, list of integers, string</td>
-<td>so far not supported by any auditory object</td>
+<td>not yet supported by any auditory object</td>
 </tr>
 </tbody>
 </table>
 <h3 id="aggregation-mode">Aggregation Mode<a class="headerlink" href="#aggregation-mode" title="Permanent link">&para;</a></h3>
 <p>The LSL streams used to control the parameters of graphical or auditory objects are read and processed just before a screen refresh. All updates are therefore synchronised with the screen refresh rate, which is often 60 Hz.</p>
 <ul>
-<li>
-<p>When the sampling frequency of an LSL stream is lower than the screen refresh rate, the LSL stream is up-sampled to the screen frequency using a sample &amp; hold strategy.</p>
-</li>
-<li>
-<p>When the sampling frequency of an LSL stream is higher than the screen frequency, the downsampling strategy specified by <em>aggregation_mode</em> is used.</p>
-</li>
+<li>when the sampling frequency of an LSL stream is <strong>lower</strong> than the screen refresh rate, the LSL stream is <strong>upsampled</strong> to the screen frequency using a <em>sample &amp; hold strategy</em></li>
+<li>when the sampling frequency of an LSL stream is <strong>higher</strong> than the screen frequency, the LSL stream is <strong>downsampled</strong> strategy specified by <em>aggregation_mode</em> is used</li>
 </ul>
 <p>The following sample aggregation strategies are supported:</p>
 <table>
@@ -2292,18 +2274,21 @@ class Paradigm(ParadigmBase):
 </tbody>
 </table>
 <h3 id="signal-processing">Signal Processing<a class="headerlink" href="#signal-processing" title="Permanent link">&para;</a></h3>
-<p>LSL streams can be processed when used to control parameters of graphical or auditory objects. The YAGA signal processing methods are applied to the <em>original</em> LSL stream, i.e., before any re-sampling to the screen refresh rate (see Aggregation Mode TODO).</p>
-<p>To use signal processing on LSL streams, import the module signal_processing:</p>
-<p>import yaga_modules.signal_processing as SP</p>
-<p>Signal processing objects can be added to the signal processing pipeline by calling the method <em>addSignalProcessingToLSLStream</em>. In the following example, a feedback bar is set to be controlled by an LSL stream and the LSL stream is filtered with a Butterworth low-pass filter and scaled:</p>
-<p>bar = self.registerObject(GO.Bar())</p>
-<p>bar.controlStateWithLSLStream('the-stream, channels=[10])</p>
-<p>butter = SP.ButterFilter(4, 5)</p>
-<p>scaler = SP.Scaler(scale=2)</p>
-<p>bar.addSignalProcessingToLSLStream(butter, channels=[10])</p>
-<p>bar.addSignalProcessingToLSLStream(scaler, channels=[10])</p>
-<p>The first parameter of <em>addSignalProcessingToLSLStream</em> is the signal processing object. The second parameter is the channel list. The number of supported channels depends on the concrete signal processing object.</p>
-<p>Important note: Make sure that signal processing objects which have a state (e.g., ButterFilter) exist only in one signal processing pipeline. If you need the same signal processing method applied to another LSL stream, create a new signal processing object.</p>
+<p>LSL streams can be processed when used to control parameters of graphical or auditory objects. The YAGA signal processing methods are applied to the <em>original</em> LSL stream, i.e., before any re-sampling to the screen refresh rate (see <a href="./#aggregation-mode">Aggregation Mode</a>).</p>
+<p>To use signal processing on LSL streams, import the <strong>signal_processing module</strong>:</p>
+<p><code>import yaga_modules.signal_processing as SP</code></p>
+<p>Signal processing objects can be added to the signal processing pipeline by calling the method <strong>addSignalProcessingToLSLStream</strong>. In the following example, a feedback bar is set to be controlled by an LSL stream and the LSL stream is filtered with a Butterworth low-pass filter and scaled:</p>
+<pre><code>bar = self.registerObject(GO.Bar())
+bar.controlStateWithLSLStream('the-stream, channels=[10])
+
+butter = SP.ButterFilter(4, 5)
+scaler = SP.Scaler(scale=2)
+
+bar.addSignalProcessingToLSLStream(butter, channels=[10])
+bar.addSignalProcessingToLSLStream(scaler, channels=[10])
+</code></pre>
+<p>The first parameter of <strong>addSignalProcessingToLSLStream</strong> is the signal processing object. The second parameter is the channel list. The number of supported channels depends on the concrete signal processing object.</p>
+<p><strong>Important note:</strong> Make sure that signal processing objects which have a state (e.g., ButterFilter) exist only in one signal processing pipeline. If you need the same signal processing method applied to another LSL stream, create a new signal processing object.</p>
 <p>The following signal processing objects are supported by YAGA.</p>
 <h4 id="constant">Constant<a class="headerlink" href="#constant" title="Permanent link">&para;</a></h4>
 <p>Set channels to a constant value.</p>
@@ -2327,7 +2312,6 @@ class Paradigm(ParadigmBase):
 </tr>
 </tbody>
 </table>
-<h4 id="_1"><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
 <h4 id="copychannel">CopyChannel<a class="headerlink" href="#copychannel" title="Permanent link">&para;</a></h4>
 <p>Copy values from one channel to another channel.</p>
 <p>Number of supported channels: two or more</p>
@@ -2378,12 +2362,12 @@ class Paradigm(ParadigmBase):
 <tr>
 <td>cutoff_frqs</td>
 <td>double or list of doubles</td>
-<td>critical frequency or frequencies; a scalar for a lowpass or highpass filter; a 2-element list for a bandpass or bandstop filter</td>
+<td>critical frequency or frequencies: <br> &nbsp;&nbsp;&nbsp;&nbsp; low/highpass: a scalar <br> &nbsp;&nbsp;&nbsp;&nbsp; bandpass/stop: a 2-element list</td>
 </tr>
 <tr>
 <td>filter_type</td>
 <td>string</td>
-<td>filter type, possible values: “lowpass”, “highpass”, “bandpass”, “bandstop”</td>
+<td>filter type, possible values: <em>lowpass</em>, <em>highpass</em>, <em>bandpass</em>, <em>bandstop</em></td>
 </tr>
 </tbody>
 </table>
@@ -2457,17 +2441,17 @@ class Paradigm(ParadigmBase):
 <tr>
 <td>pre_offset</td>
 <td>double</td>
-<td>add pre_offset before scaling</td>
+<td>add <em>pre_offset</em> before scaling</td>
 </tr>
 <tr>
 <td>post_offset</td>
 <td>double</td>
-<td>add post_offset after scaling</td>
+<td>add <em>post_offset</em> after scaling</td>
 </tr>
 </tbody>
 </table>
 <h4 id="linearmap">LinearMap<a class="headerlink" href="#linearmap" title="Permanent link">&para;</a></h4>
-<p>Linearly maps signals.</p>
+<p>Linearly maps signals from the interval [<em>in_val1</em>, <em>in_val2</em>] to the interval [<em>out_val1</em>, <em>out_val2</em>].</p>
 <p>Number of supported channels: one or more</p>
 <p>Operates channel-wise: yes</p>
 <p>Stateful: no</p>
@@ -2477,29 +2461,24 @@ class Paradigm(ParadigmBase):
 <tr>
 <th>parameter</th>
 <th>value type</th>
-<th>description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>in_val1</td>
 <td>double</td>
-<td>linearly map signals from the interval [in_val1, in_val2] to the interval [out_val1, out_val2]</td>
 </tr>
 <tr>
 <td>in_val2</td>
 <td>double</td>
-<td></td>
 </tr>
 <tr>
 <td>out_val1</td>
 <td>double</td>
-<td></td>
 </tr>
 <tr>
 <td>out_val2</td>
 <td>double</td>
-<td></td>
 </tr>
 </tbody>
 </table>
@@ -2566,30 +2545,16 @@ class Paradigm(ParadigmBase):
 <p>Normalise channels by the maximum Euclidean norm found from the data channels in the specified XDF file (e.g., force normalisation).</p>
 <p>Find maximum:</p>
 <ol>
-<li>
-<p>load the XDF file</p>
-</li>
-<li>
-<p>apply a median window filter to the selected channels of the data stream</p>
-</li>
-<li>
-<p>subtract a common or channel-specific offset</p>
-</li>
-<li>
-<p>calculate the 2-norm over all selected channels</p>
-</li>
-<li>
-<p>find the maximum norm value over all trials</p>
-</li>
+<li>load the XDF file</li>
+<li>apply a median window filter to the selected channels of the data stream</li>
+<li>subtract a common or channel-specific offset</li>
+<li>calculate the 2-norm over all selected channels</li>
+<li>find the maximum norm value over all trials</li>
 </ol>
 <p>Online processing:</p>
 <ol>
-<li>
-<p>subtract offset from signals</p>
-</li>
-<li>
-<p>divide by the found maximum norm</p>
-</li>
+<li>subtract offset from signals</li>
+<li>divide by the found maximum norm</li>
 </ol>
 <p>Number of supported channels: one or more</p>
 <p>Operates channel-wise: yes</p>
@@ -2625,11 +2590,6 @@ class Paradigm(ParadigmBase):
 <td>name of a trial start event</td>
 </tr>
 <tr>
-<td>end_marker</td>
-<td>string</td>
-<td>name of a trial end event</td>
-</tr>
-<tr>
 <td>data_stream_channels</td>
 <td>list of integers</td>
 <td>channel indices of the data stream over which the Euclidean norm is calculated (if None, use all channels)</td>
@@ -2637,7 +2597,7 @@ class Paradigm(ParadigmBase):
 <tr>
 <td>offset</td>
 <td>double or list of double</td>
-<td>subtract an offset value before calculating the Euclidean norm; to specify channel-specific offsets, specify offsets as a list with one offset value per channel; set to None to subtract the minimum of each channel</td>
+<td>- subtract an offset value before calculating the Euclidean norm <br> - to specify channel-specific offsets, specify offsets as a list with one offset value per channel <br> - set to <em>None</em> to subtract the minimum of each channel</td>
 </tr>
 <tr>
 <td>filter_window_length</td>
@@ -2646,46 +2606,24 @@ class Paradigm(ParadigmBase):
 </tr>
 </tbody>
 </table>
-<p><em>MaxAvgPowerNormalizationXDF</em></p>
+<h4 id="maxavgpowernormalizationxdf">MaxAvgPowerNormalizationXDF<a class="headerlink" href="#maxavgpowernormalizationxdf" title="Permanent link">&para;</a></h4>
 <p>Normalise channels by the maximum power found from the data channels in the specified XDF file (e.g., EMG power normalisation).</p>
 <p>Find maximum:</p>
 <ol>
-<li>
-<p>load the XDF file</p>
-</li>
-<li>
-<p>apply a Butterworth bandpass filter to the selected channels of the data stream (pre-filter)</p>
-</li>
-<li>
-<p>calculate the signal power of all selected channels</p>
-</li>
-<li>
-<p>apply a moving average filter (post-filter)</p>
-</li>
-<li>
-<p>calculate the median signal power over all selected channels</p>
-</li>
-<li>
-<p>find the 90% percentile of the power over all trials</p>
-</li>
+<li>load the XDF file</li>
+<li>apply a Butterworth bandpass filter to the selected channels of the data stream (pre-filter)</li>
+<li>calculate the signal power of all selected channels</li>
+<li>apply a moving average filter (post-filter)</li>
+<li>calculate the median signal power over all selected channels</li>
+<li>find the 90% percentile of the power over all trials</li>
 </ol>
 <p>Online processing:</p>
 <ol>
-<li>
-<p>apply the pre-filter (bandpass)</p>
-</li>
-<li>
-<p>calculate the signal power</p>
-</li>
-<li>
-<p>apply the post-filter (moving average)</p>
-</li>
-<li>
-<p>calculate the median over channels</p>
-</li>
-<li>
-<p>divide signals by found 90% percentile of the power</p>
-</li>
+<li>apply the pre-filter (bandpass)</li>
+<li>calculate the signal power</li>
+<li>apply the post-filter (moving average)</li>
+<li>calculate the median over channels</li>
+<li>divide signals by found 90% percentile of the power</li>
 </ol>
 <p>Number of supported channels: one or more</p>
 <p>Operates channel-wise: yes</p>
@@ -2728,7 +2666,7 @@ class Paradigm(ParadigmBase):
 <tr>
 <td>data_stream_channels</td>
 <td>list of integers</td>
-<td>channel indices of the data stream over which the Euclidean norm is calculated (if None, use all channels)</td>
+<td>channel indices of the data stream over which the Euclidean norm is calculated (if <em>None</em>, use all channels)</td>
 </tr>
 <tr>
 <td>prefilter_order</td>
@@ -2743,7 +2681,7 @@ class Paradigm(ParadigmBase):
 <tr>
 <td>postfilter_win_length</td>
 <td></td>
-<td>apply a moving average filter with the specified windows length in samples; set to 1 to deactivate filter</td>
+<td>- apply a moving average filter with the specified windows length in samples <br> - set to 1 to deactivate filter</td>
 </tr>
 </tbody>
 </table>
@@ -2751,17 +2689,11 @@ class Paradigm(ParadigmBase):
 <p>Implements a Flappy Bird style 2D control with discrete events like spikes. As input, a 1D signal comprising 0/1 values is expected (e.g., spiking activity). The generated output is a 2D position signal, which can be used to control the position of other graphical objects.</p>
 <p>The control works as follows:</p>
 <ul>
-<li>
-<p>an input activity increases the position on the currently controlled axis</p>
-</li>
-<li>
-<p>a short pause in the input activity switches the control between the x and y axis</p>
-</li>
-<li>
-<p>the x and y positions decrease at a constant velocity</p>
-</li>
+<li>an input activity increases the position on the currently controlled axis</li>
+<li>a short pause in the input activity switches the control between the x and y axis</li>
+<li>the x and y positions decrease at a constant velocity</li>
 </ul>
-<p>Note: The signal processing object expects 2 channels, but only the first channel is evaluated.</p>
+<p>Note: The signal processing object expects 2 channels, but only the activity in the first channel is evaluated. The channel values will be replaced by the calculated x/y position.</p>
 <p>Number of supported channels: two</p>
 <p>Operates channel-wise: no</p>
 <p>Stateful: yes</p>
