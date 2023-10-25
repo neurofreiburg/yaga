@@ -19,4 +19,4 @@ If you require sound output, you need to install _PortAudio_. In Linux, you can 
 
 ## Download
 
-You can download the latest YAGA release from <https://github.com/neurofreiburg/yaga/releases>. YAGA does not require any special installation steps. Copy the ZIP or TAR.GZ file to the desired directory and unpack it.
+You can download the latest YAGA release from [GitHub](https://github.com/neurofreiburg/yaga/releases/latest). YAGA does not require any special installation steps. Copy the ZIP or TAR.GZ file to the desired directory and unpack it.

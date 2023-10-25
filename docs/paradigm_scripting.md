@@ -4,7 +4,7 @@
 
 The paradigm is programmed via a so-called _paradigm file_. A paradigm file contains regular Python code and must define the **Paradigm class**, which must derive from the **ParadigmBase parent class**. Its code is automatically loaded when YAGA starts. A typical skeleton looks like this:
 
-```
+``` Python
 from yaga_modules.paradigm_base import ParadigmBase
 import yaga_modules.graphic_objects as GO
 import yaga_modules.audio_objects as AO
@@ -20,7 +20,9 @@ class Paradigm(ParadigmBase):
 
 YAGA supports the timed presentation of several graphical or auditory objects, e.g., text, circles, or beep tones. A presentation object needs to be created within the **\_\_init\_\_** constructor of the **Paradigm class** and registered to YAGA. A simple text object can be created as:
 
-```info_text = self.registerObject(GO.Text('prepare for task'))```
+``` Python
+info_text = self.registerObject(GO.Text('prepare for task'))
+```
 
 In this example, **GO.Text** refers to the **Text class** defined in the **graphic_objects module** (GO). The call of **registerObject** is obligatory and registers the object to YAGA.
 
@@ -36,23 +38,25 @@ A **ScripItem** object specifies:
 
 ### Demo Paradigm
 
-The paradigm _demo.py_ implements a simple paradigm where study participants execute a task after a Go cue. The paradigm shows an information text and a traffic light on the screen. The traffic light represents the Go cue, after which a countdown starts. While the countdown is running, the study participants would be asked to execute a specific task. The demo paradigm file shows the creation of the text, traffic light images, and countdown objects.
+The paradigm _demo.py_ implements a simple paradigm where study participants execute a task after a Go cue. The paradigm shows an instruction text and a traffic light on the screen. The traffic light represents the Go cue. After the traffic light, a countdown starts. While the countdown is running, the study participants would be asked to execute a certain task. The demo paradigm file shows the creation of text, image, and countdown objects and the set up of the paradigm sequence with script items.
 
-A trial comprises the following script items: _“trial_start”_, _“info_text”_, _“traffic_ligh_red”_, _“traffic_ligh_yellow”_, _“traffic_ligh_green”_, _“countdown”_, _“trial_end”_, which are sequentially executed. Each script item specifies optionally the actions to execute when the script item is triggered. Note that the actions must be specified as objects instead of as actual method calls (i.e., no parentheses). The **script** list contains in total 5 (TODO) trial sequences, which are built using a for loop.
+A trial comprises the following script items: _“trial_start”_, _“traffic_ligh_red”_, _“traffic_ligh_yellow”_, _“traffic_ligh_green”_, _“countdown”_, _“trial_end”_. All script items are executed sequentially. Each script item optionally specifies the actions to be executed when the script item is triggered. Note that the actions must be specified as objects, not as actual method calls (i.e., no parentheses). The **script** list contains a total of 5 trial sequences, and is built using a for loop.
 
-The demo paradigm file demonstrates 3 possible trigger types: **absolute time**, **relative time**, and **signal-based**. An absolute time trigger is used by the first _“trial_start”_ script item, which is triggered 5s after the program start. However, the subsequent _“trial_start”_ script items are triggered relative to the previous _“trial_end”_ script item within a random time interval (5-10s). A relative time trigger can be requested by setting the **time_type** property to **rel** and the **rel_name** property to the name of the referenced script item. The signal-based trigger is used by the _“trial_end”_ script item. This script item is triggered when the countdown object elicits the **COUNTDOWN_FINISHED** signal as specified by the _“wait_for_signal”_ property.
+The demo paradigm file demonstrates three possible trigger types: **absolute time**, **relative time**, and **signal-based**. An absolute time trigger is used by the first _“trial_start”_ script item, which is triggered 3s after program start. The subsequent _“trial_start”_ script items use a relative time trigger, and are triggered 5s to 10s after the previous _“trial_end”_ script item. A relative time trigger is specified by setting the _time_type_ property to _"rel"_ and the _rel_name_ property to the name of the referenced script item. A signal-based trigger is used by the _“trial_end”_ script item. This script item is triggered when the countdown object elicits the signal specified by the _“wait_for_signal”_ property (_COUNTDOWN_FINISHED_).
 
-Full source code of the demo paradigm file:
+The full source code of the demo paradigm file:
 
-```
-TODO
+``` Python
+{!paradigms/demo.py!}
 ```
 
 ## Script Items
 
 The paradigm sequence is defined by _script items_, which must be listed in the **script** instance variable of your **Paradigm** class. The script items are processed one by one in the order in which they appear in the instance variable **script**. A script item can be triggered by a **time event**, by a **signal event** generated by a graphical object, or by an external **LSL marker event**. You can also combine different trigger types. The script item is then triggered by whichever event comes first. A script item can be defined as:
 
-```ScriptItem(name='trial_start', time=10, actions=[info_text.activate])```
+``` Python
+ScriptItem(name='trial_start', time=10, actions=[info_text.activate])
+```
 
 In this example, the script item will call the method **activate** on the graphical object **info_text** at second 10 after the program start.
 
@@ -70,11 +74,15 @@ Some actions accept parameters. You can specify parameters by using the **partia
 
 First import **partial**:
 
-`from functools import partial`
+``` Python
+from functools import partial
+```
 
 Then use **partial** to create a new function object with a fixed set of parameters, e.g.:
 
-`ScriptItem(name='trial_start', time=10, actions=[targets.activate, partial(targets.setActiveTarget, 1)])`
+``` Python
+ScriptItem(name='trial_start', time=10, actions=[targets.activate, partial(targets.setActiveTarget, 1)])
+```
 
 In this example, **targets.setActiveTarget(1)** is executed when the script item is triggered.
 
@@ -84,29 +92,39 @@ YAGA supports two types of time triggers: **absolute time triggers** and **relat
 
 An absolute time trigger is the default. For example, to trigger a script item 10s after the program start, write:
 
-`ScriptItem(name='trial_start', time=10, actions=[info_text.activate])`
+``` Python
+ScriptItem(name='trial_start', time=10, actions=[info_text.activate])
+```
 
 To specify a relative time trigger, set _time_type_ to _“rel”_ and provide the name of the reference event with _rel_name_. For example, to trigger a script item 5s to 10s after the last “trial_end” event, write:
 
-`ScriptItem(name='trial_start', time=np.random.uniform(5, 10), time_type='rel', rel_name='trial_end', actions=[info_text.activate\])]`
+``` Python
+ScriptItem(name='trial_start', time=np.random.uniform(5, 10), time_type='rel', rel_name='trial_end', actions=[info_text.activate\])]
+```
 
 ### Signal Triggers
 
 A script item can wait for trigger signals generated by graphical objects. To trigger a script item with a signal, set _wait_for_signal_ to the respective signal. The possible trigger signals are listed in [Supported Graphical Objects](paradigm_scripting.md#supported-graphical-objects). For example:
 
-`ScriptItem(name='trial_end', wait_for_signal=GO.Countdown.COUNTDOWN_FINISHED, actions=[])`
+``` Python
+ScriptItem(name='trial_end', wait_for_signal=GO.Countdown.COUNTDOWN_FINISHED, actions=[])
+```
 
 ### LSL Event Marker Triggers
 
 A script item can be triggered by an external _LSL event marker_ generated by other programs. To listen to an LSL event marker stream, call the method **listenForLSLMarkers** in the paradigm file. For example, to listen for markers in the first channel of the stream _streamA_:
 
-`self.listenForLSLMarkers("streamA", lsl_marker_channel=0)`
+``` Python
+self.listenForLSLMarkers("streamA", lsl_marker_channel=0)
+```
 
 The streams are expected to be event marker streams, i.e., they have an irregular sampling rate. The markers are usually variable-length ASCII strings.
 
 After setting up an LSL event listener, you can trigger script items on LSL events by specifying the marker with the parameter _wait_for_lsl_marker_. For example:
 
-`ScriptItem(name='trial_end', wait_for_lsl_marker=”target_reached”, actions=[])`
+``` Python
+ScriptItem(name='trial_end', wait_for_lsl_marker=”target_reached”, actions=[])
+```
 
 The data type of the specified marker must correspond to the data type of the LSL stream (usually a _string_).
 
@@ -118,7 +136,7 @@ YAGA supports three general-purpose variables, which can be specified when you s
 
 The general purpose variables are accessible in the paradigm file:
 
-```
+``` Python
 class Paradigm(ParadigmBase):
 
     def __init__(self, paradigm_variables):
@@ -134,11 +152,15 @@ Graphical objects are objects shown on the computer screen, such as text or feed
 
 To use graphical objects, one needs to import the **graphic_objects module** first:
 
-`import yaga_modules.graphic_objects as GO`
+``` Python
+import yaga_modules.graphic_objects as GO
+```
 
 A graphical object must be created in the initialisation method of the paradigm file and registered to YAGA. For example, to create a text object:
 
-`text = self.registerObject(GO.Text('prepare for task'))`
+``` Python
+text = self.registerObject(GO.Text('prepare for task'))
+```
 
 ### Base Methods
 
@@ -146,8 +168,8 @@ All graphical objects support the following methods which can be specified as ac
 
 | method     | parameters | value type | description           |
 |------------|------------|------------|-----------------------|
-| activate   | \-         | \-         | show object on screen |
-| deactivate | \-         | \-         | hide object on screen |
+| activate   | -          | -          | show object on screen |
+| deactivate | -          | -          | hide object on screen |
 
 The position, scale, angle, and color of graphical objects can be changed with the following methods:
 
@@ -180,7 +202,7 @@ Typical graphical elements used in neuroscience experiments are implemented. The
 
 #### Image Class
 
-Loads an image file from the hard disk and displays it on the computer screen. All common image formats are supported.
+Loads an image file from the hard disk and displays it on the computer screen. The image must be in the subfolder _resources/images_. All common image formats are supported.
 
 _Object Initialisation Parameters:_
 
@@ -256,7 +278,7 @@ Displays a text box on the computer screen. Optionally, a value can be read from
 
 To read a number from an LSL stream, call the method _controlStateWithLSLStream_. For example:
 
-```
+``` Python
 text = self.registerObject(GO.Text())
 text.controlStateWithLSLStream(“the-stream”, channels=[1])
 ```
@@ -343,21 +365,21 @@ Displays a bar for 1D feedback on the screen. The fill level of the bar is contr
 
 To set up the control of the fill level, call the method **controlStateWithLSLStream** and specify one control channel. For example:
 
-```
+``` Python
 bar = self.registerObject(GO.Bar(pos_x=0, pos_y=0))
 bar.controlStateWithLSLStream(“the-stream”, channels=[0])
 ```
 
 To optionally control the vertical target position continuously with the same LSL stream, set _target_online_control_ to _true_, and specify a second control channel. For example:
 
-```
+``` Python
 bar = self.registerObject(GO.Bar(pos_x=0, pos_y=0, target_online_control=true))
 bar.controlStateWithLSLStream(“the-stream”, channels=[0, 1])
 ```
 
 The vertical target position can also be controlled with a separate LSL stream by using **controlStateWithLSLStream<u>s</u>**. The second specified channel then refers to the second stream. For example:
 
-```
+``` Python
 bar = self.registerObject(GO.Bar(pos_x=0, pos_y=0, target_online_control=true))
 bar.controlStateWithLSLStream([“stream-A”, "stream-B"], channels=[0, 1])
 ```
@@ -365,7 +387,7 @@ bar.controlStateWithLSLStream([“stream-A”, "stream-B"], channels=[0, 1])
 Instead of continuously updating the target position from an LSL stream, the target position can also be updated when a script item is triggered. This can be achieved by specifying the action **updateTargetValueFromLSLStream** in the respective **ScriptItem** objects. Note that you still need to set up the control with **controlStateWithLSLStream** or **controlStateWithLSLStreams**.
 For example:
 
-```
+``` Python
 bar = self.registerObject(GO.Bar(pos_x=0, pos_y=0, target_online_control=false))
 bar.controlStateWithLSLStream(“the-stream”, channels=[0, 1])
 
@@ -444,8 +466,8 @@ _Object Initialisation Parameters:_
 | method            | parameters   | value types | description             |
 |-------------------|--------------|-------------|-------------------------|
 | updateTargetValue | target_value | double      | update the target value |
-| startAnimation    | \-           | \-          | start ramp animation    |
-| stopAnimation     | \-           | \-          | stop ramp animation     |
+| startAnimation    | -            | -           | start ramp animation    |
+| stopAnimation     | -            | -           | stop ramp animation     |
 
 *ScriptItem Trigger Signals:*
 
@@ -498,8 +520,8 @@ _Object Initialisation Parameters:_
 | method            | parameters   | value types | description             |
 |-------------------|--------------|-------------|-------------------------|
 | updateTargetValue | target_value | double      | update the target value |
-| startAnimation    | \-           | \-          | start ramp animation    |
-| stopAnimation     | \-           | \-          | stop ramp animation     |
+| startAnimation    | -            | -           | start ramp animation    |
+| stopAnimation     | -            | -           | stop ramp animation     |
 
 *ScriptItem Trigger Signals:*
 
@@ -515,21 +537,21 @@ Displays an arrow for 2D feedback on the computer screen. The endpoint of the ar
 
 To set up the control of the arrow’s endpoint, call the method **controlStateWithLSLStream** and specify the LSL stream and two control channels. For example:
 
-```
+``` Python
 arrow = self.registerObject(GO.Arrow(pos_x=0, pos_y=0))
 arrow.controlStateWithLSLStream(“the-stream”, channels=[0, 1])
 ```
 
 To optionally control the vertical target position continuously with the same LSL stream, set _target_online_control_ to _true_, and specify a third control channel. For example:
 
-```
+``` Python
 arrow = self.registerObject(GO.Arrow(pos_x=0, pos_y=0, target_online_control=true))
 arrow.controlStateWithLSLStream(“the-stream”, channels=[0, 1, 2])
 ```
 
 The vertical target position can also be controlled with a separate LSL stream by using **controlStateWithLSLStream<u>s</u>**. The third specified channel then refers to the second stream. For example:
 
-```
+``` Python
 arrow = self.registerObject(GO.Arrow(pos_x=0, pos_y=0, target_online_control=true))
 arrow.controlStateWithLSLStreams([“stream-A”, "stream-B"], channels=[0, 1, 0])
 ```
@@ -537,7 +559,7 @@ arrow.controlStateWithLSLStreams([“stream-A”, "stream-B"], channels=[0, 1, 0
 Instead of continuously updating the target position from an LSL stream, the target position can also be updated when a script item is triggered. This can be achieved by specifying the action **updateTargetValueFromLSLStream** in the respective **ScriptItem** objects. Note that you still need to set up the control with **controlStateWithLSLStream** or **controlStateWithLSLStreams**.
 For example:
 
-```
+``` Python
 arrow = self.registerObject(GO.Arrow(pos_x=0, pos_y=0, target_online_control=false))
 arrow.controlStateWithLSLStream(“the-stream”, channels=[0, 1, 2])
 
@@ -688,7 +710,7 @@ Visualise discrete events, such as spikes, with flashing feedback disks. A Spike
 
 SpikeVis supports multiple feedback disks and must have as many LSL control channels as feedback disks. The LSL control channels are expected to provide 0/1 values. To set up the control, call the method **controlStateWithLSLStream**. For example:
 
-```
+``` Python
 spikes = self.registerObject(GO.SpikeVis(pos_x=0, pos_y=0, number_of_units=3))
 spikes.controlStateWithLSLStream(“the-stream”, channels=[0, 1, 2])
 ```
@@ -715,7 +737,7 @@ Graphical object to implement target reaching experiments. It displays one or mo
 
 To set up the control, call the method **controlStateWithLSLStream**. For example:
 
-```
+``` Python
 targetreaching = self.registerObject(GO.ReachTargets(pos_x=0, pos_y=0, number_of_targets=3))
 targetreaching.controlStateWithLSLStream(“the-stream”, channels=[0,1])
 ```
@@ -726,11 +748,15 @@ The cursor must stay within the correct target area for a certain period (dwell 
 
 To activate the ReachTargets object at second 10 and set the active (current) target to target 1, create a script item such as:
 
-`ScriptItem(name='trial_start', time=10, actions=[targets.activate, partial(targets.setActiveTarget, 1)])`
+``` Python
+ScriptItem(name='trial_start', time=10, actions=[targets.activate, partial(targets.setActiveTarget, 1)])
+```
 
 To end the trial when the target reached signal is generated or a 30s timeout occurs, create a script item such as:
 
-`ScriptItem(name='trial_end', time=30, time_type='rel', rel_name='trial_start', wait_for_signal=GO.ReachTargets.TARGET_REACHED, actions=[targets.deactivate])`
+``` Python
+ScriptItem(name='trial_end', time=30, time_type='rel', rel_name='trial_start', wait_for_signal=GO.ReachTargets.TARGET_REACHED, actions=[targets.deactivate])
+```
 
 _Object Initialisation Parameters:_
 
@@ -770,11 +796,15 @@ Auditory objects generate sounds. They can be [controllable](paradigm_scripting.
 
 To use auditory objects, one needs to import the **audio_objects module** first:
 
-`import yaga_modules.audio_objects as AO`
+``` Python
+import yaga_modules.audio_objects as AO
+```
 
 An auditory object must be created in the initialisation method of the paradigm file and registered to YAGA. For example, to create a beep object:
 
-`beep = self.registerObject(AO.Beep())`
+``` Python
+beep = self.registerObject(AO.Beep())
+```
 
 The Python classes representing the auditory objects are described in the following.
 
@@ -789,7 +819,7 @@ _Object Initialisation Parameters:_
 | beep_frequency | double     | frequency of the beep in Hz                                                                    |
 | beep_amplitude | double     | sound level                                                                                    |
 | beep_duration  | double     | duration of a beep in seconds                                                                  |
-| beep_channels  | string     | output channels: “both”, “left”, or “right”                                                    |
+| beep_channels  | string     | output channels: _"both”_, _“left”_, or _“right”_                                              |
 | delay          | double     | - delay the presentation of the beep <br> - use a delay of 0.2s or more to **minimise jitter** |
 
 *ScriptItem Actions:*
@@ -802,23 +832,23 @@ _Object Initialisation Parameters:_
 
 Generate a feedback signal for discrete events like spikes. SpikeSound supports multiple event or spike signals which can be associated with a specific sound frequency or output channel. Optionally, the sound frequencies can be dynamically modulated by the instantaneous firing rates. The events are read from an LSL stream which is expected to provide 0/1 values. To set up the LSL control call the method **controlStateWithLSLStream**. For example, to generate sounds for two spike signals using different sound frequencies and output channels:
 
-```
+``` Python
 spikes = self.registerObject(AO.SpikeSound(beep_frequencies=\[800, 2000\], beep_channels=\['left', 'right'\]))
 spikes.controlStateWithLSLStream(“the-stream”, channels=\[0, 1\])
 ```
 
 _Object Initialisation Parameters:_
 
-| parameter             | value type      | description                                                                                                                                                                                                                      |
-|-----------------------|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| beep_frequencies      | list of doubles | - list of frequencies in Hz <br> - must have the same length as number of LSL channels <br> - values must be between 100 Hz and 10 kHz                                                                                           |
-| beep_channels         | list of strings | - list of output channels (_“both”_, _“left”_, or _“right”_) <br> - must have the same length as number of LSL channels                                                                                                          |
-| beep_duration         | double          | duration of each spike sound                                                                                                                                                                                                     |
-| downsample            | integer         | downsample factor; generate a spike sound for every x^th^ spike                                                                                                                                                                  |
-| dynamic_frq           | bool            | if _true_, modulate the sound frequency by the instantaneous firing rate                                                                                                                                                         |
-| dynamic_frq_factor    | integer         | the final sound frequency is the base frequency (from _beep_frequencies_) plus the instantaneous firing rate multiplied by this factor                                                                                           |
-| dynamic_max_frq       | double          | limit the smoothed instantaneous firing rate to this frequency                                                                                                                                                                   |
-| dynamic_mov_avg       | integer         | - calculate the instantaneous firing rate as the inverse of the interspike interval smoothed with a moving average window of length _dynamic_mov_avg_ <br> - set to _None_ if exponential smoothing is used                      |
+| parameter             | value type      | description                                                                                                                                                                                                 |
+|-----------------------|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| beep_frequencies      | list of doubles | - list of frequencies in Hz <br> - must have the same length as number of LSL channels <br> - values must be between 100 Hz and 10 kHz                                                                      |
+| beep_channels         | list of strings | - list of output channels (_“both”_, _“left”_, or _“right”_) <br> - must have the same length as number of LSL channels                                                                                     |
+| beep_duration         | double          | duration of each spike sound                                                                                                                                                                                |
+| downsample            | integer         | downsample factor; generate a spike sound for every x^th^ spike                                                                                                                                             |
+| dynamic_frq           | bool            | if _true_, modulate the sound frequency by the instantaneous firing rate                                                                                                                                    |
+| dynamic_frq_factor    | integer         | the final sound frequency is the base frequency (from _beep_frequencies_) plus the instantaneous firing rate multiplied by this factor                                                                      |
+| dynamic_max_frq       | double          | limit the smoothed instantaneous firing rate to this frequency                                                                                                                                              |
+| dynamic_mov_avg       | integer         | - calculate the instantaneous firing rate as the inverse of the interspike interval smoothed with a moving average window of length _dynamic_mov_avg_ <br> - set to _None_ if exponential smoothing is used |
 | dynamic_exp_avg_alpha | double          | - calculate the instantaneous firing rate as the inversive of the interspike interval smoothed with exponential smoothing using a smoothing factor of _dynamic_exp_avg_alpha_ <br> - set to _None_ if the moving average is used |
 
 ## Online Control of Objects with LSL streams
@@ -884,13 +914,15 @@ LSL streams can be processed when used to control parameters of graphical or aud
 
 To use signal processing on LSL streams, import the **signal_processing module**:
 
-`import yaga_modules.signal_processing as SP`
+``` Python
+import yaga_modules.signal_processing as SP
+```
 
 Signal processing objects can be added to the signal processing pipeline by calling the method **addSignalProcessingToLSLStream**. In the following example, a feedback bar is set to be controlled by an LSL stream and the LSL stream is filtered with a Butterworth low-pass filter and scaled:
 
-```
+``` Python
 bar = self.registerObject(GO.Bar())
-bar.controlStateWithLSLStream('the-stream, channels=[10])
+bar.controlStateWithLSLStream('the-stream', channels=[10])
 
 butter = SP.ButterFilter(4, 5)
 scaler = SP.Scaler(scale=2)
@@ -950,11 +982,11 @@ Stateful: Yes
 
 _Object Initialisation Parameters:_
 
-| parameter   | value type                | description                                                                                                                                           |
-|-------------|---------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
-| order       | integer                   | order of the filter                                                                                                                                   |
-| cutoff_frqs | double or list of doubles | critical frequency or frequencies: <br> &nbsp;&nbsp;&nbsp;&nbsp; low/highpass: a scalar <br> &nbsp;&nbsp;&nbsp;&nbsp; bandpass/stop: a 2-element list |
-| filter_type | string                    | filter type, possible values: _lowpass_, _highpass_, _bandpass_, _bandstop_                                                                           |
+| parameter   | value type                | description                                                                                                                                               |
+|-------------|---------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| order       | integer                   | order of the filter                                                                                                                                       |
+| cutoff_frqs | double or list of doubles | critical frequency or frequencies: <br> &nbsp;&nbsp;&nbsp;&nbsp; - low/highpass: a scalar <br> &nbsp;&nbsp;&nbsp;&nbsp; - bandpass/stop: a 2-element list |
+| filter_type | string                    | filter type, possible values: _lowpass_, _highpass_, _bandpass_, _bandstop_                                                                               |
 
 #### MovAvg
 
@@ -1211,9 +1243,9 @@ Implements a Flappy Bird style 2D control with discrete events like spikes. As i
 
 The control works as follows:
 
--   an input activity increases the position on the currently controlled axis
--   a short pause in the input activity switches the control between the x and y axis
--   the x and y positions decrease at a constant velocity
+- an input activity increases the position on the currently controlled axis
+- a short pause in the input activity switches the control between the x and y axis
+- the x and y positions decrease at a constant velocity
 
 Note: The signal processing object expects 2 channels, but only the activity in the first channel is evaluated. The channel values will be replaced by the calculated x/y position.
 

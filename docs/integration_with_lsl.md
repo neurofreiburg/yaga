@@ -14,7 +14,7 @@ If a script item has a name set, an LSL event marker is generated when the scrip
 
 LSL input streams can also be relayed to LSL output streams. This is useful if graphical or auditory objects are controlled with processed LSL streams, and one wants to record the processed streams. To set up a stream relay use the method **relayLSLSignals** on the respective graphical or auditory object. For example:
 
-```
+``` Python
 feedback = self.registerObject(GO.Ball())
 feedback.controlPosWithLSLStream('streamA', channels=[0, 1])
 feedback.relayLSLSignals(lsl_in_signals=['streamA'], channels=[[0, 1]], lsl_out_signal='yaga_streamA')
@@ -40,7 +40,7 @@ To enable remote control in your paradigm file, you need to:
 
 For example:
 
-```
+``` Python
 class Paradigm(ParadigmBase):
 
     root_dir = Path.home() / Path('studies') / Path('StudyA')
@@ -81,7 +81,7 @@ Here is some example code to load an XDF file in Matlab:
 
 
 
-``` matlab
+``` Matlab
 xdf_data = load_xdf(‘data_file_1.xdf’);
 get_stream_idx = @(stream_name, xdf) find(arrayfun(@(stream) strcmp(stream{1}.info.name, stream_name), xdf)); % helper function to get the stream index by the stream name
 
@@ -101,7 +101,7 @@ stream_timestamps = xdf_data{datastream_idx}.time_stamps;
 
 One can use [EEGlab](https://sccn.ucsd.edu/eeglab) to open XDF files and conduct extensive analyses. You must first install one of the following plugins via _File_ -> _Manage EEGLAB extensions_:
 
--   xdfimport
--   Mobilab
+- xdfimport
+- Mobilab
 
 Note that only the _Mobilab_ plugin allows to resample multiple streams to a common sampling rate.

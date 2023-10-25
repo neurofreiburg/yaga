@@ -3,11 +3,17 @@ site_author: Patrick Ofner
 markdown_extensions:
   - toc:
       permalink: true
+  - markdown_include.include:
+      base_path: './'
 repo_url: https://github.com/neurofreiburg/yaga
 theme:
   name: readthedocs
   highlightjs: true
-  copyright: Copyright &copy; 2023 Patrick Ofner, Neurobiology and Neurotechnology @ University of Freiburg
+  hljs_languages:
+    - matlab
+  hljs_style: stackoverflow-light
+  navigation_depth: 5
+copyright: Copyright &copy; 2023 Patrick Ofner, Bernstein Center Freiburg @ University of Freiburg
 plugins:
   - search
 nav:
@@ -19,5 +25,6 @@ nav:
     - 'integration_with_lsl.md'
   - About:
     - 'License': 'license.md'
-    - 'Release Notes': 'release_notes.md'
- 
+    - 'release_notes.md'
+  - Releases:
+    - Latest: https://github.com/neurofreiburg/yaga/releases/latest
