@@ -20,7 +20,7 @@ All LSL streams can be recorded, with the LSL system ensuring the time synchroni
 
 # Getting Help
 
-* [read the docs](TODO)
+* [read the docs](https://yaga.readthedocs.io)
 * check open & closed [GitHub issues](https://github.com/neurofreiburg/yaga/issues)
 * create a new [GitHub issue](https://github.com/neurofreiburg/yaga/issues)
 
