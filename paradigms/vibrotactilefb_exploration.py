@@ -23,6 +23,9 @@ class Paradigm(ParadigmBase):
         mu_A_channel_idx = 0;
         mu_B_channel_idx = 1;
         mu_baseline_filter_lowpass_frq = 3;
+        mu_baseline_mov_avg_window = 5; # alternative
+
+        mu_stream_name = 'MouseControllerStream'
 
         # # lock force
         # middle_bar_target_value = 0.5
@@ -45,18 +48,20 @@ class Paradigm(ParadigmBase):
         bar_middle = self.registerObject(GO.Bar(pos_x=0, pos_y=-0.3, bar_width=0.15, bar_height=0.5, target_width=0.25, target_height=0.02, bar_color='gold', low_value=0.0, high_value=max_value_middle_bar, target_value=middle_bar_target_value))
 
         # MU rates feedback
-        butter_A = SP.ButterFilter(4, mu_baseline_filter_lowpass_frq)
-        butter_B = SP.ButterFilter(4, mu_baseline_filter_lowpass_frq)
+        # filter_A = SP.ButterFilter(4, mu_baseline_filter_lowpass_frq)
+        # filter_B = SP.ButterFilter(4, mu_baseline_filter_lowpass_frq)
+        filter_A = SP.MovAvg(mu_baseline_mov_avg_window)
+        filter_B = SP.MovAvg(mu_baseline_mov_avg_window)
         copy_A_to_B = SP.CopyChannel(mu_A_channel_idx, mu_B_channel_idx)
         copy_B_to_A = SP.CopyChannel(mu_B_channel_idx, mu_A_channel_idx)
 
-        bar_mu_A.controlStateWithLSLStream('MouseControllerStream', channels=[mu_A_channel_idx, mu_B_channel_idx]) # this is a hack but it works: copy value from channel A to B, filter it, and use channel B for the baseline
+        bar_mu_A.controlStateWithLSLStream(mu_stream_name, channels=[mu_A_channel_idx, mu_B_channel_idx]) # this is a hack but it works: copy value from channel A to B, filter channel B, and use channel B for the baseline
         bar_mu_A.addSignalProcessingToLSLStream(copy_A_to_B)
-        bar_mu_A.addSignalProcessingToLSLStream(butter_A, channels=[mu_B_channel_idx])
+        bar_mu_A.addSignalProcessingToLSLStream(filter_A, channels=[mu_B_channel_idx])
 
-        bar_mu_B.controlStateWithLSLStream('MouseControllerStream', channels=[mu_B_channel_idx, mu_A_channel_idx]) # this is a hack but it works: copy value from channel A to B, filter it, and use channel B for the baseline
+        bar_mu_B.controlStateWithLSLStream(mu_stream_name, channels=[mu_B_channel_idx, mu_A_channel_idx]) # this is a hack but it works: copy value from channel B to A, filter channel A, and use channel A for the baseline
         bar_mu_B.addSignalProcessingToLSLStream(copy_B_to_A)
-        bar_mu_B.addSignalProcessingToLSLStream(butter_B, channels=[mu_A_channel_idx])
+        bar_mu_B.addSignalProcessingToLSLStream(filter_B, channels=[mu_A_channel_idx])
 
         # # # lock force
         # butter_force = SP.ButterFilter(4, 5)
@@ -67,7 +72,7 @@ class Paradigm(ParadigmBase):
 
         # lock rate
         average_rate = SP.Mean()
-        bar_middle.controlStateWithLSLStream('MouseControllerStream', channels=[mu_A_channel_idx])
+        bar_middle.controlStateWithLSLStream(mu_stream_name, channels=[mu_A_channel_idx])
         bar_middle.addSignalProcessingToLSLStream(average_rate, channels=[mu_A_channel_idx, mu_B_channel_idx])
 
 

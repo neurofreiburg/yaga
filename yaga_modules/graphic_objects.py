@@ -250,7 +250,6 @@ class Bar(GraphicObject2D):
 
                 target_value = self.lsl_streams_samples[self.lsl_state_control_streams[-1]][self.state_control_channels[1]]
                 target_y_pos = self.bar_height * (target_value - self.low_value) / (self.high_value - self.low_value)
-                print(target_y_pos)
                 self.target_node.setPos(0, 0, target_y_pos)
 
             feedback_sample = self.lsl_streams_samples[self.lsl_state_control_streams[0]][self.state_control_channels[0]]

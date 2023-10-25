@@ -102,7 +102,7 @@ for opt, arg in opts:
         raise Exception('unknown command line option: %s' % opt)
 
 if paradigm_file is None:
-    print('no paradigm file specified')
+    print('no paradigm file specified, see command line parameters with: "' + sys.argv[0].removeprefix('./').removeprefix('.\\') + ' --help"')
     sys.exit(2)
 try:
     paradigm = import_module('.' + paradigm_file, 'paradigms')

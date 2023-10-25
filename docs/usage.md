@@ -1,4 +1,4 @@
-# Start of YAGA
+# Usage
 
 YAGA is started from the command line as:
 

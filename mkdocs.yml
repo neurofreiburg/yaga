@@ -11,11 +11,12 @@ theme:
 plugins:
   - search
 nav:
-  - Home: 'index.md'
-  - 'start_of_yaga.md'
-  - 'installation.md'
-  - 'paradigm_scripting.md'
-  - 'integration_with_lsl.md'
+  - 'index.md'
+  - User Guide:
+    - 'installation.md'
+    - 'usage.md'
+    - 'paradigm_scripting.md'
+    - 'integration_with_lsl.md'
   - About:
     - 'License': 'license.md'
     - 'Release Notes': 'release_notes.md'

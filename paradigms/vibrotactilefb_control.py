@@ -19,8 +19,8 @@ class Paradigm(ParadigmBase):
         post_paradigm_interval = 5
         inter_trial_interval_min = 3
         inter_trial_interval_max = 7
-        cue_time_min = 4
-        cue_time_max = 5
+        cue_time_min = 10
+        cue_time_max = 10
         control_phase_duration = 5
 
         max_rate_mu_A = 1;
@@ -28,6 +28,9 @@ class Paradigm(ParadigmBase):
         mu_A_channel_idx = 0;
         mu_B_channel_idx = 1;
         mu_baseline_filter_lowpass_frq = 3;
+        mu_baseline_mov_avg_window = 5; # alternative
+
+        mu_stream_name = 'MouseControllerStream'
 
         # # lock force
         # middle_bar_target_value = 0.5
@@ -44,32 +47,35 @@ class Paradigm(ParadigmBase):
         MU_bar_pos_x = 0.5
         MU_bar_pos_y = -0.3
         smiley_scale = 0.15
+        smiley_pos_offset = 0.25
 
-        bar_mu_A = self.registerObject(GO.Bar(pos_x=-MU_bar_pos_x, pos_y=MU_bar_pos_y, bar_width=0.2, bar_height=MU_bar_height, target_width=0.35, target_height=0.02, target_color='white', low_value=0.0, high_value=max_rate_mu_A, target_value=0))
-        bar_mu_B = self.registerObject(GO.Bar(pos_x=MU_bar_pos_x, pos_y=MU_bar_pos_y, bar_width=0.2, bar_height=MU_bar_height, target_width=0.35, target_height=0.02, target_color='white', low_value=0.0, high_value=max_rate_mu_B, target_value=0))
+        bar_mu_A = self.registerObject(GO.Bar(pos_x=-MU_bar_pos_x, pos_y=MU_bar_pos_y, bar_width=0.2, bar_height=MU_bar_height, target_width=0.35, target_height=0.02, target_color='white', low_value=0.0, high_value=max_rate_mu_A, target_value=0, target_online_control=False))
+        bar_mu_B = self.registerObject(GO.Bar(pos_x=MU_bar_pos_x, pos_y=MU_bar_pos_y, bar_width=0.2, bar_height=MU_bar_height, target_width=0.35, target_height=0.02, target_color='white', low_value=0.0, high_value=max_rate_mu_B, target_value=0, target_online_control=False))
         bar_middle = self.registerObject(GO.Bar(pos_x=0, pos_y=-0.3, bar_width=0.15, bar_height=0.5, target_width=0.25, target_height=0.02, bar_color='gold', low_value=0.0, high_value=max_value_middle_bar, target_value=middle_bar_target_value))
         attention_beep = self.registerObject(AO.Beep(beep_frequency=2000, beep_amplitude=1, beep_duration=0.2))
-        target_A_up = self.registerObject(GO.Image('smiley.png', pos_x=-MU_bar_pos_x, pos_y=MU_bar_pos_y+MU_bar_height+0.2, scale_x=smiley_scale, scale_y=smiley_scale))
-        target_A_down = self.registerObject(GO.Image('smiley.png', pos_x=-MU_bar_pos_x, pos_y=MU_bar_pos_y-0.2, scale_x=smiley_scale, scale_y=smiley_scale))
-        target_B_up = self.registerObject(GO.Image('smiley.png', pos_x=MU_bar_pos_x, pos_y=MU_bar_pos_y+MU_bar_height+0.2, scale_x=smiley_scale, scale_y=smiley_scale))
-        target_B_down = self.registerObject(GO.Image('smiley.png', pos_x=MU_bar_pos_x, pos_y=MU_bar_pos_y-0.2, scale_x=smiley_scale, scale_y=smiley_scale))
+        target_A_up = self.registerObject(GO.Image('smiley.png', pos_x=-MU_bar_pos_x, pos_y=MU_bar_pos_y+MU_bar_height+smiley_pos_offset, scale_x=smiley_scale, scale_y=smiley_scale))
+        target_A_down = self.registerObject(GO.Image('smiley.png', pos_x=-MU_bar_pos_x, pos_y=MU_bar_pos_y-smiley_pos_offset, scale_x=smiley_scale, scale_y=smiley_scale))
+        target_B_up = self.registerObject(GO.Image('smiley.png', pos_x=MU_bar_pos_x, pos_y=MU_bar_pos_y+MU_bar_height+smiley_pos_offset, scale_x=smiley_scale, scale_y=smiley_scale))
+        target_B_down = self.registerObject(GO.Image('smiley.png', pos_x=MU_bar_pos_x, pos_y=MU_bar_pos_y-smiley_pos_offset, scale_x=smiley_scale, scale_y=smiley_scale))
 
 
         # MU rates feedback
-        butter_A = SP.ButterFilter(4, mu_baseline_filter_lowpass_frq)
-        butter_B = SP.ButterFilter(4, mu_baseline_filter_lowpass_frq)
+        # filter_A = SP.ButterFilter(4, mu_baseline_filter_lowpass_frq)
+        # filter_B = SP.ButterFilter(4, mu_baseline_filter_lowpass_frq)
+        filter_A = SP.MovAvg(mu_baseline_mov_avg_window)
+        filter_B = SP.MovAvg(mu_baseline_mov_avg_window)
         copy_A_to_B = SP.CopyChannel(mu_A_channel_idx, mu_B_channel_idx)
         copy_B_to_A = SP.CopyChannel(mu_B_channel_idx, mu_A_channel_idx)
 
-        bar_mu_A.controlStateWithLSLStream('MouseControllerStream', channels=[mu_A_channel_idx, mu_B_channel_idx]) # this is a hack but it works: copy value from channel A to B, filter it, and use channel B for the baseline
+        bar_mu_A.controlStateWithLSLStream(mu_stream_name, channels=[mu_A_channel_idx, mu_B_channel_idx]) # this is a hack but it works: copy value from channel A to B, filter channel B, and use channel B for the baseline
         bar_mu_A.addSignalProcessingToLSLStream(copy_A_to_B)
-        bar_mu_A.addSignalProcessingToLSLStream(butter_A, channels=[mu_B_channel_idx])
+        bar_mu_A.addSignalProcessingToLSLStream(filter_A, channels=[mu_B_channel_idx])
 
-        bar_mu_B.controlStateWithLSLStream('MouseControllerStream', channels=[mu_B_channel_idx, mu_A_channel_idx]) # this is a hack but it works: copy value from channel A to B, filter it, and use channel B for the baseline
+        bar_mu_B.controlStateWithLSLStream(mu_stream_name, channels=[mu_B_channel_idx, mu_A_channel_idx]) # this is a hack but it works: copy value from channel B to A, filter channel A, and use channel A for the baseline
         bar_mu_B.addSignalProcessingToLSLStream(copy_B_to_A)
-        bar_mu_B.addSignalProcessingToLSLStream(butter_B, channels=[mu_A_channel_idx])
+        bar_mu_B.addSignalProcessingToLSLStream(filter_B, channels=[mu_A_channel_idx])
 
-        # # # lock force
+        # # lock force
         # butter_force = SP.ButterFilter(4, 5)
         # force_max_normalization = SP.MaxEuclidNormalizationXDF(str(self.root_dir / Path('%s_S%.3d' % (paradigm_variables['subject'], paradigm_variables['session'])) / Path('task_mvc_run_001.xdf')), 'quattrocento', 'yaga', 'start_counter', 'trial_end', [force_channel], force_amp_voltage_offset)
         # bar_middle.controlStateWithLSLStream('MouseControllerStream', channels=[force_channel])
@@ -78,7 +84,7 @@ class Paradigm(ParadigmBase):
 
         # lock rate
         average_rate = SP.Mean()
-        bar_middle.controlStateWithLSLStream('MouseControllerStream', channels=[mu_A_channel_idx])
+        bar_middle.controlStateWithLSLStream(mu_stream_name, channels=[mu_A_channel_idx])
         bar_middle.addSignalProcessingToLSLStream(average_rate, channels=[mu_A_channel_idx, mu_B_channel_idx])
 
 

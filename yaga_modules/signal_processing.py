@@ -40,10 +40,9 @@ class ButterFilter:
     def update(self, samples_in, fs):
         # samples_in/out: [channels x samples]
 
-        # initialize filter
+        # design and initialize filter
         if self.z is None:
             # design filter
-            print('update: setting stream sampling rate to %f' % fs)
             self.sos = signal.butter(self.order, self.cutoff_frqs, self.filter_type, fs=fs, output='sos')
 
             # initialize filter state for step response steady-state
@@ -53,6 +52,32 @@ class ButterFilter:
 
         # apply Butterworth filter using cascaded second-order sections (filter along last dimension)
         samples_out, self.z = signal.sosfilt(self.sos, samples_in, zi=self.z)
+
+        return samples_out
+
+
+# moving average filter
+class MovAvg:
+
+    def __init__(self, window_length):
+        self.window_length = window_length
+        self.b = None
+        self.a = None
+        self.z = None
+
+    def update(self, samples_in, fs):
+        # samples_in/out: [channels x samples]
+
+        # specify and initialize filter
+        if self.z is None:
+            # compute filter coefficients
+            window_samples = int(np.round(self.window_length*fs)) # convert [s] into [samples]
+            self.b = np.repeat(1.0/window_samples, window_samples)
+            self.a = 1
+            self.z = np.tile(0, (samples_in.shape[0], window_samples-1)) # [channels x window_samples - 1]
+
+        # apply FIR filter (filter along last dimension)
+        samples_out, self.z = signal.lfilter(self.b, self.a, samples_in, zi=self.z)
 
         return samples_out
 

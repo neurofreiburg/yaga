@@ -19,4 +19,9 @@ The paradigm file specifies the sequence of screen instructions, cues or stimuli
 All input streams, processed LSL streams, and the paradigm sequence can then be recorded while the LSL system handles time synchronisation between the streams. Together with LSL, YAGA allows the conducting of scientific experiments or the implementation of online control systems.
 
 # Citing YAGA
-When you use YAGA in your experiments, please cite the GitHub repository <https://github.com/neurofreiburg/yaga>.
+
+If you use YAGA in your experiments, please cite the GitHub repository <https://github.com/neurofreiburg/yaga>.
+
+# Acknowledgements
+
+YAGA was supported by the EU FET Open project [NIMA](https://nima-project.eu).

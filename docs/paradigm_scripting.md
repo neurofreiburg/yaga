@@ -880,7 +880,7 @@ The following sample aggregation strategies are supported:
 
 ### Signal Processing
 
-LSL streams can be processed when used to control parameters of graphical or auditory objects. The YAGA signal processing methods are applied to the _original_ LSL stream, i.e., before any re-sampling to the screen refresh rate (see [Aggregation Mode](paradigm_scripting.md#aggregation-mode)).
+LSL streams can be processed when used to control parameters of graphical or auditory objects. YAGA signal processing is applied to the _original_ LSL stream, i.e., before any re-sampling to the screen refresh rate (see [Aggregation Mode](paradigm_scripting.md#aggregation-mode)).
 
 To use signal processing on LSL streams, import the **signal_processing module**:
 
@@ -955,6 +955,23 @@ _Object Initialisation Parameters:_
 | order       | integer                   | order of the filter                                                                                                                                   |
 | cutoff_frqs | double or list of doubles | critical frequency or frequencies: <br> &nbsp;&nbsp;&nbsp;&nbsp; low/highpass: a scalar <br> &nbsp;&nbsp;&nbsp;&nbsp; bandpass/stop: a 2-element list |
 | filter_type | string                    | filter type, possible values: _lowpass_, _highpass_, _bandpass_, _bandstop_                                                                           |
+
+#### MovAvg
+
+Moving average filter.
+
+Number of supported channels: one or more
+
+Operates channel-wise: Yes
+
+Stateful: Yes
+
+_Object Initialisation Parameters:_
+
+| parameter     | value type | description                            |
+|---------------|------------|----------------------------------------|
+| window_length | integer    | length of the moving window in seconds |
+
 
 #### Angle
 
