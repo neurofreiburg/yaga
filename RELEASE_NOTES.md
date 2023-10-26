@@ -1,6 +1,6 @@
 # Release Notes
 
-## [V1.1.0](https://github.com/neurofreiburg/yaga/releases/tag/v1.1.0) (2023-10-30)
+## [V1.1.0](https://github.com/neurofreiburg/yaga/releases/tag/v1.1.0) (2023-10-25)
 
 ### New Features
 
