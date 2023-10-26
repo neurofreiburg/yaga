@@ -26,7 +26,7 @@ All LSL streams can be recorded, with the LSL system ensuring the time synchroni
 
 # License
 
-YAGA is released under the [GPLv3 license](LICENSE).
+YAGA is released under the [GPLv3 license](https://www.gnu.org/licenses/gpl-3.0.html.en).
 
 # Citing YAGA
 
