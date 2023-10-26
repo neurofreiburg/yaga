@@ -34,7 +34,7 @@ If you use YAGA in your experiments, please cite the GitHub repository <https://
 
 # Contact
 
-To contact the developers, get in contact with Patrick Ofner <patrick@ofner.science>, [Bernstein Center Freiburg](https://www.bcf.uni-freiburg.de) @ University of Freiburg.
+To get in touch with the developers, contact Patrick Ofner <patrick@ofner.science>, [Bernstein Center Freiburg](https://www.bcf.uni-freiburg.de) @ University of Freiburg.
 
 # Acknowledgements
 
