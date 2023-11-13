@@ -80,7 +80,7 @@ class InterfaceObject:
                         if processor.channels:
                             lsl_samples[processor.channels, :] = processor.object.update(lsl_samples[processor.channels, :], self.lsl_fs[lsl_stream_name])
                         else:
-                            lsl_samples[:, :] = processor.object.update(lsl_samples, self.lsl_fs)
+                            lsl_samples[:, :] = processor.object.update(lsl_samples, self.lsl_fs[lsl_stream_name])
 
                     # downsample signal to FPS with the specified aggregation method
                     if self.lsl_aggregation_modes[lsl_stream_name] == 'last':
