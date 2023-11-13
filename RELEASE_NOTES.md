@@ -90,6 +90,24 @@
 
 * none
 
+## [V1.1.1](https://github.com/neurofreiburg/yaga/releases/tag/v1.1.1) (2023-11-13)
+
+### New Features
+
+* none
+
+### Improvements
+
+* none
+
+### Bug Fixes
+
+* the sampling rate parameter caused an error in the signal processing functions when no channel indices were provided
+
+### Breaking Changes
+
+* none
+
 ## [V1.1.0](https://github.com/neurofreiburg/yaga/releases/tag/v1.1.0) (2023-10-25)
 
 ### New Features
