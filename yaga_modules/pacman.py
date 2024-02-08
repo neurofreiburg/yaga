@@ -215,8 +215,8 @@ class Pacman(GraphicObject2D):
             if self.generate_items and elapsed_time - self.last_item_generation_time >= 1/self.item_generation_frequency:
                 self.last_item_generation_time = elapsed_time
                 pos_y = self.getNextPosition(elapsed_time)
-                if not pos_y:
-                    # generator has finished
+                if pos_y is None:
+                    # generator is finished
                     self.generate_items = False
                     return Pacman.GENERATION_FINISHED
                 item_node = self.item_template.copyTo(self.node)
