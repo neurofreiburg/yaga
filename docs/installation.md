@@ -2,7 +2,7 @@
 
 ## Requirements
 
-YAGA supports Linux, Mac or Windows (tested with macOS 13, Windows 10; Linux support is experimental). YAGA requires Python version \>= 3.9. To install Python on Windows, you can use the _Anaconda Individual Edition_ from (<https://www.anaconda.com>). The following Python packages are required:
+YAGA supports Linux, Mac or Windows (tested with macOS 13, Windows 10; Linux support is experimental). YAGA requires Python version \>= 3.9 (older versions do not work). To install Python on Windows, you can use the _Anaconda Individual Edition_ from (<https://www.anaconda.com>). The following Python packages are required:
 
 -   numpy
 -   scipy

@@ -1,5 +1,23 @@
 # Release Notes
 
+## [V1.1.2](https://github.com/neurofreiburg/yaga/releases/tag/v1.1.2) (2024-02-08)
+
+### New Features
+
+* none
+
+### Improvements
+
+* none
+
+### Bug Fixes
+
+* the Pacman item generator no longer stops when y=0
+
+### Breaking Changes
+
+* none
+
 ## [V1.1.1](https://github.com/neurofreiburg/yaga/releases/tag/v1.1.1) (2023-11-13)
 
 ### New Features
