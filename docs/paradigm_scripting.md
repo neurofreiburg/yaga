@@ -914,7 +914,6 @@ The LSL output stream sends data synchronized with the screen refresh rate.
 
 **Important note:** the LSL output stream is only populated with state values while the Pacman object is activated.
 
-
 #### Object Initialisation Parameters
 
 | parameter                 | value type                  | description                                                                                                                                                         |
@@ -948,7 +947,6 @@ The LSL output stream sends data synchronized with the screen refresh rate.
 | signal                      | description                                                             |
 |-----------------------------|-------------------------------------------------------------------------|
 | Pacman.GENERATION_FINISHED  | the dot generator has finished (only applicable for the ramp generator) |
-
 
 #### Pacman Demo Script
 
