@@ -1,4 +1,22 @@
 # Release Notes
+## [V1.1.3](https://github.com/neurofreiburg/yaga/releases/tag/v1.1.3) (2024-09-04)
+
+### New Features
+
+* none
+
+### Improvements
+
+* added documentation (Pacman)
+* added Pacman paradigm demo file
+
+### Bug Fixes
+
+* none
+
+### Breaking Changes
+
+* none
 
 ## [V1.1.2](https://github.com/neurofreiburg/yaga/releases/tag/v1.1.2) (2024-02-08)
 

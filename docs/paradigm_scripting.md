@@ -150,7 +150,7 @@ Moreover, one can specify the subject code (_string_) and session number (_integ
 
 Graphical objects are objects shown on the computer screen, such as text or feedback bars. They can be [controllable](paradigm_scripting.md#control-of-graphical-objects) with LSL streams, and can feature animations.
 
-To use graphical objects, one needs to import the **graphic_objects module** first:
+To use graphical objects, import the **graphic_objects module**:
 
 ``` Python
 import yaga_modules.graphic_objects as GO
@@ -180,9 +180,9 @@ The position, scale, angle, and color of graphical objects can be changed with t
 | updateRot   | angle               | double                  | rotate object (in degrees) |
 | updateColor | color               | string or 3-tuple       | set color                  |
 
-### Screen Coordinates
+### Screen Units
 
-The screen coordinates are independent of the monitor resolution. The centre of the screen corresponds to the x/y position 0. The bottom edge corresponds to a y position of -1. The top edge corresponds to an y position of 1. The coordinates of the left and right edges depend on the screen ratio. With a typical screen ratio of 16:9, the left and right edges have the x coordinate -1.78 and 1.78, respectively ((y<sub>top</sub> - y<sub>center</sub>) x 16/9).
+Position values are in screen units and are independent of the monitor resolution. The centre of the screen corresponds to the x/y position 0. The bottom edge corresponds to a y-position of -1. The top edge corresponds to an y-position of 1. The x-positions of the left and right edges depend on the screen ratio. With a typical screen ratio of 16:9, the left and right edges have the x-positions -1.78 and 1.78, respectively ((y<sub>top</sub> - y<sub>center</sub>) x 16/9).
 
 ### Depth of Objects
 
@@ -298,7 +298,7 @@ _Object Initialisation Parameters:_
 | background_color | string or 3-tuple | text box background color |
 | frame_color      | string or 3-tuple | text box frame color      |
 
-*ScriptItem Actions:*
+_ScriptItem Actions:_
 
 | method                | parameters | value types       | description                   |
 |-----------------------|------------|-------------------|-------------------------------|
@@ -351,7 +351,7 @@ _Object Initialisation Parameters:_
 | background_color | string or 3-tuple | text box background color      |
 | frame_color      | string or 3-tuple | text box frame color           |
 
-*ScriptItem Trigger Signals:*
+_ScriptItem Trigger Signals:_
 
 | signal                       | description                          |
 |------------------------------|--------------------------------------|
@@ -416,7 +416,7 @@ _Object Initialisation Parameters:_
 | target_value          | double            | - target value or fill level (_low_value_ <= target <= _high_value_) <br> - if set to _None_, no target will be displayed |
 | target_online_control | bool              | - if _true_ control the vertical target position continuously with an LSL stream <br> - a second control channel for the target position must be specified when calling **controlStateWithLSLStream** or **controlStateWithLSLStreams** <br> - if _false_, the target position can be updated with the action **updateTargetValueFromLSLStream** |
 
-*ScriptItem Actions:*
+_ScriptItem Actions:_
 
 | method                         | parameters   | value types | description                                                                                                                                    |
 |--------------------------------|--------------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -461,7 +461,7 @@ _Object Initialisation Parameters:_
 | start_value              | double            | the initial position of the target                |
 | ramp_value               | double            | the position of the target in the hold phase      |
 
-*ScriptItem Actions:*
+_ScriptItem Actions:_
 
 | method            | parameters   | value types | description             |
 |-------------------|--------------|-------------|-------------------------|
@@ -469,7 +469,7 @@ _Object Initialisation Parameters:_
 | startAnimation    | -            | -           | start ramp animation    |
 | stopAnimation     | -            | -           | stop ramp animation     |
 
-*ScriptItem Trigger Signals:*
+_ScriptItem Trigger Signals:_
 
 | signal                         | description                              |
 |--------------------------------|------------------------------------------|
@@ -515,7 +515,7 @@ _Object Initialisation Parameters:_
 | start_value              | double            | the initial position of the target                |
 | ramp_value               | double            | the center position of the sinus oscillations     |
 
-*ScriptItem Actions:*
+_ScriptItem Actions:_
 
 | method            | parameters   | value types | description             |
 |-------------------|--------------|-------------|-------------------------|
@@ -523,7 +523,7 @@ _Object Initialisation Parameters:_
 | startAnimation    | -            | -           | start ramp animation    |
 | stopAnimation     | -            | -           | stop ramp animation     |
 
-*ScriptItem Trigger Signals:*
+_ScriptItem Trigger Signals:_
 
 | signal                          | description                              |
 |---------------------------------|------------------------------------------|
@@ -568,8 +568,6 @@ arrow.controlStateWithLSLStream(“the-stream”, channels=[0, 1, 2])
 ScriptItem(name='update_arrow', time=10, actions=[arrow.updateTargetValueFromLSLStream])
 ```
 
-
-
 _Object Initialisation Parameters:_
 
 | parameter             | value type        | description                                                                                    |
@@ -589,7 +587,7 @@ _Object Initialisation Parameters:_
 | target_value          | double            | - target value (vertical target position) <br> - if set to _None_, no target will be displayed |
 | target_online_control | bool              | - if _true_, control the vertical target position continuously with an LSL stream <br> - a third control channel for the target position must be specified when calling **controlStateWithLSLStream** or **controlStateWithLSLStreams** <br> - if _false_, the target position can be updated with the action **updateTargetValueFromLSLStream** |
 
-*ScriptItem Actions:*
+_ScriptItem Actions:_
 
 | method                         | parameters   | value types | description                                                                                                                                     |
 |--------------------------------|--------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -634,7 +632,7 @@ _Object Initialisation Parameters:_
 | start_value              | double            | the initial position of the target                                                                                                                |
 | ramp_value               | double            | - the center position of the sinus oscillation <br> - when this value is lower than the _high_value_, an additional hold target will be displayed |
 
-*ScriptItem Actions:*
+_ScriptItem Actions:_
 
 | method            | parameters   | value types | description             |
 |-------------------|--------------|-------------|-------------------------|
@@ -642,7 +640,7 @@ _Object Initialisation Parameters:_
 | startAnimation    | -            | -           | start ramp animation    |
 | stopAnimation     | -            | -           | stop ramp animation     |
 
-*ScriptItem Trigger Signals:*
+_ScriptItem Trigger Signals:_
 
 | signal                                 | description                              |
 |----------------------------------------|------------------------------------------|
@@ -688,7 +686,7 @@ _Object Initialisation Parameters:_
 | start_value              | double            | the initial position of the target                                                                                                                |
 | ramp_value               | double            | - the center position of the sinus oscillation <br> - when this value is lower than the _high_value_, an additional hold target will be displayed |
 
-*ScriptItem Actions:*
+_ScriptItem Actions:_
 
 | method            | parameters   | value types | description             |
 |-------------------|--------------|-------------|-------------------------|
@@ -696,7 +694,7 @@ _Object Initialisation Parameters:_
 | startAnimation    | -            | -           | start ramp animation    |
 | stopAnimation     | -            | -           | stop ramp animation     |
 
-*ScriptItem Trigger Signals:*
+_ScriptItem Trigger Signals:_
 
 | signal                                  | description                              |
 |-----------------------------------------|------------------------------------------|
@@ -731,7 +729,7 @@ _Object Initialisation Parameters:_
 
 #### ReachTargets Class
 
-Graphical object to implement target reaching experiments. It displays one or more disk targets which must be reached and held with a 2D cursor. The targets will be arranged in a circle around the centre. The cursor is controlled with 2 LSL channels.
+Graphical object to implement target reaching experiments. It displays one or more disk targets which must be reached and held with a 2D cursor. The targets are arranged in a circle around the centre. The cursor is controlled with 2 LSL channels.
 
 ![target reach](images/targetreach.png)
 
@@ -777,13 +775,13 @@ _Object Initialisation Parameters:_
 | target_reached_color  | string or 3-tuple | color of the target disk when the cursor is within the target area |
 | cursor_color          | string or 3-tuple | color of the cursor                                                |
 
-*ScriptItem Actions:*
+_ScriptItem Actions:_
 
 | method          | parameters          | value types | description                          |
 |-----------------|---------------------|-------------|--------------------------------------|
 | setActiveTarget | selected_target_idx | integer     | index of the active (current) target |
 
-*ScriptItem Trigger Signals:*
+_ScriptItem Trigger Signals:_
 
 | signal                             | description                              |
 |------------------------------------|------------------------------------------|
@@ -794,7 +792,7 @@ _Object Initialisation Parameters:_
 
 Auditory objects generate sounds. They can be [controllable](paradigm_scripting.md#control-of-auditory-objects) with LSL streams.
 
-To use auditory objects, one needs to import the **audio_objects module** first:
+To use auditory objects, import the **audio_objects module**:
 
 ``` Python
 import yaga_modules.audio_objects as AO
@@ -822,7 +820,7 @@ _Object Initialisation Parameters:_
 | beep_channels  | string     | output channels: _"both”_, _“left”_, or _“right”_                                              |
 | delay          | double     | - delay the presentation of the beep <br> - use a delay of 0.2s or more to **minimise jitter** |
 
-*ScriptItem Actions:*
+_ScriptItem Actions:_
 
 | method | parameters | value types | description   |
 |--------|------------|-------------|---------------|
@@ -851,9 +849,122 @@ _Object Initialisation Parameters:_
 | dynamic_mov_avg       | integer         | - calculate the instantaneous firing rate as the inverse of the interspike interval smoothed with a moving average window of length _dynamic_mov_avg_ <br> - set to _None_ if exponential smoothing is used |
 | dynamic_exp_avg_alpha | double          | - calculate the instantaneous firing rate as the inversive of the interspike interval smoothed with exponential smoothing using a smoothing factor of _dynamic_exp_avg_alpha_ <br> - set to _None_ if the moving average is used |
 
+## Special Objects
+
+Special objects implement more complex user interactions than graphical or auditory objects.
+
+### Pacman
+
+This special objects implements a Pacman-style paradigm where study participants should catch as many dots as possible with a Pacman. The dots enter the screen from the right side in a random or pre-programmed trajectory. The vertical position of Pacman is controlled with an LSL stream.
+
+![target reach](images/pacman.png)
+
+To use Pacman, import the **Pacman class**:
+
+``` Python
+from yaga_modules.pacman import Pacman
+```
+
+A Pacman object must be created in the initialisation method of the paradigm file and registered to YAGA. Subsequently, one must specify an LSL stream to control the state of Pacman (i.e., its vertical position). For example, to create a Pacman object with a random dot trajectory, setup a control LSL stream with **controlStateWithLSLStream**, and activate Pacman:
+
+``` Python
+pacman = self.registerObject(Pacman(item_speed=0.5, item_generator='random', item_generation_frequency=10, frequency=[0.05, 0.15], noise_stddev=3))
+pacman.controlStateWithLSLStreams(['the-stream'], channels=[0])
+pacman.activate()
+```
+
+#### Dot Generators
+
+The Pacman class supports the following dots generators:
+- constant: dots are generated at a constant vertical position
+- sinus: dots follow a sinusoidal oscillation
+- chirp: dots follow a chirp trajectory
+- ramp: dots follow a ramp trajectoy (low level -> ramp up -> high level -> ramp down -> low level)
+- random: dots follow band-pass or low-pass filtered Gaussian noise limited by tanh
+
+The dot generation frequency and the dots' speed (right to left) is set with the object initialisation parameters _item_generation_frequency_ and _item_speed_, respectively.
+
+The dots enter the screen on the right side, and the time to reach Pacman can be calculated as _T = S/V_. Where _V_ is the dot speed specified with the object initialisation parameter _item_speed_, and _S_ is the distance between the right screen edge (= screen ratio) and the Pacman position (= -1.4) in [Screen Units](paradigm_scripting.md#screen-units). With a 16/9 screen ratio, _S = 16/9 - (-1.4)_ = 3.1777.
+
+#### Negative Feedback
+
+The Pacman class supports negative feedback so that specific behaviorual changes of study participants can be disencouraged. Two types of negative feedback are available:
+- position: the x-position of the Pacman changes from a green to a red area with an incresing negative feedback signal
+- color: the color of the Pacman changes from yellow to red with an incresing negative feedback signal
+
+Here are examples of the two negative feedback types:
+
+![target reach](images/pacman_neg_feedback_position.png) ![target reach](images/pacman_neg_feedback_color.png)
+
+
+If negative feedback is used, the state of the Pacman object is controlled with two channels from an LSL Stream. The first channel controls the vertical Pacman position, the second channel is considered as the negative feedback signal. Specify the two channels with **controlStateWithLSLStream**, for example:
+``` Python
+pacman.controlStateWithLSLStreams(['the-stream'], channels=[0, 1])
+```
+
+#### LSL Output Streams
+
+The Pacman object creates a 4-channel LSL output stream with name *pacman* and source ID *pacman_state*. The LSL output stream contains the following state variables:
+- vertical position of Pacman
+- negative feedback signal
+- vertical position of the dot closest to Pacman on its right side
+- highscore counter
+
+The LSL output stream sends data synchronized with the screen refresh rate. 
+
+**Important note:** the LSL output stream is only populated with state values while the Pacman object is activated.
+
+
+#### Object Initialisation Parameters
+
+| parameter                 | value type                  | description                                                                                                                                                         |
+|---------------------------|-----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| pox_x                     | double                      | horizontal position of the special object                                                                                                                           |
+| pos_y                     | double                      | vertical position of the special object                                                                                                                             |
+| depth                     | integer                     | depth position of the special object                                                                                                                                |
+| item_generator            | string                      | dot trajectory generator: "constant", "sinus", "chirp", "ramp", or "random"                                                                                         |
+| item_speed                | double                      | speeds of dots (right to left movement) in screen units/second ([Screen Units](paradigm_scripting.md#screen-units))                                                 |
+| item_generation_frequency | double                      | number of dots generated per second                                                                                                                                 |
+| amplitude                 | double                      | in [Screen Units](paradigm_scripting.md#screen-units) <br> - constant generator: y-position of the dots <br> - sinus/chirp generator: amplitude of the oscillation <br> - random generator: after limiting the band-pass or low-pass filtered Gaussian noise with tanh, the limited noise is multiplied with this amplitude factor |
+| frequency                 | double or list of 2 doubles | in Hz <br> - sinus generator: frequency of the sinusoidal trajectory <br> - chirp generator: start and end frequency of the sinusoidal trajectory <br> - random generator: cutoff frequency (frequencies) of the low-pass (band-pass) filter applied to the generated Gaussian noise |
+| phase_duration            | double or list of 5 doubles | in seconds <br> - chirp generator: time to progress from the start to the end frequency <br> - ramp generator: durations of low/ramp-up/high/ramp-down/low phases   |
+| phase_value               | list of 2 doubles           | for ramp generator: y-positions during low and high phases                                                                                                          |
+| noise_stddev              | double                      | for random generator: std. dev. of the generated Gaussian noise                                                                                                    |
+| neg_feedback_type         | string                      | sets the type of negative feedback: None, "pos", or "color"; two control channels must be specified with **controlStateWithLSLStream** if negative feedback is used |
+| highscore                 | bool                        | shows the number of collected dots                                                                                                                                  |
+| fps                       | integer                     | this value is used as the sampling rate in the meta-data of the output LSL stream; set *fps* to the screen refresh rate if it is different than 60 Hz               |
+
+#### ScriptItem Actions
+
+| method        | parameters | value types | description                                                                |
+|---------------|------------|-------------|----------------------------------------------------------------------------|
+| activate      | -          | -           | show Pacman object on screen and start populating the output LSL stream    |
+| deactivate    | -          | -           | hide Pacman object and stop populating the output LSL stream               |
+| start         | -          | -           | start the dot generator and reset highscore counter                        |
+| stop          | -          | -           | stop the dot generator                                                     |
+
+#### ScriptItem Trigger Signals:
+
+| signal                      | description                                                             |
+|-----------------------------|-------------------------------------------------------------------------|
+| Pacman.GENERATION_FINISHED  | the dot generator has finished (only applicable for the ramp generator) |
+
+
+#### Pacman Demo Script
+
+The paradigm file _demo_pacman.py_ implements a Pacman object with a random dot generator. Additionaly, a background picture is configured. The Pacman can be controlled with the _mousecontroller.py_ script in the _tools_ folder. This script captures the mouse cursor when it is in the application window and sends is relative coordinates as a 2-channel LSL stream with the name _MouseControllerStream_. This stream is specified as the state control LSL stream in the paradigm file.  _mousecontroller.py_ must be started before YAGA.
+
+![target reach](images/pacman_bg.png)
+
+The full source code of the demo paradigm file:
+
+``` Python
+{!paradigms/pacman_demo.py!}
+```
+
 ## Online Control of Objects with LSL streams
 
-Parameters of graphical and auditory objects can be controlled with LSL streams. The LSL streams can be read directly or processed online (scaling, filtering, etc.). The parameter updates are synchronous to the screen refresh rate.
+The parameters of graphical and auditory objects can be controlled with LSL streams. For that purpose, LSL streams can be read directly or processed online (scaling, filtering, etc.). The parameter updates are synchronous to the screen refresh rate.
 
 ### Control of Graphical Objects
 
