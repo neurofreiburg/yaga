@@ -857,7 +857,7 @@ Special objects implement more complex user interactions than graphical or audit
 
 This special objects implements a Pacman-style paradigm where study participants should catch as many dots as possible with a Pacman. The dots enter the screen from the right side in a random or pre-programmed trajectory. The vertical position of Pacman is controlled with an LSL stream.
 
-![target reach](images/pacman.png)
+![Pacman](images/pacman.png)
 
 To use Pacman, import the **Pacman class**:
 
@@ -894,7 +894,7 @@ The Pacman class supports negative feedback so that specific behaviorual changes
 
 Here are examples of the two negative feedback types:
 
-![target reach](images/pacman_neg_feedback_position.png) ![target reach](images/pacman_neg_feedback_color.png)
+![Negative Feedback Position](images/pacman_neg_feedback_position.png) ![Negative Feedback Color](images/pacman_neg_feedback_color.png)
 
 
 If negative feedback is used, the state of the Pacman object is controlled with two channels from an LSL Stream. The first channel controls the vertical Pacman position, the second channel is considered as the negative feedback signal. Specify the two channels with **controlStateWithLSLStream**, for example:
@@ -954,7 +954,7 @@ The LSL output stream sends data synchronized with the screen refresh rate.
 
 The paradigm file _demo_pacman.py_ implements a Pacman object with a random dot generator. Additionaly, a background picture is configured. The Pacman can be controlled with the _mousecontroller.py_ script in the _tools_ folder. This script captures the mouse cursor when it is in the application window and sends is relative coordinates as a 2-channel LSL stream with the name _MouseControllerStream_. This stream is specified as the state control LSL stream in the paradigm file.  _mousecontroller.py_ must be started before YAGA.
 
-![target reach](images/pacman_bg.png)
+![Pacman](images/pacman_bg.png)
 
 The full source code of the demo paradigm file:
 
