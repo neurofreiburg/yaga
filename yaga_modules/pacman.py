@@ -233,7 +233,7 @@ class Pacman(GraphicObject2D):
             neg_feedback_samples = self.lsl_streams_samples[self.lsl_state_control_streams[-1]] # accesses the first or, if available, the second stream
 
             # update vertical Pacman position
-            pacman_y_pos = pacman_pos_samples[self.state_control_channels[0]]
+            pacman_y_pos = pacman_pos_samples.item(self.state_control_channels[0])
             pacman_y_pos = np.clip(pacman_y_pos, -1.0, 1.0)
             self.pacman.setZ(pacman_y_pos)
 

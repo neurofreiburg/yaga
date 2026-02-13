@@ -56,7 +56,7 @@ class InterfaceObject:
     def readLSLStream(self):
         # 1. this function is called with a frequency equal to FPS
         # 2. when new LSL samples are available, the samples are processed with their original sampling rate using a buffer
-        # 3a. if LSL sampling rate > FPS: samples are aggregated (= take only last sample (default), sum of samples, or mean of samples)
+        # 3a. if LSL sampling rate > FPS: samples are aggregated (i.e., take only last sample (default), sum of samples, or mean of samples)
         # 3b. if LSL sampling rate < FPS: signal is sampled with sample & hold
         # 4. the abstract method _newLSLSampleReceived() is called; it is up to subclasses to implement updates when new LSL samples are received
 

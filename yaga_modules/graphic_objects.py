@@ -82,7 +82,7 @@ class GraphicObject2D(InterfaceObject):
         assert isinstance(lsl_stream_name, str), '"lsl_stream_name" must be a string'
         assert isinstance(channels, list) and len(channels) == 2, '"channels" must have 2 elements'
         self.connectToLSLStreams([lsl_stream_name], aggregation_mode)
-        self.lsl_scale_control_streams = lsl_stream_name
+        self.lsl_scale_control_streams = [lsl_stream_name]
         self.scale_control_channels = channels
 
     def controlScaleWithLSLStreams(self, lsl_stream_names, channels=[0,1], aggregation_mode='last'):
