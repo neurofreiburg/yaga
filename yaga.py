@@ -179,14 +179,14 @@ class YAGA(ShowBase):
         # start LSL recorder (this is the most time intensive operation -> several seconds)
         self.paradigm.startLSLRecorder()
 
-        # add main tasks
-        # sort parameter: task with lower value execute sooner. "updateStates" should be the last task, so that all informations are available to the task. sort value must be between 1 and 19
-        self.task = taskMgr.add(self.runScript, 'runScript', sort=1)
-        self.task = taskMgr.add(self.readLSL, 'readLSL', sort=2)
-        self.task = taskMgr.add(self.updateStates, 'updateStates', sort=3)
-
-        # task for frame-synced execution time-related code (i.e. logging scipt item execution times and sending LSL events); this task has a high sort value so that it runs after the screen update task
-        self.task = taskMgr.add(self.maintainExecutedScriptItems, 'maintainExecutedScriptItems', sort=100)
+        # main tasks. they are run according to their sort value from low to high
+        # these tasks are run before a screen update (i.e. after the task maintainExecutedScriptItems)
+        self.task = taskMgr.add(self.readLSL, 'readLSL', sort=1)  # run before runScript so that received LSL markers are available to runScript
+        self.task = taskMgr.add(self.runScript, 'runScript', sort=2)
+        self.task = taskMgr.add(self.updateStates, 'updateStates', sort=3) # all information should be available when updating the state of interface objects
+        # Panda3D internal igLoop task (sort=50): screen update
+        self.task = taskMgr.add(self.frameSyncedCode, 'frameSyncedCode', sort=51) # task for frame-synced execution of code (logging of execution times and sending LSL events); must run right after igLoop
+        # Panda3D internal audioLoop task (sort=60): audio output
 
         return Task.done
 
@@ -240,8 +240,29 @@ class YAGA(ShowBase):
 
         return Task.cont
 
-    def maintainExecutedScriptItems(self, task):
-        # this task should run immediately after the screen update
+    def readLSL(self, task):
+        # update interface objects linked to an LSL stream
+        for interface_object in self.paradigm.interface_objects:
+            interface_object.readLSLStream()
+
+        # read LSL markers
+        self.paradigm.readLSLMarkers()
+
+        return Task.cont
+
+    def updateStates(self, task):
+        local_time = pylsl.local_clock()
+        self.frame_signals = []
+        for interface_object in self.paradigm.interface_objects:
+            signal = interface_object.updateState(local_time)
+            if signal:
+                self.frame_signals.append(signal)
+                self.paradigm.setSignal(signal)
+
+        return Task.cont
+
+    def frameSyncedCode(self, task):
+        # this task runs immediately after the screen is updated
         local_time = pylsl.local_clock()
 
         # reset NI-DAQmx output to low
@@ -271,27 +292,6 @@ class YAGA(ShowBase):
         for signal in self.frame_signals:
             # send signal as an LSL marker
             self.lsl_marker_outlet.push_sample([signal], timestamp=local_time, pushthrough=True)
-
-        return Task.cont
-
-    def readLSL(self, task):
-        # update interface objects linked to an LSL stream
-        for interface_object in self.paradigm.interface_objects:
-            interface_object.readLSLStream()
-
-        # read LSL markers
-        self.paradigm.readLSLMarkers()
-
-        return Task.cont
-
-    def updateStates(self, task):
-        local_time = pylsl.local_clock()
-        self.frame_signals = []
-        for interface_object in self.paradigm.interface_objects:
-            signal = interface_object.updateState(local_time)
-            if signal:
-                self.frame_signals.append(signal)
-                self.paradigm.setSignal(signal)
 
         return Task.cont
 
