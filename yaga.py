@@ -149,12 +149,17 @@ class YAGA(ShowBase):
 
     def initTask(self, task):
 
-        # set up outgoing LSL stream for markers
-        lsl_info = pylsl.StreamInfo('yaga', 'Markers', 1, pylsl.IRREGULAR_RATE, pylsl.cf_string, 'yaga_markers')
-        self.lsl_marker_outlet = pylsl.StreamOutlet(lsl_info)
-
         # load paradigm
         self.paradigm = paradigm.Paradigm(paradigm_variables)
+
+        # set up outgoing LSL stream for yaga markers
+        lsl_marker_info = pylsl.StreamInfo('yaga_markers', 'Markers', 1, pylsl.IRREGULAR_RATE, pylsl.cf_string, 'yaga_markers')
+        self.lsl_marker_outlet = pylsl.StreamOutlet(lsl_marker_info)
+
+        # set up outgoing LSL stream for local signals measured via NI-DAQmx
+        lsl_nidaq_info = pylsl.StreamInfo('yaga_nidaq', 'Timeseries', n_total_channels, fps, 'float32', "yaga_nidaq")
+        self.lsl_nidaq_outlet = pylsl.StreamOutlet(lsl_nidaq_info)
+
 
         # set-up NI-DAQmx
         if self.paradigm.nidaqmx_trigger_line:
@@ -181,14 +186,35 @@ class YAGA(ShowBase):
 
         # main tasks. they are run according to their sort value from low to high
         # these tasks are run before a screen update (i.e. after the task maintainExecutedScriptItems)
-        self.task = taskMgr.add(self.readLSL, 'readLSL', sort=1)  # run before runScript so that received LSL markers are available to runScript
-        self.task = taskMgr.add(self.runScript, 'runScript', sort=2)
-        self.task = taskMgr.add(self.updateStates, 'updateStates', sort=3) # all information should be available when updating the state of interface objects
+        self.task = taskMgr.add(self.readLocalSignals, 'readLocalSignals', sort=1) # reads local signals and streams them via LSL; must run before readLSL so that signals can be read via LSL
+        self.task = taskMgr.add(self.readLSL, 'readLSL', sort=2)  # run before runScript so that received LSL markers are available to runScript
+        self.task = taskMgr.add(self.runScript, 'runScript', sort=3) # script item actions should be called before updateStates
+        self.task = taskMgr.add(self.updateStates, 'updateStates', sort=4) # all data should be processed and available when updating the state of interface objects
         # Panda3D internal igLoop task (sort=50): screen update
         self.task = taskMgr.add(self.frameSyncedCode, 'frameSyncedCode', sort=51) # task for frame-synced execution of code (logging of execution times and sending LSL events); must run right after igLoop
         # Panda3D internal audioLoop task (sort=60): audio output
 
         return Task.done
+
+    def readLocalSignals(self, task):
+        # read signals from NI card
+        for interface_object in self.paradigm.interface_objects:
+            interface_object.readLSLStream()
+
+        # read LSL markers
+        self.paradigm.readLSLMarkers()
+
+        return Task.cont
+
+    def readLSL(self, task):
+        # update interface objects linked to an LSL stream
+        for interface_object in self.paradigm.interface_objects:
+            interface_object.readLSLStream()
+
+        # read LSL markers
+        self.paradigm.readLSLMarkers()
+
+        return Task.cont
 
     def runScript(self, task):
         if not self.start_time:
@@ -237,16 +263,6 @@ class YAGA(ShowBase):
 
         else:
             messenger.send('quit')
-
-        return Task.cont
-
-    def readLSL(self, task):
-        # update interface objects linked to an LSL stream
-        for interface_object in self.paradigm.interface_objects:
-            interface_object.readLSLStream()
-
-        # read LSL markers
-        self.paradigm.readLSLMarkers()
 
         return Task.cont
 
