@@ -2,6 +2,7 @@ import numpy as np
 from scipy import signal
 import math
 import pylsl
+import pymonctl
 from direct.gui.OnscreenText import OnscreenText
 from direct.gui.OnscreenImage import OnscreenImage
 from panda3d.core import LColor, TransparencyAttrib
@@ -20,7 +21,7 @@ class Pacman(GraphicObject2D):
     GENERATION_FINISHED = 'generation_finished'
 
     def __init__(self, pos_x=0, pos_y=0, depth=0, item_generator='random', item_speed=0.5, item_generation_frequency=15,
-                 amplitude=1, frequency=0.5, phase_duration=None, phase_value=None, noise_stddev=3, neg_feedback_type=None, highscore=True, fps=60):
+                 amplitude=1, frequency=0.5, phase_duration=None, phase_value=None, noise_stddev=3, neg_feedback_type=None, highscore=True):
 
         node = aspect2d.attachNewNode('main')
 
@@ -153,7 +154,7 @@ class Pacman(GraphicObject2D):
         else:
             raise Exception('unkown generator')
 
-        lsl_info = pylsl.StreamInfo('pacman', 'state', 4, fps, 'float32', 'pacman_state')
+        lsl_info = pylsl.StreamInfo('pacman', 'state', 4, pymonctl.getPrimary().frequency, 'float32', 'pacman_state')
         self.lsl_state_outlet = pylsl.StreamOutlet(lsl_info)
 
         super().__init__(node, pos_x, pos_y, depth, 1, 1, 0)
