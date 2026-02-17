@@ -17,7 +17,7 @@ class Paradigm(ParadigmBase):
     task_name = 'cimod'
 
     def __init__(self, paradigm_variables):
-        super().__init__(paradigm_variables, lsl_recorder_remote_control=True, lsl_recorder_host='localhost', nidaqmx_trigger_line='Dev1/port1/line3', nidaqmx_high_duration=0.1)
+        super().__init__(paradigm_variables, lsl_recorder_remote_control=True, lsl_recorder_host='localhost', nidaqmx_trigger_line='Dev1/port1/line3')
 
         force_fb_lowpass_frq = 3 # [Hz]
         target_force = 0.08

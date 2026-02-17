@@ -7,13 +7,14 @@ YAGA supports Linux, Mac or Windows (tested with macOS 13, Windows 10; Linux sup
 -   numpy
 -   scipy
 -   panda3d
+-   pymonctl
 -   pmw
 -   pylsl
 -   pyxdf
 -   rtmixer
 -   nidaqmx
 
-You can install the packages with the typical package managers _conda_ or _pip_.
+You can install the packages with the typical package managers _conda_ or _pip_ (most packages are available out-of-the-box via _pip_).
 
 If you require sound output, you need to install _PortAudio_. In Linux, you can use your local package manager to install _PortAudio_; on Mac, you can use _Homebrew_. In Windows, _PortAudio_ is included in the _sounddevice_ library, which is a dependency of _rtmixer_.
 

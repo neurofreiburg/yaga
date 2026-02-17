@@ -14,7 +14,8 @@ class Paradigm(ParadigmBase):
     task_name = 'decoder_ramp'
 
     def __init__(self, paradigm_variables):
-        super().__init__(paradigm_variables, lsl_recorder_remote_control=False, lsl_recorder_host='localhost', nidaqmx_trigger_line='Dev1/port1/line3', nidaqmx_high_duration=0.1)
+        super().__init__(paradigm_variables, lsl_recorder_remote_control=False, lsl_recorder_host='localhost', #nidaqmx_trigger_line='Dev1/port1/line3',
+                         nidaqmx_analog_input_channels=["Dev1/ai1", "Dev1/ai2"], nidaqmx_analog_input_min_vals=[-5, -10], nidaqmx_analog_input_max_vals=[5, 10])
 
         # trial configuration
         n_trials = 2
@@ -51,7 +52,8 @@ class Paradigm(ParadigmBase):
         #max_normalization = SP.MaxEuclidNormalizationXDF(str(self.root_dir / Path('%s_S%.3d' % (paradigm_variables['subject'], paradigm_variables['session'])) / Path('task_mvc_run_001.xdf')), 'quattrocento', 'yaga', 'start_counter', 'trial_end', [force_channel], force_amp_voltage_offset)
         butter = SP.ButterFilter(4, 5)
         map_y = SP.LinearMap(0, ramp_hold_force, pacman_low_y_pos, pacman_high_y_pos)
-        pacman.controlStateWithLSLStreams(['MouseControllerStream'], channels=[force_channel])
+        # pacman.controlStateWithLSLStreams(['MouseControllerStream'], channels=[force_channel])
+        pacman.controlStateWithLSLStreams(['yaga_nidaq'], channels=[force_channel])
         # pacman.addSignalProcessingToLSLStream(max_normalization, channels=[force_channel])
         #pacman.controlStateWithLSLStreams(['MouseControllerStream'], channels=[force_channel])
         #pacman.addSignalProcessingToLSLStream(map_y, channels=[force_channel])

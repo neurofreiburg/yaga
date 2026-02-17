@@ -4,6 +4,7 @@ import sys
 import time
 import socket
 import pylsl
+import pymonctl
 
 
 ScriptItem = namedtuple('ScriptItem', ('name', 'time', 'time_type', 'rel_name', 'wait_for_signal', 'wait_for_lsl_marker', 'actions'), defaults=(None, None, 'abs', None, None, None, None))
@@ -11,20 +12,36 @@ ScriptItem = namedtuple('ScriptItem', ('name', 'time', 'time_type', 'rel_name', 
 
 class ParadigmBase:
 
-    def __init__(self, paradigm_variables, lsl_recorder_remote_control=False, lsl_recorder_host='localhost', lsl_recorder_port=22345, nidaqmx_event='trial_start', nidaqmx_trigger_line=None, nidaqmx_high_duration=0):
-       self.interface_objects = []
-       self.script = None
-       self.signals = {}
-       self.lsl_markers = {}
-       self.lsl_marker_inlet = None
-       self.lsl_marker_channel = None
-       self.lsl_recorder_remote_control = lsl_recorder_remote_control
-       self.lsl_recorder_host = lsl_recorder_host
-       self.lsl_recorder_port = lsl_recorder_port
-       self.nidaqmx_event = nidaqmx_event
-       self.nidaqmx_trigger_line = nidaqmx_trigger_line
-       self.nidaqmx_high_duration = nidaqmx_high_duration
-       self.paradigm_variables = paradigm_variables
+    def __init__(self, paradigm_variables, lsl_recorder_remote_control=False, lsl_recorder_host='localhost', lsl_recorder_port=22345,
+                 nidaqmx_trigger_line=None, nidaqmx_trigger_event='trial_start', nidaqmx_trigger_high_duration=0.1,
+                 nidaqmx_analog_input_channels=None, nidaqmx_analog_input_min_vals=None, nidaqmx_analog_input_max_vals=None):
+        if nidaqmx_analog_input_channels is None:
+           nidaqmx_analog_input_channels = []
+        self.interface_objects = []
+        self.script = None
+        self.signals = {}
+        self.lsl_markers = {}
+        self.lsl_marker_inlet = None
+        self.lsl_marker_channel = None
+        self.lsl_recorder_remote_control = lsl_recorder_remote_control
+        self.lsl_recorder_host = lsl_recorder_host
+        self.lsl_recorder_port = lsl_recorder_port
+        self.nidaqmx_trigger_event = nidaqmx_trigger_event
+        self.nidaqmx_trigger_line = nidaqmx_trigger_line
+        self.nidaqmx_trigger_high_duration = nidaqmx_trigger_high_duration
+        if not (len(nidaqmx_analog_input_channels) == len(nidaqmx_analog_input_min_vals) == len(nidaqmx_analog_input_max_vals)):
+           raise Exception('the lists "nidaqmx_analog_input_channels", "nidaqmx_analog_input_min_vals", and "nidaqmx_analog_input_max_vals" must have the same length')
+        self.nidaqmx_analog_input_channels = nidaqmx_analog_input_channels
+        self.nidaqmx_analog_input_min_vals = nidaqmx_analog_input_min_vals
+        self.nidaqmx_analog_input_max_vals = nidaqmx_analog_input_max_vals
+        self.paradigm_variables = paradigm_variables
+
+        # we need to create the LSL outlet here (instead of YAGA:initTask) so that the initialization code of the paradigm child has access to it
+        if nidaqmx_analog_input_channels:
+            lsl_nidaq_info = pylsl.StreamInfo('yaga_nidaq', 'Timeseries', len(nidaqmx_analog_input_channels), pymonctl.getPrimary().frequency, 'float32', "yaga_nidaq")
+            self.lsl_nidaq_outlet = pylsl.StreamOutlet(lsl_nidaq_info)
+        else:
+            self.lsl_nidaq_outlet = None
 
     def registerObject(self, object):
         self.interface_objects.append(object)

@@ -9,6 +9,7 @@
 
 * added documentation (Pacman)
 * added Pacman paradigm demo file
+* Pacman: screen refresh rate is automatically determined
 
 ### Bug Fixes
 
@@ -16,7 +17,7 @@
 
 ### Breaking Changes
 
-* none
+* Pacman: object initialisation parameter _fps_ has been removed
 
 ## [V1.1.2](https://github.com/neurofreiburg/yaga/releases/tag/v1.1.2) (2024-02-08)
 

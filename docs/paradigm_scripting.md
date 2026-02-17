@@ -928,10 +928,9 @@ The LSL output stream sends data synchronized with the screen refresh rate.
 | frequency                 | double or list of 2 doubles | in Hz <br> - sinus generator: frequency of the sinusoidal trajectory <br> - chirp generator: start and end frequency of the sinusoidal trajectory <br> - random generator: cutoff frequency (frequencies) of the low-pass (band-pass) filter applied to the generated Gaussian noise |
 | phase_duration            | double or list of 5 doubles | in seconds <br> - chirp generator: time to progress from the start to the end frequency <br> - ramp generator: durations of low/ramp-up/high/ramp-down/low phases   |
 | phase_value               | list of 2 doubles           | for ramp generator: y-positions during low and high phases                                                                                                          |
-| noise_stddev              | double                      | for random generator: std. dev. of the generated Gaussian noise                                                                                                    |
+| noise_stddev              | double                      | for random generator: std. dev. of the generated Gaussian noise                                                                                                     |
 | neg_feedback_type         | string                      | sets the type of negative feedback: None, "pos", or "color"; two control channels must be specified with **controlStateWithLSLStream** if negative feedback is used |
 | highscore                 | bool                        | shows the number of collected dots                                                                                                                                  |
-| fps                       | integer                     | this value is used as the sampling rate in the meta-data of the output LSL stream; set *fps* to the screen refresh rate if it is different than 60 Hz               |
 
 #### ScriptItem Actions
 
