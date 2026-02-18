@@ -12,7 +12,7 @@ class Paradigm(ParadigmBase):
     task_name = 'mvc'
 
     def __init__(self, paradigm_variables):
-        super().__init__(paradigm_variables, lsl_recorder_remote_control=True, lsl_recorder_host='localhost')
+        super().__init__(paradigm_variables, lsl_recorder_remote_control=False, lsl_recorder_host='localhost')
 
         n_trials = 3
         pre_paradigm_interval = 3

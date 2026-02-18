@@ -147,11 +147,11 @@ class YAGA(ShowBase):
         self.nidaqmx_trigger_line_value = None
         self.nidaqmx_trigger_high_onset = None
         if self.paradigm.nidaqmx_trigger_line or self.paradigm.nidaqmx_analog_input_channels:
-            # import nidaqmx
+            import nidaqmx
             try:
-                # self.nidaqmx_task = nidaqmx.Task('trigger')
-                self.nidaqmx_task = "dummy" # todo
-                # self.nidaqmx_task.timing.cfg_samp_clk_timing(sample_mode=nidaqmx.constants.AcquisitionType.CONTINUOUS)
+                self.nidaqmx_task = nidaqmx.Task('trigger')
+                # self.nidaqmx_task = "dummy" # todo
+                self.nidaqmx_task.timing.cfg_samp_clk_timing(sample_mode=nidaqmx.constants.AcquisitionType.CONTINUOUS)
 
                 # set up digital output line
                 if self.paradigm.nidaqmx_trigger_line:
@@ -165,9 +165,9 @@ class YAGA(ShowBase):
                     self.nidaqmx_trigger_high_onset = 0
 
                 # set up analog input channels
-                # if self.paradigm.nidaqmx_analog_input_channels:
-                    # for analog_input_channel, analog_input_min_val, analog_input_max_val in zip(self.paradigm.nidaqmx_analog_input_channels, self.paradigm.nidaqmx_analog_input_min_vals, self.paradigm.nidaqmx_analog_input_max_vals):
-                    #     self.nidaqmx_task.ai_channels.add_ai_voltage_chan(analog_input_channel, min_val=analog_input_min_val, max_val=analog_input_max_val)
+                if self.paradigm.nidaqmx_analog_input_channels:
+                    for analog_input_channel, analog_input_min_val, analog_input_max_val in zip(self.paradigm.nidaqmx_analog_input_channels, self.paradigm.nidaqmx_analog_input_min_vals, self.paradigm.nidaqmx_analog_input_max_vals):
+                        self.nidaqmx_task.ai_channels.add_ai_voltage_chan(analog_input_channel, min_val=analog_input_min_val, max_val=analog_input_max_val)
 
             except nidaqmx.DaqError as err:
                 raise Exception('NI-DAQmx error: "%s"' % err)
@@ -191,14 +191,14 @@ class YAGA(ShowBase):
     def readLocalSignals(self, task):
         # read signals from NI card
         if self.nidaqmx_task and self.paradigm.nidaqmx_analog_input_channels and self.paradigm.lsl_nidaq_outlet:
-            # self.nidaqmx_task.start() # TODO
-            # daq_data = self.nidaqmx_task.read(number_of_samples_per_channel=1, relative_to=nidaqmx.constants.ReadRelativeTo.MOST_RECENT_SAMPLE, offset=-1, timeout=0) # data: [1 x num_channels}, note: offset=0 may cause blocking
-            current_time = pylsl.local_clock()
-            y1 = 3 * math.sin(2*math.pi*2*current_time)
-            y2 = 1 * math.sin(2 * math.pi * 2 * current_time + math.pi)
-            self.paradigm.lsl_nidaq_outlet.push_sample([y1, y2], timestamp=pylsl.local_clock(), pushthrough=True)
-            # self.paradigm.lsl_nidaq_outlet.push_sample(daq_data, timestamp=pylsl.local_clock(), pushthrough=True)
-            # self.nidaqmx_task.stop() # TODO
+            self.nidaqmx_task.start() # TODO
+            daq_data = self.nidaqmx_task.read(number_of_samples_per_channel=1, relative_to=nidaqmx.constants.ReadRelativeTo.MOST_RECENT_SAMPLE, offset=-1, timeout=0) # data: [1 x num_channels}, note: offset=0 may cause blocking
+            # current_time = pylsl.local_clock()
+            # y1 = 3 * math.sin(2*math.pi*2*current_time)
+            # y2 = 1 * math.sin(2 * math.pi * 2 * current_time + math.pi)
+            # self.paradigm.lsl_nidaq_outlet.push_sample([y1, y2], timestamp=pylsl.local_clock(), pushthrough=True)
+            self.paradigm.lsl_nidaq_outlet.push_sample(daq_data, timestamp=pylsl.local_clock(), pushthrough=True)
+            self.nidaqmx_task.stop() # TODO
 
         return Task.cont
 
