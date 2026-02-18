@@ -19,7 +19,6 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-
 from importlib import import_module
 import sys
 import getopt
@@ -30,6 +29,20 @@ from direct.showbase.ShowBase import ShowBase
 from direct.showbase.DirectObject import DirectObject
 from direct.task import Task
 
+
+#%% set FPS
+# FPS = 130
+# from panda3d.core import loadPrcFileData
+# configVars = """
+# sync-video 0
+# """
+# loadPrcFileData("", configVars)
+# from panda3d.core import ClockObject
+# globalClock = ClockObject.getGlobalClock()
+# globalClock.setMode(ClockObject.MLimited)
+# globalClock.setFrameRate(FPS)
+from panda3d.core import loadPrcFileData
+loadPrcFileData('', 'load-display p3tinydisplay')
 
 #%% parse command line arguments
 try:
@@ -103,7 +116,7 @@ class YAGA(ShowBase):
     def __init__(self, paradigm_variables, maximize_window=False):
         loadPrcFileData('', 'background-color 0.40 0.40 0.40')
 
-        ShowBase.__init__(self)
+        ShowBase.__init__(self, windowType='offscreen')
 
         self.frame_script_items = []
         self.script_item_execution_times = {}
@@ -124,7 +137,7 @@ class YAGA(ShowBase):
             props.setFixedSize(True)
         else:
             props.setSize(int(display_width/2), int(display_height/2))
-        base.win.requestProperties(props)
+        # base.win.requestProperties(props)
 
         # set up event handlers
         self.accept('escape', self.quit)
@@ -143,31 +156,36 @@ class YAGA(ShowBase):
         self.paradigm = paradigm.Paradigm(paradigm_variables)
 
         # set-up NI-DAQmx
-        self.nidaqmx_task = None
+        self.nidaqmx_task_do = None
+        self.nidaqmx_task_ai = None
         self.nidaqmx_trigger_line_value = None
         self.nidaqmx_trigger_high_onset = None
         if self.paradigm.nidaqmx_trigger_line or self.paradigm.nidaqmx_analog_input_channels:
             import nidaqmx
             try:
-                self.nidaqmx_task = nidaqmx.Task('trigger')
-                # self.nidaqmx_task = "dummy" # todo
-                self.nidaqmx_task.timing.cfg_samp_clk_timing(sample_mode=nidaqmx.constants.AcquisitionType.CONTINUOUS)
-
                 # set up digital output line
                 if self.paradigm.nidaqmx_trigger_line:
-                    self.nidaqmx_task.do_channels.add_do_chan(self.paradigm.nidaqmx_trigger_line)
-
-                    # initialize trigger line to low
-                    self.nidaqmx_task.start()
-                    self.nidaqmx_trigger_line_value = False
-                    self.nidaqmx_task.write(self.nidaqmx_trigger_line_value)
-                    self.nidaqmx_task.stop()
-                    self.nidaqmx_trigger_high_onset = 0
+                    self.nidaqmx_task_do = nidaqmx.Task('NIDAQ_DO')
+                    self.nidaqmx_task_do.do_channels.add_do_chan(self.paradigm.nidaqmx_trigger_line)
 
                 # set up analog input channels
                 if self.paradigm.nidaqmx_analog_input_channels:
+                    self.nidaqmx_task_ai = nidaqmx.Task('NIDAQ_AI')
                     for analog_input_channel, analog_input_min_val, analog_input_max_val in zip(self.paradigm.nidaqmx_analog_input_channels, self.paradigm.nidaqmx_analog_input_min_vals, self.paradigm.nidaqmx_analog_input_max_vals):
-                        self.nidaqmx_task.ai_channels.add_ai_voltage_chan(analog_input_channel, min_val=analog_input_min_val, max_val=analog_input_max_val)
+                        self.nidaqmx_task_ai.ai_channels.add_ai_voltage_chan(analog_input_channel, min_val=analog_input_min_val, max_val=analog_input_max_val)
+
+                    # use a small buffer to easily access the lastest sample
+                    # note: setting in_stream.relative_to to MOST_RECENT_SAMPLE would be better but works only on high-end DAQs
+                    # self.nidaqmx_task_ai.in_stream.input_buf_size = 0
+                    # self.nidaqmx_task_ai.in_stream.overwrite = nidaqmx.constants.OverwriteMode.OVERWRITE_UNREAD_SAMPLES
+
+                    self.nidaqmx_task_ai.start()
+
+                # initialize trigger line to low
+                if self.paradigm.nidaqmx_trigger_line:
+                    self.nidaqmx_trigger_line_value = False
+                    self.nidaqmx_task_do.write(self.nidaqmx_trigger_line_value)
+                    self.nidaqmx_trigger_high_onset = 0
 
             except nidaqmx.DaqError as err:
                 raise Exception('NI-DAQmx error: "%s"' % err)
@@ -190,15 +208,16 @@ class YAGA(ShowBase):
 
     def readLocalSignals(self, task):
         # read signals from NI card
-        if self.nidaqmx_task and self.paradigm.nidaqmx_analog_input_channels and self.paradigm.lsl_nidaq_outlet:
-            self.nidaqmx_task.start() # TODO
-            daq_data = self.nidaqmx_task.read(number_of_samples_per_channel=1, relative_to=nidaqmx.constants.ReadRelativeTo.MOST_RECENT_SAMPLE, offset=-1, timeout=0) # data: [1 x num_channels}, note: offset=0 may cause blocking
+        if self.nidaqmx_task_ai and self.paradigm.nidaqmx_analog_input_channels and self.paradigm.lsl_nidaq_outlet:
+            # self.nidaqmx_task.start() # TODO
+            daq_data = self.nidaqmx_task_ai.read(number_of_samples_per_channel=1, timeout=0) # data: [samples x num_channels}
+            # daq_data = daq_data[-1] # most recent sample
             # current_time = pylsl.local_clock()
             # y1 = 3 * math.sin(2*math.pi*2*current_time)
             # y2 = 1 * math.sin(2 * math.pi * 2 * current_time + math.pi)
             # self.paradigm.lsl_nidaq_outlet.push_sample([y1, y2], timestamp=pylsl.local_clock(), pushthrough=True)
             self.paradigm.lsl_nidaq_outlet.push_sample(daq_data, timestamp=pylsl.local_clock(), pushthrough=True)
-            self.nidaqmx_task.stop() # TODO
+            # self.nidaqmx_task.stop() # TODO
 
         return Task.cont
 
@@ -278,11 +297,11 @@ class YAGA(ShowBase):
         local_time = pylsl.local_clock()
 
         # reset NI-DAQmx output to low
-        if self.nidaqmx_task and self.nidaqmx_trigger_line_value and local_time - self.nidaqmx_trigger_high_onset >= self.paradigm.nidaqmx_trigger_high_duration:
-            self.nidaqmx_task.start()
+        if self.nidaqmx_task_do and self.nidaqmx_trigger_line_value and local_time - self.nidaqmx_trigger_high_onset >= self.paradigm.nidaqmx_trigger_high_duration:
+            # self.nidaqmx_task.start()
             self.nidaqmx_trigger_line_value = False
-            self.nidaqmx_task.write(self.nidaqmx_trigger_line_value)
-            self.nidaqmx_task.stop()
+            self.nidaqmx_task_do.write(self.nidaqmx_trigger_line_value)
+            # self.nidaqmx_task.stop()
 
         # handle script items run within this frame
         for script_item_name in self.frame_script_items:
@@ -290,11 +309,11 @@ class YAGA(ShowBase):
             self.lsl_marker_outlet.push_sample([script_item_name], timestamp=local_time, pushthrough=True)
 
             # set NI-DAQmx output to high when the specified event/ScriptItem occurs
-            if self.nidaqmx_task and self.nidaqmx_trigger_line_value and script_item_name == self.paradigm.nidaqmx_trigger_event:
-                self.nidaqmx_task.start()
+            if self.nidaqmx_task_do and self.nidaqmx_trigger_line_value and script_item_name == self.paradigm.nidaqmx_trigger_event:
+                # self.nidaqmx_task.start()
                 self.nidaqmx_trigger_line_value = True
-                self.nidaqmx_task.write(self.nidaqmx_trigger_line_value)
-                self.nidaqmx_task.stop()
+                self.nidaqmx_task_do.write(self.nidaqmx_trigger_line_value)
+                # self.nidaqmx_task.stop()
                 self.nidaqmx_trigger_high_onset = local_time
 
             # log execution time of script item
@@ -309,9 +328,10 @@ class YAGA(ShowBase):
 
     def quit(self):
         self.paradigm.stopLSLRecorder()
-        # TODO
-        # if self.nidaqmx_task:
-        #     self.nidaqmx_task.stop()
+        if self.nidaqmx_task_do:
+            self.nidaqmx_task_do.stop()
+        if self.nidaqmx_task_ai:
+            self.nidaqmx_task_ai.stop()
         print(taskMgr)
         sys.exit()
 

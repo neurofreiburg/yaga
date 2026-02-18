@@ -14,7 +14,7 @@ class ParadigmBase:
 
     def __init__(self, paradigm_variables, lsl_recorder_remote_control=False, lsl_recorder_host='localhost', lsl_recorder_port=22345,
                  nidaqmx_trigger_line=None, nidaqmx_trigger_event='trial_start', nidaqmx_trigger_high_duration=0.1,
-                 nidaqmx_analog_input_channels=None, nidaqmx_analog_input_min_vals=None, nidaqmx_analog_input_max_vals=None):
+                 nidaqmx_analog_input_channels=[], nidaqmx_analog_input_min_vals=[], nidaqmx_analog_input_max_vals=[]):
         if nidaqmx_analog_input_channels is None:
            nidaqmx_analog_input_channels = []
         self.interface_objects = []
